@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace CampaignProject.Model
 {
-    public class Owner
+    public class Owner:User
     {
+       
+
     }
 }

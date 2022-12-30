@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace CampaignProject.Model
 {
-    public class BusinessUser
+    public class BusinessUser:User
     {
+        public string businessName { get; set; }
     }
 }

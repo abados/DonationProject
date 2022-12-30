@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CampaignProject.Model", "Ca
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CampaignProject.Data.Sql", "CampaignProject.Data.Sql\CampaignProject.Data.Sql.csproj", "{7905CC92-84C4-4942-9759-009D2E2C765B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CampaignProject.MicroService", "CampaignProject.MicroService\CampaignProject.MicroService.csproj", "{03F907B5-81C0-4358-B36F-5290169F99D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CampaignProject.MicroService", "CampaignProject.MicroService\CampaignProject.MicroService.csproj", "{03F907B5-81C0-4358-B36F-5290169F99D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

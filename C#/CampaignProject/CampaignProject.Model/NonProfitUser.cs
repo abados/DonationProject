@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace CampaignProject.Model
 {
-    public class NonProfitUser
+    public class NonProfitUser:User
     {
+        public string organizationUrl { get; set; }
+
+        public string organizationDescription { get; set; }
+
+        public string organizationName { get; set; }
+
     }
 }

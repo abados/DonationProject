@@ -1,0 +1,12 @@
+.formAInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1px;
+  width: 82%;
+}
+
+.form-group {
+  width: 50%;
+}

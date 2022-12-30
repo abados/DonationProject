@@ -16,5 +16,22 @@ namespace CampaignProject.Entity
         {
             get { return instance; }
         }
+
+
+        // Instance of ActivistUser
+        // Because of it I can access to its function
+        public ActivistManager Activist = new ActivistManager();
+
+        // Instance of BusinessUser
+        // Because of it I can access to its function
+        public BusinessManager Business = new BusinessManager();
+
+        // Instance of NonProfitUser
+        // Because of it I can access to its function
+        public NonProfitManager NonProfit = new NonProfitManager();
+
+        // Instance of OwnerUser
+        // Because of it I can access to its function
+        public OwnerManager Owner = new OwnerManager();
     }
 }

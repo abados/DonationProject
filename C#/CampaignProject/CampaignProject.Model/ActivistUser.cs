@@ -6,7 +6,18 @@ using System.Threading.Tasks;
 
 namespace CampaignProject.Model
 {
-    public class ActivistUser
+    public class ActivistUser:User
     {
+        public string address { get; set; }
+
+        public string TwitterAcount { get; set; }
+
+        public int Earnings { get; set; }
+
+        public int[] ChosenProducts { get; set; }
+
+        public int[] ChosenCampaings { get; set; }
+	
+	 
     }
 }

@@ -1,0 +1,10 @@
+.formOInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 82%;
+}
+.form-group {
+  width: 50%;
+}
