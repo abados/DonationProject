@@ -1,13 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { addActivistUser } from "../../../services/activistService";
+import { FormContext } from "../../../context/context";
 import "./css/addingAInfo.css";
 
-export const ActivistUserForm = () => {
+export const ActivistUserForm = ({ onFormSubmit }) => {
   const [fullName, setName] = useState("");
   const [email, setEmail] = useState("");
   const [cellPhone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [TwitterAcount, setTwitter] = useState("");
+  const { setFormSubmitted } = useContext(FormContext);
+
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -28,7 +33,11 @@ export const ActivistUserForm = () => {
       alert("Please enter all required");
     } else {
       addActivistUser(newOwnerToAdd);
-      alert("we recive your comment, thanks for it");
+      setFormSubmitted(true);
+      //navigate("/");
+
+      //alert("we recive your comment, thanks for it");
+
       // setName("");
       // setAddress("");
       // setPhone("");

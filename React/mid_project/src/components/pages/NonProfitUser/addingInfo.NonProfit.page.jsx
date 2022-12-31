@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { addNonProfitUser } from "../../../services/nonProfitService";
+import { FormContext } from "../../../context/context";
 import "./css/addingNInfo.css";
 
 export const NonProfitUserForm = () => {
@@ -10,6 +12,9 @@ export const NonProfitUserForm = () => {
   const [organizationUrl, setOrganizationUrl] = useState("");
   //const [organizationLogo, setOrganizationLogo] = useState("");
   const [organizationDescription, setOrganizationDescription] = useState("");
+  const { setFormSubmitted } = useContext(FormContext);
+
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -34,7 +39,8 @@ export const NonProfitUserForm = () => {
       alert("Please enter all required");
     } else {
       addNonProfitUser(newNonProfitUser);
-      alert("we recive your comment, thanks for it");
+      setFormSubmitted(true);
+      navigate("/");
       //   setName("");
       //   setPhone("");
       //   setEmail("");

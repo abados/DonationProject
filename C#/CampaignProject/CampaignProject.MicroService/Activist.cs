@@ -23,12 +23,13 @@ namespace CampaignProject.MicroService
             switch (action)
             {
                 case "Find":
-
+                    //check if the user allready sign as a role
                     string isExist = MainManager.Instance.Activist.getProductByIDFromDB(IdNumber);
                     return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(isExist));
 
                     break;
                 case "ADD":
+                    //adding the user to the users table and to activist table
                     Model.ActivistUser owner = new Model.ActivistUser();
                     owner = System.Text.Json.JsonSerializer.Deserialize<Model.ActivistUser>(req.Body);
                     MainManager.Instance.Activist.SendNewInputToDataLayer(owner);

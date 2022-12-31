@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { addOwnerUser } from "../../../services/ownerService";
+import { FormContext } from "../../../context/context";
 import "./css/addingOInfo.css";
 
 export const OwnerUserForm = () => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [cellPhone, setPhone] = useState("");
+  const { setFormSubmitted } = useContext(FormContext);
+
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -13,9 +18,10 @@ export const OwnerUserForm = () => {
     if (fullName === "" || cellPhone === "" || email === "") {
       alert("Please enter all required");
     } else {
-      console.log(newOwnerToAdd);
       addOwnerUser(newOwnerToAdd);
-      alert("we recive your comment, thanks for it");
+      setFormSubmitted(true);
+      navigate("/");
+      //alert("we recive your comment, thanks for it");
       //   setFullName("");
       //   setPhone("");
       //   setEmail("");

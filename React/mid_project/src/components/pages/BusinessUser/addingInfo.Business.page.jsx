@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./css/addingBInfo.css";
 import { addBusinessUser } from "../../../services/businessService";
+import { FormContext } from "../../../context/context";
+import { useNavigate } from "react-router-dom";
 
 export const BusinessUserForm = () => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [cellPhone, setPhone] = useState("");
   const [businessName, setBusinessName] = useState("");
+  const { setFormSubmitted } = useContext(FormContext);
+
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -25,7 +30,9 @@ export const BusinessUserForm = () => {
       alert("Please enter all required");
     } else {
       addBusinessUser(newOwnerToAdd);
+      setFormSubmitted(true);
       alert("we recive your comment, thanks for it");
+      navigate("/");
       // setName("");
       // setBusinessID("");
       // setPhone("");
