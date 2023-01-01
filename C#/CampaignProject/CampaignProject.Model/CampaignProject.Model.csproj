@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="ActivistUser.cs" />
     <Compile Include="BusinessUser.cs" />
+    <Compile Include="Campaign.cs" />
     <Compile Include="NonProfitUser.cs" />
     <Compile Include="Owner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

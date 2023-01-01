@@ -26,14 +26,14 @@ CREATE TABLE "NonProfits"(
 
 
 CREATE TABLE "Campaigns"(
-    "id" INT NOT NULL primary key identity,
-	"CampaignID" INT NOT NULL,
+    "CampaignId" INT NOT NULL primary key identity,
+	"NonProfitUserID" INT NOT NULL foreign key references NonProfits (id),
     "CampaignName" NVARCHAR(max) NOT NULL,
     "CampaignInfo" NVARCHAR(max) NOT NULL,
     "CampaignHashtag" NVARCHAR(max) NOT NULL,
     "CampaignWebUrl" NVARCHAR(max) NOT NULL,
-    "DonationsAmount" DECIMAL(10, 2) NOT NULL,
-    "NonProfitUserID" INT NOT NULL foreign key references NonProfits (id)
+    "DonationsAmount" DECIMAL(10, 2) NOT NULL
+    
 );
 
 CREATE TABLE "Activists"(
@@ -55,7 +55,7 @@ CREATE TABLE "Products"(
     "ProductName" NVARCHAR(max) NOT NULL,
     "Price" DECIMAL(10, 2) NOT NULL,
     "BusinessUser" INT NOT NULL foreign key references Businesses (id),
-    "Campaign" INT NOT NULL foreign key references Campaigns (id),
+    "Campaign" INT NOT NULL foreign key references Campaigns (CampaignId),
     "IsBought" BIT NOT NULL,
 	"IsDelivered" BIT NOT NULL,
     "ActivistBuyerID" INT foreign key references Activists (id), 
@@ -89,6 +89,10 @@ select * from Users
 select * from Businesses
 select * from Activists
 select * from NonProfits
+select * from Campaigns
+
+
+select * from Non
 
 insert into Activists values('2','QQQ','sad@sdf','sss','234',0,0,'sdfs_')
 
@@ -99,3 +103,21 @@ INSERT INTO Users ([UserType]) VALUES ('Activist') SELECT @@IDENTITY
 insert into Activists values('1','QQQ','sad@sdf','sss','234',0,0,'sdfs_')
 
 insert into NonProfits values('sf','sf@asd','453','ads','asd','ad')
+
+declare @answer varchar(100)
+ if exists (select * from Activists where Email='economy.telhai@gmail.com') begin select @answer = 'true' end else begin select @answer = 'false' end select @answer
+
+ declare @NonID int
+ select @NonID = (select NonProfitUserID from NonProfits where Email='roniazulay95@gmail.com')
+ insert into Campaigns values(@NonID,'sf','sf@asd','453','ads',0)
+
+ declare @NonID int
+select @NonID = (select NonProfitUserID from NonProfits where Email = 'roniazulay95@gmail.com')
+insert into Campaigns values(@NonID,'brain','leg','#foot','good',0)
+
+update Campaigns set CampaignName ='qqqq', CampaignInfo='eeee', CampaignHashtag='rrrr',
+CampaignWebUrl='url'where CampaignName='qqqq'
+
+update Campaigns set CampaignName ='name', CampaignInfo='fsdf', CampaignHashtag='hashtag',
+CampaignWebUrl='url'where CampaignName='name'
+

@@ -1,8 +1,17 @@
 .App {
+  display: flex;
+  text-align: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  flex-direction: row;
+  background-color: #fff;
+}
+
+/* .App {
   text-align: center;
   display: flex;
   align-content: flex-start;
   flex-wrap: wrap;
   flex-direction: row;
   background-color: #cad2c5;
-}
+} */

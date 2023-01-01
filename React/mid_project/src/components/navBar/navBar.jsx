@@ -29,7 +29,7 @@ export const NavBarComponent = () => {
   };
 
   const checkingExsits = async () => {
-    await setIsExists(await checkIfExsits(user.email, "Activist"));
+    await setIsExists(await checkIfExsits(user.email, "NonProfit"));
   };
 
   useEffect(() => {
@@ -224,15 +224,15 @@ export const NavBarComponent = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/about">
+                <Link to="/MyCampagins">
                   <InfoIcon />
-                  <label className="navLbl">Organizations</label>
+                  <label className="navLbl">My Campaigns</label>
                 </Link>
               </li>
               <li>
-                <Link to="/contactus">
+                <Link to="/addCampagin">
                   <CallIcon />
-                  <label className="navLbl">Reports</label>
+                  <label className="navLbl">Add Campagin</label>
                 </Link>
               </li>
               <li className="user-li">

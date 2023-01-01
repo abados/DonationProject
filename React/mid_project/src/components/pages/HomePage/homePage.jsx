@@ -9,7 +9,7 @@ export const HomePage = () => {
     <div>Loading...</div>;
   } else {
     return (
-      <div>
+      <div className="homePageContainer">
         <h1>Welcome to ProLobby home page</h1>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat

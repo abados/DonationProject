@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const getRole = async (userId) => {
   return await axios
-    .get(`http://localhost:7033/api/Users/ROLE/${userId}`)
+    .get(`http://localhost:7033/api/Campaigns/ROLE/${userId}`)
     .then((response) => {
       return response.data;
     })

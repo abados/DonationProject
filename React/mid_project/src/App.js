@@ -6,11 +6,15 @@ import { NavBarComponent } from "./components/navBar/navBar";
 import { LoginPage } from "./components/pages/LoginPage/LoginPage";
 import { HomePage } from "./components/pages/HomePage/homePage";
 import { UserRoleContext } from "./context/context";
-import { ActivistUserForm } from "./components/pages/ActivistUser/addingInfo.Activist.page";
-import { BusinessUserForm } from "./components/pages/BusinessUser/addingInfo.Business.page";
-import { NonProfitUserForm } from "./components/pages/NonProfitUser/addingInfo.NonProfit.page";
-import { OwnerUserForm } from "./components/pages/Owner/addingInfo.Owner.page";
+import { ActivistUserForm } from "./components/pages/UniqePaths/ActivistUser/addingInfo.Activist.page";
+import { BusinessUserForm } from "./components/pages/UniqePaths/BusinessUser/addingInfo.Business.page";
+import { NonProfitUserForm } from "./components/pages/UniqePaths/NonProfitUser/SignIn/addingInfo.NonProfit.page";
+import { OwnerUserForm } from "./components/pages/UniqePaths/Owner/addingInfo.Owner.page";
 import { FormContext } from "./context/context";
+import { AfterSighInpage } from "./components/pages/afterSignIn/afterSighIn.page";
+import { AddCampaignPage } from "./components/pages/UniqePaths/NonProfitUser/addCampagin/addCampaign.page";
+import { CampaingsPage } from "./components/pages/UniqePaths/NonProfitUser/MyCampaings/myCampaing.page";
+import { UpadateCampaignPage } from "./components/pages/UniqePaths/NonProfitUser/UpdateACampaing/updateCampaign.page";
 
 function App() {
   const { isAuthenticated, isLoading } = useAuth0();
@@ -31,7 +35,14 @@ function App() {
               <Route path="/about"></Route>
               <Route path="/contactus"></Route>
               <Route path="/products"></Route>
+              <Route
+                path="//editCampaing"
+                element={<UpadateCampaignPage />}
+              ></Route>
               <Route path="/profile"></Route>
+              <Route path="/thankYou" element={<AfterSighInpage />}></Route>
+              <Route path="/addCampagin" element={<AddCampaignPage />}></Route>
+              <Route path="/MyCampagins" element={<CampaingsPage />}></Route>
               <Route
                 path="/Activist/addingAInfo"
                 element={<ActivistUserForm onFormSubmit={setFormSubmitted} />}

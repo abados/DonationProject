@@ -1,15 +1,14 @@
 import React, { useState, useContext } from "react";
+import "./css/addingBInfo.css";
+import { addBusinessUser } from "../../../../services/businessService";
+import { FormContext } from "../../../../context/context";
 import { useNavigate } from "react-router-dom";
-import { addActivistUser } from "../../../services/activistService";
-import { FormContext } from "../../../context/context";
-import "./css/addingAInfo.css";
 
-export const ActivistUserForm = ({ onFormSubmit }) => {
-  const [fullName, setName] = useState("");
+export const BusinessUserForm = () => {
+  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [cellPhone, setPhone] = useState("");
-  const [address, setAddress] = useState("");
-  const [TwitterAcount, setTwitter] = useState("");
+  const [businessName, setBusinessName] = useState("");
   const { setFormSubmitted } = useContext(FormContext);
 
   const navigate = useNavigate();
@@ -18,47 +17,43 @@ export const ActivistUserForm = ({ onFormSubmit }) => {
     event.preventDefault();
     const newOwnerToAdd = {
       fullName,
-      address,
       cellPhone,
       email,
-      TwitterAcount,
+      businessName,
     };
     if (
       fullName === "" ||
-      address === "" ||
       cellPhone === "" ||
       email === "" ||
-      TwitterAcount === ""
+      businessName === ""
     ) {
       alert("Please enter all required");
     } else {
-      addActivistUser(newOwnerToAdd);
+      addBusinessUser(newOwnerToAdd);
       setFormSubmitted(true);
-      //navigate("/");
-
-      //alert("we recive your comment, thanks for it");
-
+      alert("we recive your comment, thanks for it");
+      navigate("/thankYou");
       // setName("");
-      // setAddress("");
+      // setBusinessID("");
       // setPhone("");
       // setEmail("");
-      // setTwitter("");
+      // setBusinessName("");
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="formAInfo">
+    <form onSubmit={handleSubmit} className="formBInfo">
       <h1>Please fill in you details</h1>
       <div className="form-group">
         <label className="formLbl" htmlFor="name">
-          Activist full name:
+          Business user full name:
         </label>
         <input
           type="text"
           className="form-control"
           id="name"
           value={fullName}
-          onChange={(event) => setName(event.target.value)}
+          onChange={(event) => setFullName(event.target.value)}
         />
       </div>
       <div className="form-group">
@@ -74,8 +69,8 @@ export const ActivistUserForm = ({ onFormSubmit }) => {
         />
       </div>
       <div className="form-group">
-        <label className="formLbl" htmlFor="tel">
-          cellPhone:
+        <label className="formLbl" htmlFor="phone">
+          Phone Number:
         </label>
         <input
           type="tel"
@@ -87,34 +82,20 @@ export const ActivistUserForm = ({ onFormSubmit }) => {
       </div>
 
       <div className="form-group">
-        <label className="formLbl" htmlFor="phone">
-          Address:
+        <label className="formLbl" htmlFor="message">
+          Business Name:
         </label>
-        <input
-          type="tel"
+        <textarea
           className="form-control"
           id="message"
-          value={address}
-          onChange={(event) => setAddress(event.target.value)}
-        />
-      </div>
-      <div className="form-group">
-        <label className="formLbl" htmlFor="name">
-          Twitter Acount:
-        </label>
-        <input
-          type="name"
-          className="form-control"
-          id="name"
-          value={TwitterAcount}
-          onChange={(event) => setTwitter(event.target.value)}
+          value={businessName}
+          onChange={(event) => setBusinessName(event.target.value)}
         />
       </div>
 
       <button type="submit" className="btn btn-primary">
         Submit
       </button>
-      <h2>All fields are necessary</h2>
     </form>
   );
 };

@@ -17,7 +17,7 @@ namespace CampaignProject.DAL
         public static object getDataFromDB(string SqlQuery, SetDataReader_delegate Ptrfunc)
         {
             object retHash = null;
-            //string connectionString = ConfigurationManager.AppSettings["connectionString"];
+            
 
 
             using (SqlConnection connection = new SqlConnection(connectionString))

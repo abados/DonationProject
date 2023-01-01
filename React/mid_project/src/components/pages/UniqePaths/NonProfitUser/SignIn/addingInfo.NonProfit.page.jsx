@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { addNonProfitUser } from "../../../services/nonProfitService";
-import { FormContext } from "../../../context/context";
+import { addNonProfitUser } from "../../../../../services/nonProfitService";
+import { FormContext } from "../../../../../context/context";
 import "./css/addingNInfo.css";
 
 export const NonProfitUserForm = () => {
@@ -40,7 +40,7 @@ export const NonProfitUserForm = () => {
     } else {
       addNonProfitUser(newNonProfitUser);
       setFormSubmitted(true);
-      navigate("/");
+      navigate("/thankYou");
       //   setName("");
       //   setPhone("");
       //   setEmail("");

@@ -1,0 +1,11 @@
+.homePageContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+p {
+  width: 800px;
+}

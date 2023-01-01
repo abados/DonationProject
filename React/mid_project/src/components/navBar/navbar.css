@@ -3,17 +3,17 @@
   flex-direction: column;
   width: 17% !important;
   height: 100vh;
-  background-color: #d0a66c;
+  background-color: #31aa45;
   margin: 0 !important;
 }
 ul {
-  background-color: #d0a66c;
+  background-color: #31aa45;
   list-style: none;
 }
 li {
   position: relative;
   left: -25px;
-  background-color: #d0a66c;
+  background-color: #31aa45;
   margin-top: 10px;
   margin-bottom: 10px;
   padding: 5px;
@@ -22,21 +22,21 @@ li {
   margin-top: 100px;
 }
 a {
-  background-color: #d0a66c;
+  background-color: #31aa45;
   text-decoration: none !important;
-  color: bisque !important;
+  color: #fff !important;
   margin: 3px;
 }
 .navLbl {
-  background-color: #d0a66c;
-  color: #704810;
+  background-color: #31aa45;
+  color: #fff;
 }
 label:hover {
   cursor: pointer;
 }
 svg {
-  background-color: #d0a66c;
-  color: #704810;
+  background-color: #31aa45;
+  color: #fff;
   margin: 3px;
 }
 

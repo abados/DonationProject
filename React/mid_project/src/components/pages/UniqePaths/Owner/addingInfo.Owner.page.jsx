@@ -1,52 +1,41 @@
 import React, { useState, useContext } from "react";
-import "./css/addingBInfo.css";
-import { addBusinessUser } from "../../../services/businessService";
-import { FormContext } from "../../../context/context";
 import { useNavigate } from "react-router-dom";
+import { addOwnerUser } from "../../../../services/ownerService";
+import { FormContext } from "../../../../context/context";
+import "./css/addingOInfo.css";
 
-export const BusinessUserForm = () => {
+export const OwnerUserForm = () => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [cellPhone, setPhone] = useState("");
-  const [businessName, setBusinessName] = useState("");
   const { setFormSubmitted } = useContext(FormContext);
 
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const newOwnerToAdd = {
-      fullName,
-      cellPhone,
-      email,
-      businessName,
-    };
-    if (
-      fullName === "" ||
-      cellPhone === "" ||
-      email === "" ||
-      businessName === ""
-    ) {
+    const newOwnerToAdd = { fullName, cellPhone, email };
+    if (fullName === "" || cellPhone === "" || email === "") {
       alert("Please enter all required");
     } else {
-      addBusinessUser(newOwnerToAdd);
+      addOwnerUser(newOwnerToAdd);
       setFormSubmitted(true);
-      alert("we recive your comment, thanks for it");
-      navigate("/");
-      // setName("");
-      // setBusinessID("");
-      // setPhone("");
-      // setEmail("");
-      // setBusinessName("");
+      navigate("/thankYou");
+      //alert("we recive your comment, thanks for it");
+      //   setFullName("");
+      //   setPhone("");
+      //   setEmail("");
+      //   setOwnerId("");
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="formBInfo">
+    <form onSubmit={handleSubmit} className="formOInfo">
       <h1>Please fill in you details</h1>
+
       <div className="form-group">
         <label className="formLbl" htmlFor="name">
-          Business user full name:
+          Owner Name:
         </label>
         <input
           type="text"
@@ -78,18 +67,6 @@ export const BusinessUserForm = () => {
           id="phone"
           value={cellPhone}
           onChange={(event) => setPhone(event.target.value)}
-        />
-      </div>
-
-      <div className="form-group">
-        <label className="formLbl" htmlFor="message">
-          Business Name:
-        </label>
-        <textarea
-          className="form-control"
-          id="message"
-          value={businessName}
-          onChange={(event) => setBusinessName(event.target.value)}
         />
       </div>
 

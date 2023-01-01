@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="ActivistManager.cs" />
     <Compile Include="BusinessManager.cs" />
+    <Compile Include="CampaignManager.cs" />
     <Compile Include="MainManager.cs" />
     <Compile Include="NonProfitManager.cs" />
     <Compile Include="OwnerManager.cs" />

@@ -33,5 +33,9 @@ namespace CampaignProject.Entity
         // Instance of OwnerUser
         // Because of it I can access to its function
         public OwnerManager Owner = new OwnerManager();
+
+        // Instance of Campaign
+        // Because of it I can access to its function
+        public CampaignManager Campaign = new CampaignManager();
     }
 }
