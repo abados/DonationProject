@@ -37,7 +37,6 @@ export const UpadateCampaignPage = () => {
     ) {
       alert("Please enter all required");
     } else {
-      console.log(newCampaing);
       await updateCampaign(newCampaing, campaing.campaignName);
       navigate("/MyCampagins");
     }

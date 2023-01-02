@@ -54,7 +54,7 @@ namespace CampaignProject.DAL
                     connection.Open();
                     //Reader
 
-                    retHash = command.ExecuteScalar();
+                    retHash = command.ExecuteScalar().ToString();
                     
 
                     

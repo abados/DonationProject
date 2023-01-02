@@ -121,3 +121,19 @@ CampaignWebUrl='url'where CampaignName='qqqq'
 update Campaigns set CampaignName ='name', CampaignInfo='fsdf', CampaignHashtag='hashtag',
 CampaignWebUrl='url'where CampaignName='name'
 
+declare @answer varchar(100)
+ if exists (select * from NonProfits where Email='roniazulay95@gmail.com') 
+ begin 
+ select @answer = 'true' 
+ end 
+ else 
+ begin 
+ select @answer = 'false' 
+ end select @answer
+
+ select * from NonProfits
+select * from Campaigns
+
+ declare @NonID int
+select @NonID = (select id from NonProfits where Email = 'roniazulay95@gmail.com')
+insert into Campaigns values(@NonID,'juju','adsf','asd','sf',0)

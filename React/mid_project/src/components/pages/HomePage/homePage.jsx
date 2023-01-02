@@ -3,7 +3,7 @@ import "./homePage.css";
 import { useAuth0 } from "@auth0/auth0-react";
 
 export const HomePage = () => {
-  const { user, isLoading } = useAuth0();
+  const { isLoading } = useAuth0();
 
   if (isLoading) {
     <div>Loading...</div>;

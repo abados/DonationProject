@@ -15,12 +15,12 @@ import { AfterSighInpage } from "./components/pages/afterSignIn/afterSighIn.page
 import { AddCampaignPage } from "./components/pages/UniqePaths/NonProfitUser/addCampagin/addCampaign.page";
 import { CampaingsPage } from "./components/pages/UniqePaths/NonProfitUser/MyCampaings/myCampaing.page";
 import { UpadateCampaignPage } from "./components/pages/UniqePaths/NonProfitUser/UpdateACampaing/updateCampaign.page";
+import { NewRegisterPage } from "./components/pages/HomePage/newRegister.page";
 
 function App() {
   const { isAuthenticated, isLoading } = useAuth0();
   const [RoleContext, setRoleContext] = useState();
   const [formSubmitted, setFormSubmitted] = useState(false);
-  console.log(formSubmitted);
 
   if (isLoading) {
     return <div className="App">Loading</div>;
@@ -34,7 +34,7 @@ function App() {
               <Route path="/" element={<HomePage />}></Route>
               <Route path="/about"></Route>
               <Route path="/contactus"></Route>
-              <Route path="/products"></Route>
+              <Route path="/newRegister" element={<NewRegisterPage />}></Route>
               <Route
                 path="//editCampaing"
                 element={<UpadateCampaignPage />}

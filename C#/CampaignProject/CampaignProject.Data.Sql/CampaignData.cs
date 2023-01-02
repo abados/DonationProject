@@ -57,7 +57,7 @@ namespace CampaignProject.Data.Sql
         public void SendSqlQueryToInsertToDB(Model.Campaign newCampaign, string userEmail)
         {
             string uploadNewCampaignQuery = "declare @NonID int\n" +
-            "select @NonID = (select NonProfitUserID from NonProfits where Email = '"+ userEmail+"')\n"+
+            "select @NonID = (select id from NonProfits where Email = '"+ userEmail+"')\n"+
              "insert into Campaigns values(@NonID,'"+ newCampaign.campaignName+ "','"+ newCampaign.campaignInfo+ "','"+ newCampaign.campaignHashtag+ "','"+ newCampaign.campaignUrl+"',0)";
                 DAL.SqlQuery.Update_Delete_Insert_RowInDB(uploadNewCampaignQuery);
 
@@ -74,7 +74,7 @@ namespace CampaignProject.Data.Sql
         {
 
 
-            string updateQuery = "update Campaigns set CampaignName ='" + campaignName + "', CampaignInfo='" + campaign.campaignInfo + "', CampaignHashtag='" + campaign.campaignHashtag + "', CampaignWebUrl='" + campaign.campaignUrl + "'where CampaignName='" + campaignName + "'";
+            string updateQuery = "update Campaigns set CampaignName ='" + campaign.campaignName + "', CampaignInfo='" + campaign.campaignInfo + "', CampaignHashtag='" + campaign.campaignHashtag + "', CampaignWebUrl='" + campaign.campaignUrl + "'where CampaignName='" + campaignName + "'";
             DAL.SqlQuery.Update_Delete_Insert_RowInDB(updateQuery);
 
         }

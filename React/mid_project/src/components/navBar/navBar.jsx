@@ -11,37 +11,73 @@ import "./navbar.css";
 import { UserRoleContext } from "../../context/context";
 import { checkIfExsits } from "../../services/serviceToAll";
 import { FormContext } from "../../context/context";
+import LocalShippingIcon from "@mui/icons-material/LocalShipping";
+import { NewRegisterPage } from "../pages/HomePage/newRegister.page";
+import TipsAndUpdatesIcon from "@mui/icons-material/TipsAndUpdates";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 export const NavBarComponent = () => {
   const { user, logout } = useAuth0();
   const [loading, setLoading] = useState(true);
   const { RoleContext, setRoleContext } = useContext(UserRoleContext);
   const { formSubmitted } = useContext(FormContext);
-  const [isExists, setIsExists] = useState("");
+  const [isExists, setIsExists] = useState("false");
   const navigate = useNavigate();
+
+  //bring the user Role
   const handleRole = async () => {
     setLoading(true); // set loading to true before making the request
-    let userId = await user.sub;
+    let userId = user.sub;
     await setRoleContext(await getRole(userId));
-    checkingExsits();
-
+    console.log("Checking:" + isExists);
     setLoading(false); // set loading to false after the request is complete
   };
 
+  //chack if the user is in the Sql DB
   const checkingExsits = async () => {
-    await setIsExists(await checkIfExsits(user.email, "NonProfit"));
+    if (RoleContext && RoleContext[0] && RoleContext[0].name) {
+      setIsExists(await checkIfExsits(user.email, RoleContext[0].name));
+      console.log("Checking:" + isExists);
+    }
+  };
+
+  //Call the funciton in specific order of execution
+  const orderFunctions = async () => {
+    await handleRole();
+    await checkingExsits();
   };
 
   useEffect(() => {
-    handleRole();
+    // declare the data fetching function
+    const fetchData = async () => {
+      await orderFunctions();
+    };
+
+    // call the function
+    fetchData()
+      // make sure to catch any error
+      .catch(console.error);
   }, []);
 
-  useEffect(() => {
+  //after the user signUp completes, i want the navigation bar to Re-render.
+  if (formSubmitted && formSubmitted === true) {
     handleRole();
-  }, [formSubmitted]);
+    checkingExsits();
+  }
+
+  // useEffect(() => {
+  //make a re-render after the signIn request is complete to show the relevant navigation
+  //   handleRole();
+  //   checkingExsits();
+  //   console.log("useEffect2() called");
+  // }, [formSubmitted]);
 
   if (loading) return <>loading</>;
-  else if (RoleContext[0].name === "Owner") {
+  if (RoleContext[0] === undefined) {
+    return <NewRegisterPage />;
+  } else if (
+    RoleContext[0] ? RoleContext[0].name === "Owner" : RoleContext[0] === null
+  ) {
     return (
       <div className="container">
         <ul className="menu">
@@ -50,28 +86,7 @@ export const NavBarComponent = () => {
               Hello {RoleContext.map((r) => r.name)}{" "}
             </label>
           </li>
-          {isExists === "false" ? (
-            <>
-              <li>
-                <label className="useNameRbl"></label>
-                <Link to="/Admin/addingOInfo">
-                  <ContactMailIcon />
-                  <label className="navLbl">Sign IN</label>
-                </Link>
-              </li>
-              <li className="loguot">
-                <Link to="/logout">
-                  <MeetingRoomIcon />
-                  <label
-                    className="navLbl"
-                    onClick={() => logout({ returnTo: window.location.origin })}
-                  >
-                    Logout
-                  </label>
-                </Link>
-              </li>
-            </>
-          ) : (
+          {isExists === "true" ? (
             <>
               <li>
                 <Link to="/">
@@ -93,8 +108,29 @@ export const NavBarComponent = () => {
               </li>
               <li className="user-li">
                 <Link to="/profile">
-                  <img className="img" src={user.picture} alt={user.name} />
+                  <img className="img" src={user.picture} alt="" />
                   <label className="navLbl">{user.name}</label>
+                </Link>
+              </li>
+              <li className="loguot">
+                <Link to="/logout">
+                  <MeetingRoomIcon />
+                  <label
+                    className="navLbl"
+                    onClick={() => logout({ returnTo: window.location.origin })}
+                  >
+                    Logout
+                  </label>
+                </Link>
+              </li>
+            </>
+          ) : (
+            <>
+              <li>
+                <label className="useNameRbl"></label>
+                <Link to="/Admin/addingOInfo">
+                  <ContactMailIcon />
+                  <label className="navLbl">Sign IN</label>
                 </Link>
               </li>
               <li className="loguot">
@@ -113,7 +149,11 @@ export const NavBarComponent = () => {
         </ul>
       </div>
     );
-  } else if (RoleContext[0].name === "Activist") {
+  } else if (
+    RoleContext[0]
+      ? RoleContext[0].name === "Activist"
+      : RoleContext[0] === null
+  ) {
     return (
       <div className="container">
         <ul className="menu">
@@ -122,13 +162,30 @@ export const NavBarComponent = () => {
               Hello {RoleContext.map((r) => r.name)}{" "}
             </label>
           </li>
-          {isExists === "false" ? (
+          {isExists === "true" ? (
             <>
               <li>
-                <label className="useNameRbl"></label>
-                <Link to="/Activist/addingAInfo">
-                  <ContactMailIcon />
-                  <label className="navLbl">Sign IN</label>
+                <Link to="/">
+                  <HomeIcon />
+                  <label className="navLbl">Home</label>
+                </Link>
+              </li>
+              <li>
+                <Link to="/about">
+                  <InfoIcon />
+                  <label className="navLbl">Organizations</label>
+                </Link>
+              </li>
+              <li>
+                <Link to="/contactus">
+                  <ShoppingCartIcon />
+                  <label className="navLbl">Cart</label>
+                </Link>
+              </li>
+              <li className="user-li">
+                <Link to="/profile">
+                  <img className="img" src={user.picture} alt="" />
+                  <label className="navLbl">{user.name}</label>
                 </Link>
               </li>
               <li className="loguot">
@@ -146,27 +203,10 @@ export const NavBarComponent = () => {
           ) : (
             <>
               <li>
-                <Link to="/">
-                  <HomeIcon />
-                  <label className="navLbl">Home</label>
-                </Link>
-              </li>
-              <li>
-                <Link to="/about">
-                  <InfoIcon />
-                  <label className="navLbl">Organizations</label>
-                </Link>
-              </li>
-              <li>
-                <Link to="/contactus">
-                  <CallIcon />
-                  <label className="navLbl">Cart</label>
-                </Link>
-              </li>
-              <li className="user-li">
-                <Link to="/profile">
-                  <img className="img" src={user.picture} alt={user.name} />
-                  <label className="navLbl">{user.name}</label>
+                <label className="useNameRbl"></label>
+                <Link to="/Activist/addingAInfo">
+                  <ContactMailIcon />
+                  <label className="navLbl">Sign IN</label>
                 </Link>
               </li>
               <li className="loguot">
@@ -194,7 +234,45 @@ export const NavBarComponent = () => {
               Hello {RoleContext.map((r) => r.name)}{" "}
             </label>
           </li>
-          {isExists === "false" ? (
+          {isExists === "true" ? (
+            <>
+              <li>
+                <Link to="/">
+                  <HomeIcon />
+                  <label className="navLbl">Home</label>
+                </Link>
+              </li>
+              <li>
+                <Link to="/MyCampagins">
+                  <InfoIcon />
+                  <label className="navLbl">My Campaigns</label>
+                </Link>
+              </li>
+              <li>
+                <Link to="/addCampagin">
+                  <ShoppingCartIcon />
+                  <label className="navLbl">Add Campagin</label>
+                </Link>
+              </li>
+              <li className="user-li">
+                <Link to="/profile">
+                  <img className="img" src={user.picture} alt="" />
+                  <label className="navLbl">{user.name}</label>
+                </Link>
+              </li>
+              <li className="loguot">
+                <Link to="/logout">
+                  <MeetingRoomIcon />
+                  <label
+                    className="navLbl"
+                    onClick={() => logout({ returnTo: window.location.origin })}
+                  >
+                    Logout
+                  </label>
+                </Link>
+              </li>
+            </>
+          ) : (
             <>
               <li>
                 <label className="useNameRbl"></label>
@@ -215,49 +293,15 @@ export const NavBarComponent = () => {
                 </Link>
               </li>
             </>
-          ) : (
-            <>
-              <li>
-                <Link to="/">
-                  <HomeIcon />
-                  <label className="navLbl">Home</label>
-                </Link>
-              </li>
-              <li>
-                <Link to="/MyCampagins">
-                  <InfoIcon />
-                  <label className="navLbl">My Campaigns</label>
-                </Link>
-              </li>
-              <li>
-                <Link to="/addCampagin">
-                  <CallIcon />
-                  <label className="navLbl">Add Campagin</label>
-                </Link>
-              </li>
-              <li className="user-li">
-                <Link to="/profile">
-                  <img className="img" src={user.picture} alt={user.name} />
-                  <label className="navLbl">{user.name}</label>
-                </Link>
-              </li>
-              <li className="loguot">
-                <Link to="/logout">
-                  <MeetingRoomIcon />
-                  <label
-                    className="navLbl"
-                    onClick={() => logout({ returnTo: window.location.origin })}
-                  >
-                    Logout
-                  </label>
-                </Link>
-              </li>
-            </>
           )}
         </ul>
       </div>
     );
-  } else if (RoleContext[0].name === "Business") {
+  } else if (
+    RoleContext[0]
+      ? RoleContext[0].name === "Business"
+      : RoleContext[0] === null
+  ) {
     return (
       <div className="container">
         <ul className="menu">
@@ -303,13 +347,20 @@ export const NavBarComponent = () => {
               </li>
               <li>
                 <Link to="/contactus">
-                  <CallIcon />
-                  <label className="navLbl">Reports</label>
+                  <TipsAndUpdatesIcon />
+                  <label className="navLbl">upload a new product </label>
+                </Link>
+              </li>
+              <li>
+                <Link to="/contactus">
+                  <LocalShippingIcon />
+                  <label className="navLbl">Shipment tracking</label>
                 </Link>
               </li>
               <li className="user-li">
                 <Link to="/profile">
-                  <img className="img" src={user.picture} alt={user.name} />
+                  <img className="img" src={user.picture} alt="" />
+
                   <label className="navLbl">{user.name}</label>
                 </Link>
               </li>
