@@ -37,5 +37,9 @@ namespace CampaignProject.Entity
         // Instance of Campaign
         // Because of it I can access to its function
         public CampaignManager Campaign = new CampaignManager();
+
+        // Instance of Product
+        // Because of it I can access to its function
+        public ProductManager Product = new ProductManager();
     }
 }

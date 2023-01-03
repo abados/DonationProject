@@ -46,7 +46,6 @@ export const NonProfitUserForm = () => {
       //   setEmail("");
       //   setOrganizationName("");
       //   setOrganizationUrl("");
-      //   //setOrganizationLogo("");
       //   setOrganizationDescription("");
     }
   };

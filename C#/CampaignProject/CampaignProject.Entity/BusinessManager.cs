@@ -16,6 +16,14 @@ namespace CampaignProject.Entity
 
         }
 
+        public string[] getIDS(string userEmail, string campaignName)
+        {
+            Data.Sql.BusinessData Business = new Data.Sql.BusinessData();
+            return Business.sqlQuertyToSearchIDS(userEmail, campaignName);
+
+
+        }
+
         public void SendNewInputToDataLayer(Model.BusinessUser newOwner)
         {
             Data.Sql.BusinessData user = new Data.Sql.BusinessData();

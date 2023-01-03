@@ -13,10 +13,7 @@ namespace CampaignProject.Entity
         {
             Data.Sql.NonProfitData NonProfit = new Data.Sql.NonProfitData();
             return (string)NonProfit.SendSqlQueryToReadFromDBForOneUser(UserEmail);
-
-
         }
-
 
         public void SendNewInputToDataLayer(Model.NonProfitUser newOwner)
         {

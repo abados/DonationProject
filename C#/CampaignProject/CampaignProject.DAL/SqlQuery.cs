@@ -63,6 +63,31 @@ namespace CampaignProject.DAL
             return retHash;
         }
 
+        public static string getOneDataFromDBInString(string SqlQuery, SetDataReader_delegate Ptrfunc)
+        {
+
+
+            //string connectionString = ConfigurationManager.AppSettings["connectionString"];
+
+            string id;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+
+                // Adapter
+                using (SqlCommand command = new SqlCommand(SqlQuery, connection))
+                {
+                    connection.Open();
+                    //Reader
+
+                     id= command.ExecuteScalar().ToString();
+
+
+
+                }
+            }
+            return id;
+        }
+
         //Function that input to DB row of information about student
         //Paramater is used to set the right values
         /*ExecuteNonQuery is a method of the SqlCommand class in the .NET Framework that is used to execute a Transact-SQL statement or stored procedure against a SQL Server database...

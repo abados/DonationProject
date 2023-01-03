@@ -3,9 +3,8 @@ import { getCampaings } from "../../../../../services/nonProfitService";
 import { ClockLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 import { deleteCampaignFromDb } from "../../../../../services/nonProfitService";
-
 import "./myCampaings.css";
-import { CampaignCardComponent } from "../campaingsCardComponent/campaign.component";
+import { CampaignCardComponent } from "./campaingsCardComponent/campaign.component";
 
 export const CampaingsPage = () => {
   const [campaingList, setCampaingList] = useState([]);

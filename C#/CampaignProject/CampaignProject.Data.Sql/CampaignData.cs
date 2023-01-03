@@ -10,16 +10,16 @@ namespace CampaignProject.Data.Sql
 {
     public class CampaignData
     {
-        public Dictionary<string, CampaignProject.Model.Campaign> ReadFromDb(SqlDataReader reader)
+        public Dictionary<string, Model.Campaign> ReadFromDb(SqlDataReader reader)
         {
-            Dictionary<string, CampaignProject.Model.Campaign> CampaignsList = new Dictionary<string, CampaignProject.Model.Campaign>();
+            Dictionary<string, Model.Campaign> CampaignsList = new Dictionary<string, Model.Campaign>();
 
             //Clear Hashtable Before Inserting Information From Sql Server
             CampaignsList.Clear();
 
             while (reader.Read())
             {
-                CampaignProject.Model.Campaign campaign = new CampaignProject.Model.Campaign();
+                Model.Campaign campaign = new Model.Campaign();
                 campaign.campaignName = reader.GetString(2);
                 campaign.campaignInfo = reader.GetString(3);
                 campaign.campaignHashtag = reader.GetString(4);

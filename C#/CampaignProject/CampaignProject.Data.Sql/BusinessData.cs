@@ -35,6 +35,21 @@ namespace CampaignProject.Data.Sql
 
         }
 
+        public string[] sqlQuertyToSearchIDS(string userEmail, string campaignName)
+        {
+            
+            string SqlQueryForBusinessID = "select id from Businesses where  Email=" + "'" + userEmail + "'" + "";
+            string retObject = DAL.SqlQuery.getOneDataFromDBInString(SqlQueryForBusinessID, ReadOneFromDb);
+
+            string SqlQueryForCampaignID = "select CampaignId from Campaigns where  CampaignName=" + "'" + campaignName + "'" + "";
+            string retObjec2 = DAL.SqlQuery.getOneDataFromDBInString(SqlQueryForCampaignID, ReadOneFromDb);
+            string[] array = new string[2] { retObject, retObjec2 };
+
+            return array;
+
+
+        }
+
         Model.BusinessUser newUser = new Model.BusinessUser();
         public void SendSqlQueryToInsertToDB(Model.BusinessUser NewUser, int userID)
         {

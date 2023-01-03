@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import "./css/addingBInfo.css";
-import { addBusinessUser } from "../../../../services/businessService";
-import { FormContext } from "../../../../context/context";
+import { addBusinessUser } from "../../../../../services/businessService";
+import { FormContext } from "../../../../../context/context";
 import { useNavigate } from "react-router-dom";
 
 export const BusinessUserForm = () => {

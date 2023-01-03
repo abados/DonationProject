@@ -46,6 +46,7 @@
     <Compile Include="CampaignData.cs" />
     <Compile Include="NonProfitData.cs" />
     <Compile Include="OwnerData.cs" />
+    <Compile Include="ProductData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

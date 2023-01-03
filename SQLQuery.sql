@@ -90,6 +90,7 @@ select * from Businesses
 select * from Activists
 select * from NonProfits
 select * from Campaigns
+select * from Products
 
 
 select * from Non

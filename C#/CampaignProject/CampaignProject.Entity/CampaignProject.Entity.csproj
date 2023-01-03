@@ -47,6 +47,7 @@
     <Compile Include="MainManager.cs" />
     <Compile Include="NonProfitManager.cs" />
     <Compile Include="OwnerManager.cs" />
+    <Compile Include="ProductManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
