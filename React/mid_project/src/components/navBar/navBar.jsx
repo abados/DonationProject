@@ -164,7 +164,7 @@ export const NavBarComponent = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/about">
+                <Link to="/activist/listOfOrganization">
                   <InfoIcon />
                   <label className="navLbl">Organizations</label>
                 </Link>

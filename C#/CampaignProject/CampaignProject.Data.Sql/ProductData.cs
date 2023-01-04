@@ -59,7 +59,7 @@ namespace CampaignProject.Data.Sql
              "insert into Products values('" + newProduct.productName + "'," + newProduct.price + "," + newProduct.businessID + "," + newProduct.campaignID + "," + (newProduct.IsBought ? 1 : 0) + "," + (newProduct.IsDelivered ? 1 : 0) + "," + newProduct.ActivistBuyerID + ")";
             DAL.SqlQuery.Update_Delete_Insert_RowInDB(uploadNewProductQuery);
 
-            string updateTheDonateInTheCampaign = "UPDATE Campaigns SET DonationsAmount=" + newProduct.price + " WHERE CampaignId= DonationsAmount +" + newProduct.campaignID + "";
+            string updateTheDonateInTheCampaign = "UPDATE Campaigns SET DonationsAmount=DonationsAmount +" + newProduct.price + " WHERE CampaignId= " + newProduct.campaignID + "";
 
             DAL.SqlQuery.Update_Delete_Insert_RowInDB(updateTheDonateInTheCampaign);
 

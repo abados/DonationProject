@@ -11,6 +11,9 @@ namespace CampaignProject.Data.Sql
 {
     public class NonProfitData
     {
+        
+
+
         public CampaignProject.Model.NonProfitUser ReadOneFromDb(SqlDataReader reader)
         {
 

@@ -35,12 +35,8 @@ namespace CampaignProject.MicroService
                     MainManager.Instance.Activist.SendNewInputToDataLayer(owner);
 
                     break;
-                case "GETONE":
-
-                    //Model.Product p = MainManager.Instance.product.getProductByIDFromDB(IdNumber);
-                    //return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(p));
-
-                    break;
+                case "GETORGANIZATIONS":
+                    return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Activist.getNonProfitListFromDB()));
 
                 default:
                     break;

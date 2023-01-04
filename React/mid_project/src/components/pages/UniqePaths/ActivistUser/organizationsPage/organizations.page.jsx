@@ -1,30 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
+import { getOrganizations } from "../../../../../services/activistService";
 import { ClockLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
-import {
-  getDonates,
-  deleteProductFromDb,
-} from "../../../../../services/businessService";
-import { CardDonate } from "./cardDonate";
+import "../css/organizationCard.css";
+import { CardToOrganization } from "./cardToPresentOrganization";
 
-export const MyDonationsPage = () => {
-  const [productList, setProductList] = useState([]);
+export const ActivistOrganizationsPage = () => {
+  const [organizaionList, setOrganizaionList] = useState([]);
   const [showClock, setShowClock] = useState(true);
   const navigate = useNavigate();
-  const { user } = useAuth0();
 
-  const getProductsFromDB = async () => {
-    let res = await getDonates(user.email);
-    setProductList(res);
-    console.log(res);
+  const getOrganizaionsFromDB = async () => {
+    let res = await getOrganizations();
+    setOrganizaionList(res);
   };
 
   useEffect(() => {
     setTimeout(() => {
-      getProductsFromDB();
+      getOrganizaionsFromDB();
     }, 3000);
-  }, [productList.length]);
+  }, [organizaionList.length]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -36,20 +31,24 @@ export const MyDonationsPage = () => {
     };
   }, []);
 
-  const handleDelete = async (product) => {
-    deleteProductFromDb(product);
-    await getProductsFromDB();
+  const handleChose = (campaing) => {
+    console.log(campaing);
+    navigate("/donateProduct", {
+      state: {
+        campaing,
+      },
+    });
   };
 
   return (
     <div className="cardlistContainer">
-      <h1>My Donations</h1>
+      <h1>Organizations</h1>
       <div className="cardlistContainer2">
-        {productList && productList.length > 0 ? (
-          productList.map((product) => {
+        {organizaionList && organizaionList.length > 0 ? (
+          organizaionList.map((organ) => {
             return (
               <>
-                <CardDonate product={product} handleDelete={handleDelete} />
+                <CardToOrganization organ={organ} handleChose={handleChose} />
               </>
             );
           })
@@ -62,7 +61,7 @@ export const MyDonationsPage = () => {
                 </td>
               </tr>
             )}
-            {!showClock && <h1>sorry we didn't found any Donations</h1>}
+            {!showClock && <h1>sorry we didn't found any Organizations</h1>}
           </>
         )}
       </div>

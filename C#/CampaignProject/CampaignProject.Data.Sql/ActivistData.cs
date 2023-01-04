@@ -10,6 +10,34 @@ namespace CampaignProject.Data.Sql
 {
     public class ActivistData
     {
+
+        public List<Model.NonProfitUser> ReadOrganizationFromDb(SqlDataReader reader)
+        {
+            List<Model.NonProfitUser> OrganizationList = new List<Model.NonProfitUser>();
+
+            //Clear Hashtable Before Inserting Information From Sql Server
+            OrganizationList.Clear();
+
+            while (reader.Read())
+            {
+                Model.NonProfitUser nonProfitUser = new Model.NonProfitUser();
+                nonProfitUser.fullName = reader.GetString(2);
+                nonProfitUser.email = reader.GetString(3);
+                nonProfitUser.cellPhone = reader.GetString(4);
+                nonProfitUser.organizationUrl = reader.GetString(5);
+                nonProfitUser.organizationName = reader.GetString(6);
+                nonProfitUser.organizationDescription = reader.GetString(7);
+
+                OrganizationList.Add(nonProfitUser);
+
+                //Cheking If Hashtable contains the key
+
+
+            }
+            return OrganizationList;
+        }
+
+
         public CampaignProject.Model.ActivistUser ReadOneFromDb(SqlDataReader reader)
         {
 
@@ -55,6 +83,14 @@ namespace CampaignProject.Data.Sql
             {
                 return "1";
             }
+        }
+
+        public object bringOrganizationsFromDB()
+        {
+            string SqlQuery = "select * from NonProfits";
+            object retDict = null;
+            retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadOrganizationFromDb);
+            return retDict;
         }
     }
 }

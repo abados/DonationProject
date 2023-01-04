@@ -20,15 +20,22 @@ import { AddProductPage } from "./components/pages/UniqePaths/BusinessUser/addPr
 import { checkIfExsits, getRole } from "./services/serviceToAll";
 import { BusinessCampaignPage } from "./components/pages/UniqePaths/BusinessUser/allCampaigns/business.campaign.page";
 import { MyDonationsPage } from "./components/pages/UniqePaths/BusinessUser/myDonates/myDonations.page.jsx";
+import { ActivistOrganizationsPage } from "./components/pages/UniqePaths/ActivistUser/organizationsPage/organizations.page";
 
 function App() {
   const { isAuthenticated, isLoading, user } = useAuth0();
   const [RoleContext, setRoleContext] = useState();
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [isNew, setIsNew] = useState(false);
 
   const checkingExsits = async () => {
     if (isAuthenticated) {
       var role = await getRole(user.sub);
+
+      if (role.length === 0) {
+        ///just set the state for preventing junmping screens
+        setIsNew(true);
+      }
       setRoleContext(role[0].name);
       let result = await checkIfExsits(user.email, role[0].name);
       setFormSubmitted(result === "true");
@@ -41,7 +48,7 @@ function App() {
 
   if (isLoading) {
     return <div className="App">Loading</div>;
-  } else if (RoleContext === undefined && isAuthenticated) {
+  } else if (isNew && isAuthenticated) {
     return <NewRegisterPage />;
   } else if (isAuthenticated) {
     return (
@@ -52,7 +59,10 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />}></Route>
               <Route path="/MyDonates" element={<MyDonationsPage />}></Route>
-              <Route path="/contactus"></Route>
+              <Route
+                path="/activist/listOfOrganization"
+                element={<ActivistOrganizationsPage />}
+              ></Route>
               <Route
                 path="/business/Campaigns"
                 element={<BusinessCampaignPage />}

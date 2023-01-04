@@ -129,6 +129,7 @@ declare @answer varchar(100)
 
  declare @NonID int
 select @NonID = (select id from NonProfits where Email = 'sf@asd66')
+
 insert into Campaigns values(@NonID,'roni','leg','#foot','good',0)
 
 update Campaigns set CampaignName ='qqqq', CampaignInfo='eeee', CampaignHashtag='rrrr',
@@ -152,6 +153,7 @@ select * from Campaigns
 
  declare @NonID int
 select @NonID = (select id from NonProfits where Email = 'roniazulay95@gmail.com')
+select @NonID
 insert into Campaigns values(4,'juju','adsf','asd','sf',0)
 
 
@@ -167,4 +169,10 @@ select id from Businesses where  Email='noya.tuizer@gmail.com'
 select id from Campaigns where  CampaignName='aa'
 
 insert into Products values('bike','10','1','1','False','False','0')
+
+declare @answer varchar(100)
+ if exists (select * from Activists where Email='economy.telhai@gmail.com') begin select @answer = 'true' end
+ else begin select @answer = 'false' end select @answer
+
+ select * from Activists
 
