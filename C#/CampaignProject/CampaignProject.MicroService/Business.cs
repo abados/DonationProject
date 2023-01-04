@@ -12,6 +12,8 @@ using System.Diagnostics;
 using CampaignProject.Model;
 using Newtonsoft.Json.Linq;
 using Microsoft.VisualBasic;
+using Microsoft.Extensions.FileSystemGlobbing;
+using System.Linq;
 
 namespace CampaignProject.MicroService
 {
@@ -19,7 +21,7 @@ namespace CampaignProject.MicroService
     {
         [FunctionName("Business")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "Business/{action}/{IdNumber?}")] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post","delete", Route = "Business/{action}/{IdNumber?}")] HttpRequest req,
             string action, string IdNumber, ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
@@ -38,22 +40,40 @@ namespace CampaignProject.MicroService
                     MainManager.Instance.Business.SendNewInputToDataLayer(business);
 
                     break;
-                case "GETONE":
+                case "GETMYPRODUCTS":
 
-                    //Model.Product p = MainManager.Instance.product.getProductByIDFromDB(IdNumber);
-                    //return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(p));
+                    var id = MainManager.Instance.Business.getIDS(IdNumber, "");
+                    return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Product.getProductsFromDB(int.Parse(id[0]))));
+                    break;
+                case "DELETEAPRODUCT":
 
+
+                    //In the case of the POST request, the request body is being sent as a JSON string, so it can be deserialized directly using the JsonSerializer. However, in the case of the DELETE request, when you are trying to send the product object in the request body, rather than as a JSON string.In this case, you need to serialize the object into a string before sending it in the request body with ReadToEndAsync().
+
+                    try
+                    {
+                        Model.Product productToDelete = new Model.Product();
+                        string requestBodyToDelete = await new StreamReader(req.Body).ReadToEndAsync();
+                        productToDelete = System.Text.Json.JsonSerializer.Deserialize<Model.Product>(requestBodyToDelete);
+                        MainManager.Instance.Product.DeleteAProduct(productToDelete.productName,productToDelete.businessID);
+                    }
+                    catch (Exception x)
+                    {
+                        Console.WriteLine(x.Message);
+                    }
                     break;
 
 
-               
-                case "SEARCHID":
-                    //Model.Product product = new Model.Product();
+
+                case "UPLOADPRODUCT":
+         
 
                     string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
                     dynamic data = JsonConvert.DeserializeObject<JObject>(requestBody);
                     string EmailToSearch = data.Value<string>("variable1");
                     string CampaignToSearch = data.Value<string>("variable2");
+
+                    //I have th businessRep email and the campaign name and now i need their id's to enter to the product Model
                     var ids =MainManager.Instance.Business.getIDS(EmailToSearch, CampaignToSearch);
 
 
@@ -61,9 +81,7 @@ namespace CampaignProject.MicroService
                     product.businessID = int.Parse(ids[0]);
                     product.campaignID= int.Parse(ids[1]);
                    product.productName = data.Value<string>("variable3");
-
                     string priceToPrase = data.Value<string>("variable4");
-
                     product.price = decimal.Parse(priceToPrase);
 
                     product.IsBought = data.Value<bool>("variable5");

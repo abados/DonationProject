@@ -1,9 +1,9 @@
-.card {
-  width: 200px;
+.cardDonateConteinar {
+  width: 100% !important;
 }
 
-button {
-  --color: #560bad;
+.btnDonate {
+  --color: #45d14e;
   font-family: inherit;
   display: inline-block;
   width: 8em;
@@ -21,7 +21,7 @@ button {
   color: var(--color);
 }
 
-button:before {
+.btnDonate:before {
   content: "";
   position: absolute;
   z-index: -1;
@@ -31,22 +31,22 @@ button:before {
   border-radius: 50%;
 }
 
-button:hover {
+.btnDonate:hover {
   color: #fff;
 }
 
-button:before {
+.btnDonate:before {
   top: 100%;
   left: 100%;
   transition: all 0.7s;
 }
 
-button:hover:before {
+.btnDonate:hover:before {
   top: -30px;
   left: -30px;
 }
 
-button:active:before {
+.btnDonate:active:before {
   background: #3a0ca3;
   transition: background 0s;
 }

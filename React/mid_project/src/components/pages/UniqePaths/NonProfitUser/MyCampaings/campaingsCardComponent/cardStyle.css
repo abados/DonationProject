@@ -1,6 +1,5 @@
 .show-card {
   margin-bottom: 20px;
-  margin-right: 90px !important;
 }
 
 .show-card,
@@ -11,7 +10,7 @@
   background-color: #84e686 !important;
 }
 
-.card {
+.campaignCard {
   width: 70%;
 }
 
@@ -24,12 +23,16 @@
 }
 
 .buttons {
-  display: flex !important;
-  align-items: center;
+  display: flex;
   justify-content: center;
 }
 
-button {
+.btn {
+  width: 150px;
+  height: 50px;
+}
+
+.btnCampaign {
   width: 150px;
   height: 50px;
   cursor: pointer;
@@ -43,18 +46,18 @@ button {
   margin-left: 10px;
 }
 
-button,
+.btnCampaign,
 button span {
   transition: 200ms;
 }
 
-button .text {
+.btnCampaign .text {
   transform: translateX(35px);
   color: white;
   font-weight: bold;
 }
 
-button .icon {
+.btnCampaign .icon {
   position: absolute;
   border-left: 1px solid #c41b1b;
   transform: translateX(110px);
@@ -65,29 +68,29 @@ button .icon {
   justify-content: center;
 }
 
-button svg {
+.btnCampaign svg {
   width: 15px;
   fill: #eee;
 }
 
-button:hover {
+.btnCampaign:hover {
   background: #ff3636;
 }
 
-button:hover .text {
+.btnCampaign:hover .text {
   color: transparent;
 }
 
-button:hover .icon {
+.btnCampaign:hover .icon {
   width: 150px;
   border-left: none;
   transform: translateX(0);
 }
 
-button:focus {
+.btnCampaign:focus {
   outline: none;
 }
 
-button:active .icon svg {
+.btnCampaign:active .icon svg {
   transform: scale(0.8);
 }

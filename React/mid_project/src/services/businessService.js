@@ -16,9 +16,15 @@ export const getCampaings = async () => {
     });
 };
 
-export const addProduct = async (product) => {
-  console.log(product);
-  await axios.post("http://localhost:7033/api/Business/ADDPRODUCT", product);
+export const getDonates = async (userEmail) => {
+  return await axios
+    .get(`http://localhost:7033/api/Business/GETMYPRODUCTS/${userEmail}`)
+    .then((response) => {
+      return Object.values(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
 export const searchIDS = async (
@@ -38,7 +44,7 @@ export const searchIDS = async (
     defaultActivist
   );
   return await axios
-    .post("http://localhost:7033/api/Business/SEARCHID", {
+    .post("http://localhost:7033/api/Business/UPLOADPRODUCT", {
       variable1: businessID,
       variable2: campaignName,
       variable3: productName,
@@ -50,4 +56,15 @@ export const searchIDS = async (
     .catch((error) => {
       console.log(error);
     });
+};
+
+export const deleteProductFromDb = async (product) => {
+  try {
+    console.log(product);
+    let endpoint = "http://localhost:7033/api/Business/DELETEAPRODUCT";
+    console.log(endpoint, product);
+    await axios.delete(endpoint, { data: product });
+  } catch (error) {
+    console.error(error);
+  }
 };

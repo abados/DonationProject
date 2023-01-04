@@ -6,7 +6,7 @@ import { NavBarComponent } from "./components/navBar/navBar";
 import { LoginPage } from "./components/pages/LoginPage/LoginPage";
 import { HomePage } from "./components/pages/HomePage/homePage";
 import { UserRoleContext } from "./context/context";
-import { ActivistUserForm } from "./components/pages/UniqePaths/ActivistUser/addingInfo.Activist.page";
+import { ActivistUserForm } from "./components/pages/UniqePaths/ActivistUser/signIn/addingInfo.Activist.page";
 import { BusinessUserForm } from "./components/pages/UniqePaths/BusinessUser/signIn/addingInfo.Business.page";
 import { NonProfitUserForm } from "./components/pages/UniqePaths/NonProfitUser/SignIn/addingInfo.NonProfit.page";
 import { OwnerUserForm } from "./components/pages/UniqePaths/Owner/addingInfo.Owner.page";
@@ -18,7 +18,8 @@ import { UpadateCampaignPage } from "./components/pages/UniqePaths/NonProfitUser
 import { NewRegisterPage } from "./components/pages/HomePage/newRegister.page";
 import { AddProductPage } from "./components/pages/UniqePaths/BusinessUser/addProduct/addProduct.page";
 import { checkIfExsits, getRole } from "./services/serviceToAll";
-import { BusinessCampaignPage } from "./components/pages/UniqePaths/BusinessUser/allOrganizations/business.campaign.page";
+import { BusinessCampaignPage } from "./components/pages/UniqePaths/BusinessUser/allCampaigns/business.campaign.page";
+import { MyDonationsPage } from "./components/pages/UniqePaths/BusinessUser/myDonates/myDonations.page.jsx";
 
 function App() {
   const { isAuthenticated, isLoading, user } = useAuth0();
@@ -40,6 +41,8 @@ function App() {
 
   if (isLoading) {
     return <div className="App">Loading</div>;
+  } else if (RoleContext === undefined && isAuthenticated) {
+    return <NewRegisterPage />;
   } else if (isAuthenticated) {
     return (
       <div className="App">
@@ -48,7 +51,7 @@ function App() {
             <NavBarComponent onFormSubmit={formSubmitted} />
             <Routes>
               <Route path="/" element={<HomePage />}></Route>
-              <Route path="/about"></Route>
+              <Route path="/MyDonates" element={<MyDonationsPage />}></Route>
               <Route path="/contactus"></Route>
               <Route
                 path="/business/Campaigns"

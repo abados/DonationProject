@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { addProduct, searchIDS } from "../../../../../services/businessService";
+import { searchIDS } from "../../../../../services/businessService";
 import { useAuth0 } from "@auth0/auth0-react";
 import "./addProduct.css";
 
@@ -22,15 +22,6 @@ export const AddProductPage = () => {
     const userEmail = user.email;
     const defaultVariableIS = false;
     const defaultActivist = 0;
-    console.log(
-      "user: " + userEmail,
-      "campaing: " + campaing,
-      "productName: " + productName,
-      "price: " + price,
-      "isbought: " + defaultVariableIS,
-      "isdeliverd: " + defaultVariableIS,
-      "defaultActivist: " + defaultActivist
-    );
     searchIDS(
       userEmail,
       campaing,
@@ -40,6 +31,8 @@ export const AddProductPage = () => {
       defaultVariableIS,
       defaultActivist
     );
+
+    navigate("/MyDonates");
   };
 
   return (

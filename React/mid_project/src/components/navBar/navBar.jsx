@@ -66,6 +66,7 @@ export const NavBarComponent = () => {
 
   if (loading) return <>loading</>;
   else if (RoleContext === undefined && isLoading) {
+    console.log("RoleContext:" + RoleContext + "isLoading:" + isLoading);
     return <NewRegisterPage />;
   } else if (
     RoleContext[0] ? RoleContext[0].name === "Owner" : RoleContext[0] === null
@@ -217,7 +218,11 @@ export const NavBarComponent = () => {
         </ul>
       </div>
     );
-  } else if (RoleContext[0].name === "NonProfit") {
+  } else if (
+    RoleContext[0]
+      ? RoleContext[0].name === "NonProfit"
+      : RoleContext[0] === null
+  ) {
     return (
       <div className="container">
         <ul className="menu">
@@ -316,10 +321,17 @@ export const NavBarComponent = () => {
                   <label className="navLbl">Campaigns</label>
                 </Link>
               </li>
+
+              <li>
+                <Link to="/MyDonates">
+                  <InfoIcon />
+                  <label className="navLbl">My Donates</label>
+                </Link>
+              </li>
               <li>
                 <Link to="/contactus">
                   <LocalShippingIcon />
-                  <label className="navLbl">Shipment tracking</label>
+                  <label className="navLbl">Shipment tracking </label>
                 </Link>
               </li>
               <li className="user-li">

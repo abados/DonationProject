@@ -1,8 +1,8 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { addActivistUser } from "../../../../services/activistService";
-import { FormContext } from "../../../../context/context";
-import "./css/addingAInfo.css";
+import { addActivistUser } from "../../../../../services/activistService";
+import { FormContext } from "../../../../../context/context";
+import "../css/addingAInfo.css";
 
 export const ActivistUserForm = ({ onFormSubmit }) => {
   const [fullName, setName] = useState("");

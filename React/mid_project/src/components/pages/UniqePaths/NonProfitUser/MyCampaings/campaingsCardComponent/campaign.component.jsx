@@ -7,20 +7,20 @@ export const CampaignCardComponent = ({
   handleDelete,
 }) => {
   return (
-    <div class="card show-card">
+    <div class="card show-card campaignCard">
       <div className="card-header">{campaing.campaignHashtag}</div>
       <div className="card-text">
         <h5 className="card-title">{campaing.campaignName}</h5>
         <h6 className="card-text">{campaing.campaignInfo}</h6>
         <div className="buttons">
           <button
-            className="btn btn-primary"
+            className="btn btn-primary "
             onClick={() => handleUpadate(campaing)}
           >
             Edit
           </button>
           <button
-            class="noselect"
+            className=" btnCampaign"
             onClick={() => handleDelete(campaing.campaignName)}
           >
             <span class="text">Delete</span>

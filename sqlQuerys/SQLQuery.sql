@@ -51,15 +51,19 @@ CREATE TABLE "Activists"(
 
 CREATE TABLE "Products"(
     "id" INT NOT NULL primary key identity,
-    "ProductID" INT NOT NULL,
     "ProductName" NVARCHAR(max) NOT NULL,
     "Price" DECIMAL(10, 2) NOT NULL,
     "BusinessUser" INT NOT NULL foreign key references Businesses (id),
     "Campaign" INT NOT NULL foreign key references Campaigns (CampaignId),
     "IsBought" BIT NOT NULL,
 	"IsDelivered" BIT NOT NULL,
-    "ActivistBuyerID" INT foreign key references Activists (id), 
+    "ActivistBuyerID" INT, --foreign key references Activists (id), 
 );
+
+select * from Products where BusinessUser=1
+
+insert into Products values('bike',10,1,1,0,0,0)
+  insert into Products values('bike2',5,1,5,0,0,0)
 
 
 CREATE TABLE "Owner"(
@@ -92,29 +96,40 @@ select * from NonProfits
 select * from Campaigns
 select * from Products
 
+UPDATE Campaigns
+SET DonationsAmount = 10
+WHERE CampaignId = 4;
+
+UPDATE Campaigns
+SET DonationsAmount = DonationsAmount + 10
+WHERE CampaignId = 3;
+
 
 select * from Non
 
-insert into Activists values('2','QQQ','sad@sdf','sss','234',0,0,'sdfs_')
+insert into Activists values(1,'QQQ','sad@sdf','sss','234',0,0,'sdfs_')
 
 delete from Users where id=1
 
 INSERT INTO Users ([UserType]) VALUES ('Activist') SELECT @@IDENTITY
+INSERT INTO Users ([UserType]) VALUES ('Owner') SELECT @@IDENTITY
+INSERT INTO Users ([UserType]) VALUES ('Business') SELECT @@IDENTITY
+INSERT INTO Users ([UserType]) VALUES ('NonProfit') SELECT @@IDENTITY
 
 insert into Activists values('1','QQQ','sad@sdf','sss','234',0,0,'sdfs_')
 
-insert into NonProfits values('sf','sf@asd','453','ads','asd','ad')
+insert into NonProfits values(6,'sf','sf@asd66','453','ads','asd','ad')
 
 declare @answer varchar(100)
  if exists (select * from Activists where Email='economy.telhai@gmail.com') begin select @answer = 'true' end else begin select @answer = 'false' end select @answer
 
  declare @NonID int
  select @NonID = (select NonProfitUserID from NonProfits where Email='roniazulay95@gmail.com')
- insert into Campaigns values(@NonID,'sf','sf@asd','453','ads',0)
+ insert into Campaigns values(4,'cmapaign1','sf@asd','453','ads',0)
 
  declare @NonID int
-select @NonID = (select NonProfitUserID from NonProfits where Email = 'roniazulay95@gmail.com')
-insert into Campaigns values(@NonID,'brain','leg','#foot','good',0)
+select @NonID = (select id from NonProfits where Email = 'sf@asd66')
+insert into Campaigns values(@NonID,'roni','leg','#foot','good',0)
 
 update Campaigns set CampaignName ='qqqq', CampaignInfo='eeee', CampaignHashtag='rrrr',
 CampaignWebUrl='url'where CampaignName='qqqq'
@@ -137,4 +152,19 @@ select * from Campaigns
 
  declare @NonID int
 select @NonID = (select id from NonProfits where Email = 'roniazulay95@gmail.com')
-insert into Campaigns values(@NonID,'juju','adsf','asd','sf',0)
+insert into Campaigns values(4,'juju','adsf','asd','sf',0)
+
+
+UPDATE Campaigns
+SET CampaignName = 'aa'
+WHERE  CampaignId=1;
+
+
+
+select id from Businesses where Email='noya.tuizer@gmail.com'
+select id from Businesses where  Email='noya.tuizer@gmail.com'
+
+select id from Campaigns where  CampaignName='aa'
+
+insert into Products values('bike','10','1','1','False','False','0')
+
