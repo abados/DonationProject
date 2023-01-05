@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getCampaings } from "../../../../../services/nonProfitService";
+
 import { ClockLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 import { deleteCampaignFromDb } from "../../../../../services/nonProfitService";

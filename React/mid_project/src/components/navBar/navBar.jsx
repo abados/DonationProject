@@ -29,7 +29,6 @@ export const NavBarComponent = () => {
     setLoading(true); // set loading to true before making the request
     let userId = user.sub;
     await setRoleContext(await getRole(userId));
-    console.log("Checking:" + isExists);
     setLoading(false); // set loading to false after the request is complete
   };
 
@@ -37,7 +36,6 @@ export const NavBarComponent = () => {
   const checkingExsits = async () => {
     if (RoleContext && RoleContext[0] && RoleContext[0].name) {
       setIsExists(await checkIfExsits(user.email, RoleContext[0].name));
-      console.log("we are here");
     }
   };
 

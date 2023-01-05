@@ -17,6 +17,10 @@ export const ActivistCampaignsPage = () => {
     setCampaignsList(res);
   };
 
+  const handleBeActive = () => {};
+
+  const handleClaim = () => {};
+
   useEffect(() => {
     setTimeout(() => {
       getCampaignsFromDB();
@@ -33,8 +37,6 @@ export const ActivistCampaignsPage = () => {
     };
   }, []);
 
-  const handleChose = (organ) => {};
-
   return (
     <div className="cardlistContainer">
       <h1>Campaigns</h1>
@@ -45,7 +47,8 @@ export const ActivistCampaignsPage = () => {
               <>
                 <CardToCampagin
                   campaign={campaign}
-                  handleChose={() => handleChose()}
+                  handleBeActive={() => handleBeActive()}
+                  handleClaim={() => handleClaim()}
                 />
               </>
             );

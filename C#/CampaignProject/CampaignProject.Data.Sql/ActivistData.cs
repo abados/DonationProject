@@ -45,9 +45,10 @@ namespace CampaignProject.Data.Sql
             while (reader.Read())
             {
 
-                Activist.fullName = reader.GetString(3);
-                Activist.email = reader.GetString(4);
+                Activist.fullName = reader.GetString(2);
+                Activist.email = reader.GetString(3);
                 Activist.cellPhone = reader.GetString(5);
+                Activist.Earnings = reader.GetDecimal(7);
 
 
             }
@@ -58,6 +59,20 @@ namespace CampaignProject.Data.Sql
         {
             string SqlQuery = "declare @answer varchar(100)\n if exists (select * from Activists where Email=" + "'" + userEmail + "'" + ") begin select @answer = 'true' end else begin select @answer = 'false' end select @answer";
             object retObject = DAL.SqlQuery.getOneDataFromDB(SqlQuery, ReadOneFromDb);
+
+            //string SqlQuery = "select * from Activists where Email=" + "'" + userEmail + "'";
+            //object retObject = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadOneFromDb);
+            return retObject;
+
+        }
+
+        public string getActivistUserEarnings(string userEmail)
+        {
+
+
+            string SqlQuery = "select Earnings from Activists where Email=" + "'" + userEmail + "'";
+            string retObject = (string)DAL.SqlQuery.getOneDataFromDB(SqlQuery, ReadOneFromDb);
+            
             return retObject;
 
 

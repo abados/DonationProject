@@ -1,18 +1,26 @@
 import React, { useState, useEffect } from "react";
-import { getOrganizations } from "../../../../../services/activistService";
+import {
+  getOrganizations,
+  getUserEarnings,
+} from "../../../../../services/activistService";
 import { ClockLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 import "../css/organizationCard.css";
 import { CardToOrganization } from "./cardToPresentOrganization";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export const ActivistOrganizationsPage = () => {
   const [organizaionList, setOrganizaionList] = useState([]);
   const [showClock, setShowClock] = useState(true);
+  const [userEarnings, setUserEarnings] = useState(true);
   const navigate = useNavigate();
+  const { user } = useAuth0();
 
   const getOrganizaionsFromDB = async () => {
     let res = await getOrganizations();
     setOrganizaionList(res);
+    let earnings = await getUserEarnings(user.email);
+    setUserEarnings(earnings);
   };
 
   useEffect(() => {
@@ -43,6 +51,7 @@ export const ActivistOrganizationsPage = () => {
   return (
     <div className="cardlistContainer">
       <h1>Organizations</h1>
+      <h3>Your earnings: {userEarnings}</h3>
       <div className="cardlistContainer2">
         {organizaionList && organizaionList.length > 0 ? (
           organizaionList.map((organ) => {

@@ -24,9 +24,8 @@ namespace CampaignProject.MicroService
             {
                 case "Find":
                     //check if the user allready sign as a role
-                    string isExist = MainManager.Instance.Activist.getProductByIDFromDB(IdNumber);
-                    return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(isExist));
-
+                    
+                    return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Activist.getProductByIDFromDB(IdNumber)));
                     break;
                 case "ADD":
                     //adding the user to the users table and to activist table
@@ -37,7 +36,9 @@ namespace CampaignProject.MicroService
                     break;
                 case "GETORGANIZATIONS":
                     return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Activist.getNonProfitListFromDB()));
-
+                    break;
+                case "GETEARNINGS":
+                    return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Activist.getEarningsByIDFromDB(IdNumber)));
                 default:
                     break;
 

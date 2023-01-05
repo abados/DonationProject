@@ -30,8 +30,7 @@ namespace CampaignProject.MicroService
             {
                 case "Find":
 
-                    string isExist = MainManager.Instance.Business.getProductByIDFromDB(IdNumber);
-                    return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(isExist));
+                    return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Business.getProductByIDFromDB(IdNumber)));
 
                     break;
                 case "ADD":

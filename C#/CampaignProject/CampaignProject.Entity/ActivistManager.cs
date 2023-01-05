@@ -16,6 +16,13 @@ namespace CampaignProject.Entity
 
         }
 
+        public string getEarningsByIDFromDB(string UserEmail)
+        {//chack if the userEmail is allready in the sql to know if the user signUp
+            Data.Sql.ActivistData Activist = new Data.Sql.ActivistData();
+            return Activist.getActivistUserEarnings(UserEmail);
+
+        }
+
         public void SendNewInputToDataLayer(Model.ActivistUser newOwner)
         {//insert of a new user to both tables - users and activists after the user signUp
             Data.Sql.ActivistData user = new Data.Sql.ActivistData();

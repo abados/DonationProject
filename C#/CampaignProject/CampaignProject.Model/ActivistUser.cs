@@ -12,7 +12,7 @@ namespace CampaignProject.Model
 
         public string TwitterAcount { get; set; }
 
-        public int Earnings { get; set; }
+        public decimal Earnings { get; set; }
 
         public int[] ChosenProducts { get; set; }
 

@@ -15,3 +15,14 @@ export const getOrganizations = async () => {
       console.log(error);
     });
 };
+
+export const getUserEarnings = async (uesrEmail) => {
+  return await axios
+    .get(`http://localhost:7033/api/Activist/GETEARNINGS/${uesrEmail}`)
+    .then((response) => {
+      return Object.values(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
