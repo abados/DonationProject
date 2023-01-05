@@ -20,6 +20,14 @@ namespace CampaignProject.Entity
             return CampaignsList;
         }
 
+        public Dictionary<string, Campaign> getSpecificCampaignsFromDB(string organizationEmail)
+        {
+            Data.Sql.CampaignData campaign = new Data.Sql.CampaignData();
+
+            CampaignsList = (Dictionary<string, Campaign>)campaign.specificCampaigns(organizationEmail); ;
+            return CampaignsList;
+        }
+
         public void SendNewInputToDataLayer(Model.Campaign newCampaign, string uesrEmail)
         {
             Data.Sql.CampaignData campaign = new Data.Sql.CampaignData();

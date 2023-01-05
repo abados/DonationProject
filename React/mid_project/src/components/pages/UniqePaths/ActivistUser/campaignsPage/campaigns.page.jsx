@@ -1,25 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { getOrganizations } from "../../../../../services/activistService";
+import { getSpecificCampaigns } from "../../../../../services/serviceToAll";
 import { ClockLoader } from "react-spinners";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "../css/organizationCard.css";
-import { CardToOrganization } from "./cardToPresentOrganization";
+import { CardToCampagin } from "./cardToPresentCampaigns";
 
-export const ActivistOrganizationsPage = () => {
-  const [organizaionList, setOrganizaionList] = useState([]);
+export const ActivistCampaignsPage = () => {
+  const [campaignsList, setCampaignsList] = useState([]);
   const [showClock, setShowClock] = useState(true);
   const navigate = useNavigate();
+  const location = useLocation();
+  const { organ } = location.state;
 
-  const getOrganizaionsFromDB = async () => {
-    let res = await getOrganizations();
-    setOrganizaionList(res);
+  const getCampaignsFromDB = async () => {
+    let res = await getSpecificCampaigns(organ.email);
+    setCampaignsList(res);
   };
 
   useEffect(() => {
     setTimeout(() => {
-      getOrganizaionsFromDB();
+      getCampaignsFromDB();
     }, 3000);
-  }, [organizaionList.length]);
+  }, [campaignsList.length]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -31,26 +33,19 @@ export const ActivistOrganizationsPage = () => {
     };
   }, []);
 
-  const handleChose = (organ) => {
-    console.log(organ);
-    navigate("/activist/specificCampaigns", {
-      state: {
-        organ,
-      },
-    });
-  };
+  const handleChose = (organ) => {};
 
   return (
     <div className="cardlistContainer">
-      <h1>Organizations</h1>
+      <h1>Campaigns</h1>
       <div className="cardlistContainer2">
-        {organizaionList && organizaionList.length > 0 ? (
-          organizaionList.map((organ) => {
+        {campaignsList && campaignsList.length > 0 ? (
+          campaignsList.map((campaign) => {
             return (
               <>
-                <CardToOrganization
-                  organ={organ}
-                  handleChose={() => handleChose(organ)}
+                <CardToCampagin
+                  campaign={campaign}
+                  handleChose={() => handleChose()}
                 />
               </>
             );

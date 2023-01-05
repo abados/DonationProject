@@ -5,14 +5,17 @@ import { useNavigate } from "react-router-dom";
 import { deleteCampaignFromDb } from "../../../../../services/nonProfitService";
 import "./myCampaings.css";
 import { CampaignCardComponent } from "./campaingsCardComponent/campaign.component";
+import { getSpecificCampaigns } from "../../../../../services/serviceToAll";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export const CampaingsPage = () => {
   const [campaingList, setCampaingList] = useState([]);
   const [showClock, setShowClock] = useState(true);
   const navigate = useNavigate();
+  const { user } = useAuth0();
 
   const getCampaingsFromDB = async () => {
-    let res = await getCampaings();
+    let res = await getSpecificCampaigns(user.email);
     setCampaingList(res);
   };
 

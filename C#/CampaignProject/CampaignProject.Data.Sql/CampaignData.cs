@@ -51,6 +51,14 @@ namespace CampaignProject.Data.Sql
             return retDict;
         }
 
+        public object specificCampaigns(string organ)
+        {
+            string SqlQuery = " select * from Campaigns where NonProfitUserID=(select id from NonProfits where Email =" + "'" + organ + "'" + ")";
+            object retDict = null;
+            retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadFromDb);
+            return retDict;
+        }
+
 
 
 

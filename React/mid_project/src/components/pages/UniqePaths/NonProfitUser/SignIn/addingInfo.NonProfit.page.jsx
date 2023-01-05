@@ -41,12 +41,6 @@ export const NonProfitUserForm = () => {
       addNonProfitUser(newNonProfitUser);
       setFormSubmitted(true);
       navigate("/thankYou");
-      //   setName("");
-      //   setPhone("");
-      //   setEmail("");
-      //   setOrganizationName("");
-      //   setOrganizationUrl("");
-      //   setOrganizationDescription("");
     }
   };
 

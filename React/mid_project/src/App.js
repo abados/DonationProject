@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
+import "./App.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Routes, Route } from "react-router-dom";
-import "./App.css";
 import { NavBarComponent } from "./components/navBar/navBar";
 import { LoginPage } from "./components/pages/LoginPage/LoginPage";
 import { HomePage } from "./components/pages/HomePage/homePage";
@@ -21,6 +21,7 @@ import { checkIfExsits, getRole } from "./services/serviceToAll";
 import { BusinessCampaignPage } from "./components/pages/UniqePaths/BusinessUser/allCampaigns/business.campaign.page";
 import { MyDonationsPage } from "./components/pages/UniqePaths/BusinessUser/myDonates/myDonations.page.jsx";
 import { ActivistOrganizationsPage } from "./components/pages/UniqePaths/ActivistUser/organizationsPage/organizations.page";
+import { ActivistCampaignsPage } from "./components/pages/UniqePaths/ActivistUser/campaignsPage/campaigns.page";
 
 function App() {
   const { isAuthenticated, isLoading, user } = useAuth0();
@@ -62,6 +63,11 @@ function App() {
               <Route
                 path="/activist/listOfOrganization"
                 element={<ActivistOrganizationsPage />}
+              ></Route>
+
+              <Route
+                path="/activist/specificCampaigns"
+                element={<ActivistCampaignsPage />}
               ></Route>
               <Route
                 path="/business/Campaigns"

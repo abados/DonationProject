@@ -1,16 +1,16 @@
 import React from "react";
 import "../css/organizationCard.css";
 
-export const CardToOrganization = ({ organ, handleChose }) => {
+export const CardToCampagin = ({ campaign, handleDonate }) => {
   return (
     <div className="row">
       <div className="col-sm-6 cardDonateConteinar">
         <div className="card ">
           <div className="card-body ">
-            <h5 className="card-title">{organ.organizationName}</h5>
-            <p className="card-text">{organ.organizationDescription}</p>
-            <button className="btnDonate" onClick={() => handleChose(organ)}>
-              Donate{" "}
+            <h5 className="card-title">{campaign.campaignName}</h5>
+            <p className="card-text">{campaign.campaignInfo}</p>
+            <button className="btnDonate" onClick={() => handleDonate()}>
+              {campaign.campaignHashtag}
             </button>
           </div>
         </div>

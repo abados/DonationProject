@@ -16,3 +16,14 @@ export const checkIfExsits = async (userEmail, Table) => {
   let answer = await axios.get(url);
   return answer.data;
 };
+
+export const getSpecificCampaigns = async (organName) => {
+  return await axios
+    .get(`http://localhost:7033/api/Campaigns/GET/${organName}`)
+    .then((response) => {
+      return Object.values(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
