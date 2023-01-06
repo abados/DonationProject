@@ -13,10 +13,24 @@ namespace CampaignProject.Entity
         //Global Dictionary
         public List<Product> ProductsList = new List<Product>();
 
-        public List<Product> getProductsFromDB(int userID)
+        public List<Product> getProductsOfSpecificBusinessFromDB(int userID)
         {
             Data.Sql.ProductData product = new Data.Sql.ProductData();
             ProductsList = (List<Product>)product.SqlQueryToReadProductsFromDB(userID);
+            return ProductsList;
+        }
+
+        public List<Product> getPurchesProductsOFromDB(string userEmail)
+        {
+            Data.Sql.ProductData product = new Data.Sql.ProductData();
+            ProductsList = (List<Product>)product.SqlQueryToReadPurchesProductsFromDB(userEmail);
+            return ProductsList;
+        }
+
+        public List<Product> getProductsOfSpecificCampaignFromDB(string campaignName)
+        {
+            Data.Sql.ProductData product = new Data.Sql.ProductData();
+            ProductsList = (List<Product>)product.SqlQueryToReadProductsFromDB(campaignName);
             return ProductsList;
         }
 

@@ -20,7 +20,9 @@ export const ActivistOrganizationsPage = () => {
     let res = await getOrganizations();
     setOrganizaionList(res);
     let earnings = await getUserEarnings(user.email);
-    setUserEarnings(earnings);
+    console.log(earnings);
+    setUserEarnings(parseFloat(earnings.join("")));
+    console.log(userEarnings);
   };
 
   useEffect(() => {
@@ -44,6 +46,7 @@ export const ActivistOrganizationsPage = () => {
     navigate("/activist/specificCampaigns", {
       state: {
         organ,
+        userEarnings,
       },
     });
   };

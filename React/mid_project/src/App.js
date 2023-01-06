@@ -22,6 +22,8 @@ import { BusinessCampaignPage } from "./components/pages/UniqePaths/BusinessUser
 import { MyDonationsPage } from "./components/pages/UniqePaths/BusinessUser/myDonates/myDonations.page.jsx";
 import { ActivistOrganizationsPage } from "./components/pages/UniqePaths/ActivistUser/organizationsPage/organizations.page";
 import { ActivistCampaignsPage } from "./components/pages/UniqePaths/ActivistUser/campaignsPage/campaigns.page";
+import { ClaimRwardsForActivist } from "./components/pages/UniqePaths/ActivistUser/claimRewardsPage/productsAsRewards.page";
+import { PurchesOFActivist } from "./components/pages/UniqePaths/ActivistUser/purchesPage/purches.page";
 
 function App() {
   const { isAuthenticated, isLoading, user } = useAuth0();
@@ -32,7 +34,6 @@ function App() {
   const checkingExsits = async () => {
     if (isAuthenticated) {
       var role = await getRole(user.sub);
-
       if (role.length === 0) {
         ///just set the state for preventing junmping screens
         setIsNew(true);
@@ -64,7 +65,14 @@ function App() {
                 path="/activist/listOfOrganization"
                 element={<ActivistOrganizationsPage />}
               ></Route>
-
+              <Route
+                path="/activist/Purches"
+                element={<PurchesOFActivist />}
+              ></Route>
+              <Route
+                path="/activist/campaignsProducts"
+                element={<ClaimRwardsForActivist />}
+              ></Route>
               <Route
                 path="/activist/specificCampaigns"
                 element={<ActivistCampaignsPage />}

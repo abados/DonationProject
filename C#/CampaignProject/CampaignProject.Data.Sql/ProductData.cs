@@ -47,7 +47,22 @@ namespace CampaignProject.Data.Sql
 
         public object SqlQueryToReadProductsFromDB(int userID)
         {
-            string SqlQuery = "select * from Products where BusinessUser="+userID+"";
+            string SqlQuery = "select * from Products where BusinessUser="+userID+ " and IsBought = 0";
+            object retDict = null;
+            retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadFromDb);
+            return retDict;
+        }
+        
+        public object SqlQueryToReadProductsFromDB(string campaignName)
+        {
+            string SqlQuery = "select * from Products where Campaign=(select CampaignId from Campaigns where CampaignName='" + campaignName + "') and IsBought = 0";
+            object retDict = null;
+            retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadFromDb);
+            return retDict;
+        }
+        public object SqlQueryToReadPurchesProductsFromDB(string userEmail)
+        {
+            string SqlQuery = "select * from Products where ActivistBuyerID=\r\n(select id from Activists where Email ='" + userEmail + "') and IsBought = 1";
             object retDict = null;
             retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadFromDb);
             return retDict;

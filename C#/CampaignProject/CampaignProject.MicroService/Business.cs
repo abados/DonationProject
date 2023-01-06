@@ -21,8 +21,8 @@ namespace CampaignProject.MicroService
     {
         [FunctionName("Business")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post","delete", Route = "Business/{action}/{IdNumber?}")] HttpRequest req,
-            string action, string IdNumber, ILogger log)
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post","delete", Route = "Business/{action}/{Identifier?}")] HttpRequest req,
+            string action, string Identifier, ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
@@ -30,7 +30,7 @@ namespace CampaignProject.MicroService
             {
                 case "Find":
 
-                    return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Business.getProductByIDFromDB(IdNumber)));
+                    return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Business.getProductByIDFromDB(Identifier)));
 
                     break;
                 case "ADD":
@@ -40,9 +40,15 @@ namespace CampaignProject.MicroService
 
                     break;
                 case "GETMYPRODUCTS":
-
-                    var id = MainManager.Instance.Business.getIDS(IdNumber, "");
-                    return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Product.getProductsFromDB(int.Parse(id[0]))));
+                    if (Identifier.Contains("@"))
+                    {//if we came from a business user path and we send business data
+                    var id = MainManager.Instance.Business.getIDS(Identifier, "");
+                    return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Product.getProductsOfSpecificBusinessFromDB(int.Parse(id[0]))));
+                    }
+                    else
+                    {//if we came from a activist user path and we send campaign data
+                        return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Product.getProductsOfSpecificCampaignFromDB(Identifier)));
+                    }
                     break;
                 case "DELETEAPRODUCT":
 

@@ -10,7 +10,7 @@ export const CardToOrganization = ({ organ, handleChose }) => {
             <h5 className="card-title">{organ.organizationName}</h5>
             <p className="card-text">{organ.organizationDescription}</p>
             <button className="btnDonate" onClick={() => handleChose(organ)}>
-              Donate{" "}
+              Enter
             </button>
           </div>
         </div>

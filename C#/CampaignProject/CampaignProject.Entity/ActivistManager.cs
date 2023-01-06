@@ -42,5 +42,13 @@ namespace CampaignProject.Entity
             return nonProfitsList;
         }
 
+        public void makeAPurchesChanges(string productName, decimal productPrice, string userEmail)
+        {
+            Data.Sql.ActivistData user = new Data.Sql.ActivistData();
+            
+            user.makeAPurchesInTheDB(productName, productPrice, userEmail);
+
+        }
+
     }
 }

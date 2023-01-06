@@ -16,8 +16,8 @@ namespace CampaignProject.MicroService
     {
         [FunctionName("NonProfit")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "NonProfit/{action}/{IdNumber?}")] HttpRequest req,
-            string action, string IdNumber, ILogger log)
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "NonProfit/{action}/{Identifier?}")] HttpRequest req,
+            string action, string Identifier, ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
@@ -25,7 +25,7 @@ namespace CampaignProject.MicroService
             {
                 case "Find":
 
-                    return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.NonProfit.getProductByIDFromDB(IdNumber)));
+                    return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.NonProfit.getProductByIDFromDB(Identifier)));
 
                     break;
                 case "ADD":

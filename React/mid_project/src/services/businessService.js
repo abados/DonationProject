@@ -16,9 +16,9 @@ export const getCampaings = async () => {
     });
 };
 
-export const getDonates = async (userEmail) => {
+export const getDonates = async (Identifier) => {
   return await axios
-    .get(`http://localhost:7033/api/Business/GETMYPRODUCTS/${userEmail}`)
+    .get(`http://localhost:7033/api/Business/GETMYPRODUCTS/${Identifier}`)
     .then((response) => {
       return Object.values(response.data);
     })
@@ -35,14 +35,6 @@ export const searchIDS = async (
   defaultVariableIS,
   defaultActivist
 ) => {
-  console.log(
-    businessID,
-    campaignName,
-    productName,
-    price,
-    defaultVariableIS,
-    defaultActivist
-  );
   return await axios
     .post("http://localhost:7033/api/Business/UPLOADPRODUCT", {
       variable1: businessID,

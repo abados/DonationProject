@@ -175,4 +175,47 @@ declare @answer varchar(100)
  else begin select @answer = 'false' end select @answer
 
  select * from Activists
+ select * from NonProfits
+select * from Campaigns
+select * from Products
 
+select * from Products where Campaign=(select CampaignId from Campaigns where CampaignName='sdf')
+
+ select * from Campaigns where NonProfitUserID=(select id from NonProfits where OrganizationName ='kuku')
+
+
+ declare @answer varchar(100)
+ if exists (select * from Activists where Email='economy.telhai@gmail.com') 
+ begin select @answer = 'true' end else begin select @answer = 'false' end select @answer
+ select Earnings from Activists where Email='economy.telhai@gmail.com'
+
+select * from Products
+
+UPDATE Activists
+SET Earnings = Earnings - 100
+where Email='economy.telhai@gmail.com'
+
+
+UPDATE Products
+SET IsBought = 0 , ActivistBuyerID=(select id from Activists where Email='economy.telhai@gmail.com')
+where ProductName='red'
+
+
+ UPDATE Activists
+SET Earnings = 120
+where Email='economy.telhai@gmail.com'
+
+UPDATE Products
+SET ActivistBuyerID=0,IsBought=0
+where ProductName='red'
+
+UPDATE Activists SET Earnings = Earnings - 100 where Email = 'economy.telhai@gmail.com'UPDATE Products SET IsBought = 1, ActivistBuyerID = 
+(select id from Activists where Email = 'economy.telhai@gmail.com') where ProductName = 'red'
+
+select * from Products where BusinessUser=1 and IsBought = 0
+
+select * from Products where Campaign=
+(select CampaignId from Campaigns where CampaignName='sdf') and IsBought = 0
+
+select * from Products where ActivistBuyerID=
+(select id from Activists where Email = 'economy.telhai@gmail.com') and IsBought = 1

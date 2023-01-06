@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
 import InfoIcon from "@mui/icons-material/Info";
 import CallIcon from "@mui/icons-material/Call";
@@ -22,7 +22,6 @@ export const NavBarComponent = () => {
   const { formSubmitted } = useContext(FormContext);
   console.log("formSubmitted", formSubmitted);
   const [isExists, setIsExists] = useState("false");
-  const navigate = useNavigate();
 
   //bring the user Role
   const handleRole = async () => {
@@ -64,7 +63,6 @@ export const NavBarComponent = () => {
 
   if (loading) return <>loading</>;
   else if (RoleContext === undefined && isLoading) {
-    console.log("RoleContext:" + RoleContext + "isLoading:" + isLoading);
     return <NewRegisterPage />;
   } else if (
     RoleContext[0] ? RoleContext[0].name === "Owner" : RoleContext[0] === null
@@ -168,9 +166,9 @@ export const NavBarComponent = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/contactus">
+                <Link to="/activist/Purches">
                   <ShoppingCartIcon />
-                  <label className="navLbl">Cart</label>
+                  <label className="navLbl">My Products</label>
                 </Link>
               </li>
               <li className="user-li">

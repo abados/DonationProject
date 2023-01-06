@@ -10,7 +10,7 @@ export const ActivistCampaignsPage = () => {
   const [showClock, setShowClock] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
-  const { organ } = location.state;
+  const { organ, userEarnings } = location.state;
 
   const getCampaignsFromDB = async () => {
     let res = await getSpecificCampaigns(organ.email);
@@ -19,8 +19,15 @@ export const ActivistCampaignsPage = () => {
 
   const handleBeActive = () => {};
 
-  const handleClaim = () => {};
-
+  const handleClaim = (cName) => {
+    console.log(cName);
+    navigate("/activist/campaignsProducts", {
+      state: {
+        cName,
+        userEarnings,
+      },
+    });
+  };
   useEffect(() => {
     setTimeout(() => {
       getCampaignsFromDB();
@@ -40,6 +47,7 @@ export const ActivistCampaignsPage = () => {
   return (
     <div className="cardlistContainer">
       <h1>Campaigns</h1>
+      <h3>Your earnings: {userEarnings}</h3>
       <div className="cardlistContainer2">
         {campaignsList && campaignsList.length > 0 ? (
           campaignsList.map((campaign) => {
@@ -48,7 +56,7 @@ export const ActivistCampaignsPage = () => {
                 <CardToCampagin
                   campaign={campaign}
                   handleBeActive={() => handleBeActive()}
-                  handleClaim={() => handleClaim()}
+                  handleClaim={() => handleClaim(campaign.campaignName)}
                 />
               </>
             );

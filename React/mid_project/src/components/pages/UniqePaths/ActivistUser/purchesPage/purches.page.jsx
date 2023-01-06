@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
+import { getPurches } from "../../../../../services/activistService";
 import { ClockLoader } from "react-spinners";
-import {
-  getDonates,
-  deleteProductFromDb,
-} from "../../../../../services/businessService";
-import { CardDonate } from "./cardDonate";
+import "../css/organizationCard.css";
+import { CardOfPurches } from "./cardToPresentPurches";
+import "react-toastify/dist/ReactToastify.css";
+import { useAuth0 } from "@auth0/auth0-react";
 
-export const MyDonationsPage = () => {
+export const PurchesOFActivist = () => {
   const [productList, setProductList] = useState([]);
   const [showClock, setShowClock] = useState(true);
   const { user } = useAuth0();
 
   const getProductsFromDB = async () => {
-    let res = await getDonates(user.email);
+    let res = await getPurches(user.email);
     setProductList(res);
-    console.log(res);
   };
 
   useEffect(() => {
@@ -34,20 +32,16 @@ export const MyDonationsPage = () => {
     };
   }, []);
 
-  const handleDelete = async (product) => {
-    deleteProductFromDb(product);
-    await getProductsFromDB();
-  };
-
   return (
     <div className="cardlistContainer">
-      <h1>My Donations</h1>
+      <h1>My Products</h1>
+
       <div className="cardlistContainer2">
         {productList && productList.length > 0 ? (
-          productList.map((product) => {
+          productList.map((Product) => {
             return (
               <>
-                <CardDonate product={product} handleDelete={handleDelete} />
+                <CardOfPurches Product={Product} />
               </>
             );
           })
@@ -60,7 +54,9 @@ export const MyDonationsPage = () => {
                 </td>
               </tr>
             )}
-            {!showClock && <h1>sorry we didn't found any Donations</h1>}
+            {!showClock && (
+              <h1>sorry we didn't found any Reward for this campaign</h1>
+            )}
           </>
         )}
       </div>

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using CampaignProject.Entity;
+using Newtonsoft.Json.Linq;
 
 namespace CampaignProject.MicroService
 {
@@ -15,8 +16,8 @@ namespace CampaignProject.MicroService
     {
         [FunctionName("Activist")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "Activist/{action}/{IdNumber?}")] HttpRequest req,
-            string action, string IdNumber, ILogger log)
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "Activist/{action}/{Identifier?}")] HttpRequest req,
+            string action, string Identifier, ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
@@ -25,7 +26,7 @@ namespace CampaignProject.MicroService
                 case "Find":
                     //check if the user allready sign as a role
                     
-                    return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Activist.getProductByIDFromDB(IdNumber)));
+                    return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Activist.getProductByIDFromDB(Identifier)));
                     break;
                 case "ADD":
                     //adding the user to the users table and to activist table
@@ -37,8 +38,22 @@ namespace CampaignProject.MicroService
                 case "GETORGANIZATIONS":
                     return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Activist.getNonProfitListFromDB()));
                     break;
+                case "PURCHES":
+
+
+                    string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+                    dynamic data = JsonConvert.DeserializeObject<JObject>(requestBody);
+                    string productName = data.Value<string>("variable1");
+                    decimal productPrice = data.Value<decimal>("variable2");
+                    string userEmail = data.Value<string>("variable3");
+                    MainManager.Instance.Activist.makeAPurchesChanges(productName, productPrice, userEmail);
+
+                    break;
+                case "GETMYPRODUCTS":
+                        return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Product.getPurchesProductsOFromDB(Identifier)));
+                    break;
                 case "GETEARNINGS":
-                    return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Activist.getEarningsByIDFromDB(IdNumber)));
+                    return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Activist.getEarningsByIDFromDB(Identifier)));
                 default:
                     break;
 

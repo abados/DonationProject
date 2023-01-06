@@ -15,7 +15,10 @@ export const CardToCampagin = ({ campaign, handleBeActive, handleClaim }) => {
             <button className="btnDonate" onClick={() => handleBeActive()}>
               Promote
             </button>
-            <button className="btnDonate" onClick={() => handleClaim()}>
+            <button
+              className="btnDonate"
+              onClick={() => handleClaim(campaign.campaignName)}
+            >
               Claim Earnings
             </button>
           </div>

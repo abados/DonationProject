@@ -86,6 +86,14 @@ namespace CampaignProject.Data.Sql
 
         }
 
+        public void makeAPurchesInTheDB(string productName, decimal productPrice, string userEmail)
+        {
+            string uploadNewUserQuery = "UPDATE Activists SET Earnings = Earnings - " + productPrice + " where Email = '"+userEmail+"'" +
+                "UPDATE Products SET IsBought = 1, ActivistBuyerID = (select id from Activists where Email = '"+ userEmail + "') where ProductName = '"+ productName + "'\n update Campaigns set DonationsAmount = DonationsAmount - " + productPrice + " where CampaignId =(select Campaign from Products where ProductName='"+ productName + "')";
+            DAL.SqlQuery.Update_Delete_Insert_RowInDB(uploadNewUserQuery);
+
+        }
+
         public string AddNewUser(string userType)
         {
             object userID = SqlQuery.insertIntoConnectedTable("INSERT INTO Users ([UserType]) VALUES ('" + userType + "') SELECT @@IDENTITY");
