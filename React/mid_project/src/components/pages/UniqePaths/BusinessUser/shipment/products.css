@@ -2,6 +2,7 @@
   overflow-y: auto !important;
   height: 100vh !important;
   width: 83%;
+  margin-left: 218px;
 }
 
 td:nth-child(2):hover {

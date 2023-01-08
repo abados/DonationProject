@@ -11,6 +11,41 @@ namespace CampaignProject.Data.Sql
 {
     public class OwnerData
     {
+        public Dictionary<int, Model.ActiveCampaigns> ReadTweetActivityFromDb(SqlDataReader reader)
+        {
+            Dictionary<int, Model.ActiveCampaigns> activeCampaignsList = new Dictionary<int, Model.ActiveCampaigns>();
+
+    
+            activeCampaignsList.Clear();
+
+            while (reader.Read())
+            {
+                Model.ActiveCampaigns activeCampaign = new Model.ActiveCampaigns();
+                activeCampaign.id = reader.GetInt32(0);
+                activeCampaign.campaignId = reader.GetInt32(1);
+                activeCampaign.campaignName = reader.GetString(2);
+                activeCampaign.campaignHashtag = reader.GetString(3);
+                activeCampaign.activeUserId = reader.GetInt32(4);
+                activeCampaign.ActiveUserName = reader.GetString(5);
+                activeCampaign.TwitterAcount= reader.GetString(6);
+
+
+
+                //Cheking If Hashtable contains the key
+                if (activeCampaignsList.ContainsKey(activeCampaign.id))
+                {
+                    //key already exists
+                }
+                else
+                {
+                    //Filling a hashtable
+                    activeCampaignsList.Add(activeCampaign.id, activeCampaign);
+                }
+
+            }
+            return activeCampaignsList;
+        }
+
 
         public  CampaignProject.Model.Owner ReadOneFromDb(SqlDataReader reader)
         {
@@ -57,6 +92,14 @@ namespace CampaignProject.Data.Sql
             {
                 return "1";
             }
+        }
+
+        public object bringActiveCampaignsTable()
+        {
+            string SqlQuery = "SELECT AC.*, A.TwitterAcount FROM ActiveCampaigns AC INNER JOIN Activists A ON AC.ActivistBuyerID = A.ActivistUsersID";
+            object retDict = null;
+            retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadTweetActivityFromDb);
+            return retDict;
         }
 
     }

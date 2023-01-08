@@ -9,7 +9,7 @@ import { UserRoleContext } from "./context/context";
 import { ActivistUserForm } from "./components/pages/UniqePaths/ActivistUser/signIn/addingInfo.Activist.page";
 import { BusinessUserForm } from "./components/pages/UniqePaths/BusinessUser/signIn/addingInfo.Business.page";
 import { NonProfitUserForm } from "./components/pages/UniqePaths/NonProfitUser/SignIn/addingInfo.NonProfit.page";
-import { OwnerUserForm } from "./components/pages/UniqePaths/Owner/addingInfo.Owner.page";
+import { OwnerUserForm } from "./components/pages/UniqePaths/Owner/SignIn/addingInfo.Owner.page";
 import { FormContext } from "./context/context";
 import { AfterSighInpage } from "./components/pages/afterSignIn/afterSighIn.page";
 import { AddCampaignPage } from "./components/pages/UniqePaths/NonProfitUser/addCampagin/addCampaign.page";
@@ -25,6 +25,7 @@ import { ActivistCampaignsPage } from "./components/pages/UniqePaths/ActivistUse
 import { ClaimRwardsForActivist } from "./components/pages/UniqePaths/ActivistUser/claimRewardsPage/productsAsRewards.page";
 import { PurchesOFActivist } from "./components/pages/UniqePaths/ActivistUser/purchesPage/purches.page";
 import { BoughtProductsPage } from "./components/pages/UniqePaths/BusinessUser/shipment/products.Page";
+import { CheckTweetsAndGivePoints } from "./components/pages/UniqePaths/Owner/checkingTweets/checkTweets.page";
 
 function App() {
   const { isAuthenticated, isLoading, user } = useAuth0();
@@ -91,7 +92,10 @@ function App() {
                 path="//editCampaing"
                 element={<UpadateCampaignPage />}
               ></Route>
-              <Route path="/profile"></Route>
+              <Route
+                path="/checkTweets"
+                element={<CheckTweetsAndGivePoints />}
+              ></Route>
               <Route path="/thankYou" element={<AfterSighInpage />}></Route>
               <Route path="/donateProduct" element={<AddProductPage />}></Route>
               <Route path="/addCampagin" element={<AddCampaignPage />}></Route>

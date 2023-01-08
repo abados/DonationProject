@@ -6,9 +6,12 @@ import "./myCampaings.css";
 import { CampaignCardComponent } from "./campaingsCardComponent/campaign.component";
 import { getSpecificCampaigns } from "../../../../../services/serviceToAll";
 import { useAuth0 } from "@auth0/auth0-react";
+import { ToastContainer, toast } from "react-toastify";
 
 export const CampaingsPage = () => {
   const [campaingList, setCampaingList] = useState([]);
+  const [listLengthBefore, setListLengthBefore] = useState(0);
+  const [listLengthAfter, setListLengthAfter] = useState(0);
   const [showClock, setShowClock] = useState(true);
   const navigate = useNavigate();
   const { user } = useAuth0();
@@ -43,8 +46,27 @@ export const CampaingsPage = () => {
   };
 
   const handleDelete = async (campaignName) => {
-    deleteCampaignFromDb(campaignName);
+    await deleteCampaignFromDb(campaignName);
+    await setListLengthBefore(campaingList.length);
     await getCampaingsFromDB();
+    await setListLengthAfter(campaingList.length);
+    if (listLengthBefore === campaingList.length) checkifdeleted();
+  };
+
+  const checkifdeleted = () => {
+    toast.error(
+      "🔒 It seems like this Campaign is active, we can't delete it",
+      {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      }
+    );
   };
 
   return (
@@ -74,6 +96,18 @@ export const CampaingsPage = () => {
           {!showClock && <h1>sorry we didn't found any campaign</h1>}
         </>
       )}
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };

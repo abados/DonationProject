@@ -1,3 +1,12 @@
+/* .container {
+  display: flex;
+  flex-direction: column;
+  width: 17% !important;
+  height: 100vh;
+  background-color: #31aa45;
+  margin: 0 !important;
+  position: sticky;
+} */
 .container {
   display: flex;
   flex-direction: column;
@@ -5,7 +14,11 @@
   height: 100vh;
   background-color: #31aa45;
   margin: 0 !important;
+  position: fixed;
+  top: calc(); /* Add some space for the top of the page */
+  padding-right: 100px;
 }
+
 ul {
   background-color: #31aa45;
   list-style: none;
@@ -34,11 +47,11 @@ a {
 label:hover {
   cursor: pointer;
 }
-svg {
+/* svg {
   background-color: #31aa45;
   color: #fff;
   margin: 3px;
-}
+} */
 
 .img {
   height: 70px;

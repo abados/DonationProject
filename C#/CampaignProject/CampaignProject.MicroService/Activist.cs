@@ -49,6 +49,16 @@ namespace CampaignProject.MicroService
                     MainManager.Instance.Activist.makeAPurchesChanges(productName, productPrice, userEmail);
 
                     break;
+                case "SIGNCAMPAIGN":
+
+                    string requestBodySIGN = await new StreamReader(req.Body).ReadToEndAsync();
+                    dynamic dataSIGN = JsonConvert.DeserializeObject<JObject>(requestBodySIGN);
+                    string campaignName = dataSIGN.Value<string>("variable1");
+                    string signThisUserEmail = dataSIGN.Value<string>("variable2");
+                    
+                    MainManager.Instance.Activist.signActivistToCampaign(campaignName, signThisUserEmail);
+
+                    break;
                 case "GETMYPRODUCTS":
                         return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Product.getPurchesProductsOFromDB(Identifier)));
                     break;

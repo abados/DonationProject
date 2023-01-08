@@ -50,6 +50,14 @@ namespace CampaignProject.Entity
 
         }
 
+        public void signActivistToCampaign(string campaignName, string userEmail)
+        {
+            Data.Sql.ActivistData user = new Data.Sql.ActivistData();
+
+            user.signActivistToCampaignInTheDB(campaignName, userEmail);
+
+        }
+
         public List<ActivistUser> ActivistUserList = new List<ActivistUser>();
         public List<ActivistUser> getAllOrNotActiveUsers(string allOrNot)
         {

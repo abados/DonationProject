@@ -19,15 +19,24 @@ namespace CampaignProject.Entity
 
         public void SendNewInputToDataLayer(Model.Owner newOwner)
         {
-            Data.Sql.OwnerData user = new Data.Sql.OwnerData();
+            Data.Sql.OwnerData Owner = new Data.Sql.OwnerData();
             string userType = "Admin";
 
-            string userID = user.AddNewUser(userType);
+            string userID = Owner.AddNewUser(userType);
 
-            user.SendSqlQueryToInsertToDB(newOwner,int.Parse(userID));
+            Owner.SendSqlQueryToInsertToDB(newOwner,int.Parse(userID));
 
         }
 
-       
+        public Dictionary<int, Model.ActiveCampaigns> bringDataAboutCampaignsActivity()
+        {
+            Data.Sql.OwnerData Owner = new Data.Sql.OwnerData();
+            Dictionary<int, Model.ActiveCampaigns> activeCampaignList;
+            activeCampaignList = (Dictionary<int, Model.ActiveCampaigns>)Owner.bringActiveCampaignsTable();
+            return activeCampaignList;
+
+        }
+
+
     }
 }

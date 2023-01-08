@@ -10,3 +10,8 @@ export const addOwnerUser = async (user) => {
   console.log(user);
   await axios.post("http://localhost:7033/api/Owner/ADD", user);
 };
+
+export const CheckTweets = async (user) => {
+  console.log(user);
+  await axios.post("http://localhost:7033/api/Owner/TWEET");
+};

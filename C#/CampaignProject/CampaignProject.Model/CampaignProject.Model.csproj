@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActiveCampaigns.cs" />
     <Compile Include="ActivistUser.cs" />
     <Compile Include="BusinessUser.cs" />
     <Compile Include="Campaign.cs" />

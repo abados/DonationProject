@@ -83,9 +83,9 @@ export const NavBarComponent = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/about">
+                <Link to="/checkTweets">
                   <InfoIcon />
-                  <label className="navLbl">Organizations</label>
+                  <label className="navLbl">Checking tweets</label>
                 </Link>
               </li>
               <li>

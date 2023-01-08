@@ -33,7 +33,7 @@ CREATE TABLE "Campaigns"(
     "CampaignHashtag" NVARCHAR(max) NOT NULL,
     "CampaignWebUrl" NVARCHAR(max) NOT NULL,
     "DonationsAmount" DECIMAL(10, 2) NOT NULL
-    
+
 );
 
 CREATE TABLE "Activists"(
@@ -45,8 +45,8 @@ CREATE TABLE "Activists"(
     "Phone" NVARCHAR(max) NOT NULL,
 	"TwitterAcount" NVARCHAR(max) NOT NULL,
     "Earnings" DECIMAL(10, 2) NOT NULL,
-	 "ChosenProducts" INT NOT NULL,
-	  "ChosenCampaings" INT NOT NULL);
+	"ChosenProducts" INT NOT NULL,
+	"ChosenCampaings" INT NOT NULL);
 
 
 CREATE TABLE "Products"(
@@ -59,6 +59,25 @@ CREATE TABLE "Products"(
 	"IsDelivered" BIT NOT NULL,
     "ActivistBuyerID" INT, --foreign key references Activists (id), 
 );
+
+CREATE TABLE "ActiveCampaigns"(
+    "id" INT NOT NULL primary key identity,
+	"CampaignId" INT NOT NULL,
+	"CampaignName" NVARCHAR(max) NOT NULL,
+	"CampaignHashtag" NVARCHAR(max) NOT NULL,
+	"ActivistUserID" INT,
+    "ActivistFullName" NVARCHAR(max) NOT NULL,
+);
+
+ALTER TABLE ActiveCampaigns
+change COLUMN ActivistBuyerID TO ActivistUserID;
+
+SELECT p.ProductName, p.Price, p.ActivistBuyerID, a.FullName, a.Address
+FROM Products p
+INNER JOIN Activists a ON p.ActivistBuyerID = a.id
+WHERE p.BusinessUser = 1 AND p.IsBought = 1
+
+
 
 select * from Products where BusinessUser=1
 
@@ -83,6 +102,7 @@ drop table [dbo].[Owner]
 Drop table [dbo].[Products]
 Drop table [dbo].[Activists]
 Drop table [dbo].[Campaigns]
+Drop table ActiveCampaigns
 
 INSERT INTO Users ([UserType]) VALUES ('Admin') SELECT @@IDENTITY
 
@@ -91,10 +111,36 @@ insert into Owner values(2,'NewUser.fullName',' NewUser.email ','NewUser.cellPho
 select * from Owner
 select * from Users
 select * from Businesses
-select * from Activists
 select * from NonProfits
-select * from Campaigns
 select * from Products
+select * from ActiveCampaigns
+select * from Campaigns
+select * from Activists
+
+insert into ActiveCampaigns 
+values((select CampaignId from Campaigns where CampaignName='aa'),
+'aa',(select CampaignHashtag from Campaigns where CampaignName='aa'),(select ActivistUsersID from Activists where Email='economy.telhai@gmail.com'),
+(select FullName from Activists where Email='economy.telhai@gmail.com'))
+
+
+SELECT AC.*, A.TwitterAcount
+FROM ActiveCampaigns AC
+INNER JOIN Activists A ON AC.ActivistBuyerID = A.ActivistUsersID
+
+
+
+
+delete from Campaigns where CampaignName ='aa'
+
+insert into ActiveCampaigns 
+select CampaignId, 'aa', CampaignHashtag, ActivistUsersID, FullName
+from Campaigns, Activists
+where Campaigns.CampaignName='aa' and Activists.Email='economy.telhai@gmail.com'
+and not exists (select * from ActiveCampaigns where CampaignId = (select CampaignId from Campaigns where CampaignName='aa')
+and Email='economy.telhai@gmail.com')
+
+
+select * from Products where BusinessUser=" + userID + " and IsBought = 1
 
 UPDATE Campaigns
 SET DonationsAmount = 10
@@ -174,10 +220,15 @@ declare @answer varchar(100)
  if exists (select * from Activists where Email='economy.telhai@gmail.com') begin select @answer = 'true' end
  else begin select @answer = 'false' end select @answer
 
+
+ select * from Activists where ChosenProducts != 0
+
  select * from Activists
  select * from NonProfits
 select * from Campaigns
 select * from Products
+
+update Activists set ChosenProducts = ChosenProducts +1 where FullName='nasir'
 
 
 select * from Activists where id=(select ActivistBuyerID from Products where IsBought=1)
@@ -207,10 +258,18 @@ UPDATE Products
 SET IsBought = 0 , ActivistBuyerID=(select id from Activists where Email='economy.telhai@gmail.com')
 where ProductName='red'
 
+UPDATE Products
+SET IsBought = 0 , ActivistBuyerID=0
+
+
 
  UPDATE Activists
-SET Earnings = 120
+SET Earnings = 320
 where Email='economy.telhai@gmail.com'
+
+ UPDATE Activists
+SET Earnings = 220
+where Email='nasir@walla.com'
 
 UPDATE Products
 SET ActivistBuyerID=0,IsBought=0
@@ -235,3 +294,6 @@ UPDATE Products SET IsBought = 1, ActivistBuyerID =
 
  update Campaigns set DonationsAmount = DonationsAmount - 100 where CampaignId =
  (select Campaign from Products where ProductName='red')
+
+ UPDATE Activists SET Earnings = Earnings - 10 where Email = 'economy.telhai@gmail.com'UPDATE Products SET IsBought = 1, ActivistBuyerID = (select id from Activists where Email = 'economy.telhai@gmail.com') where ProductName = 'TOMATO'
+ update Campaigns set DonationsAmount = DonationsAmount - 10 where CampaignId =(select Campaign from Products where ProductName='TOMATO') update Activists set ChosenProducts = ChosenProducts +1 where FullName='economy.telhai@gmail.com'

@@ -1,8 +1,8 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { addOwnerUser } from "../../../../services/ownerService";
-import { FormContext } from "../../../../context/context";
-import "./css/addingOInfo.css";
+import { addOwnerUser } from "../../../../../services/ownerService";
+import { FormContext } from "../../../../../context/context";
+import "../css/addingOInfo.css";
 
 export const OwnerUserForm = () => {
   const [fullName, setFullName] = useState("");

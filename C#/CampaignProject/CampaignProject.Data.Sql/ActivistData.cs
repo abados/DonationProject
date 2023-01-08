@@ -1,4 +1,5 @@
 ﻿using CampaignProject.DAL;
+using CampaignProject.Model;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -138,6 +139,16 @@ namespace CampaignProject.Data.Sql
             DAL.SqlQuery.Update_Delete_Insert_RowInDB(uploadNewUserQuery);
 
         }
+
+        public void signActivistToCampaignInTheDB(string campaignName, string userEmail)
+        {
+
+            string uploadActiveCampaignQuery = "insert into ActiveCampaigns select CampaignId, '"+ campaignName + "', CampaignHashtag, ActivistUsersID, FullName from Campaigns, Activists where Campaigns.CampaignName='"+ campaignName + "' and Activists.Email='"+ userEmail + "' and not exists (select * from ActiveCampaigns where CampaignId = (select CampaignId from Campaigns where CampaignName='" + campaignName + "') and Email='"+ userEmail + "')";
+            DAL.SqlQuery.Update_Delete_Insert_RowInDB(uploadActiveCampaignQuery);
+
+        }
+
+
 
         public string AddNewUser(string userType)
         {

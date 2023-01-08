@@ -49,3 +49,14 @@ export const getPurches = async (Identifier) => {
       console.log(error);
     });
 };
+
+export const signInForCampaign = async (campaignName, userEmail) => {
+  return await axios
+    .post("http://localhost:7033/api/Activist/SIGNCAMPAIGN", {
+      variable1: campaignName,
+      variable2: userEmail,
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};

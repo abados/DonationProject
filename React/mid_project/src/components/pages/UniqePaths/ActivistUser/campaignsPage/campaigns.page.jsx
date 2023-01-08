@@ -4,10 +4,14 @@ import { ClockLoader } from "react-spinners";
 import { useNavigate, useLocation } from "react-router-dom";
 import "../css/organizationCard.css";
 import { CardToCampagin } from "./cardToPresentCampaigns";
+import { useAuth0 } from "@auth0/auth0-react";
+import { signInForCampaign } from "../../../../../services/activistService";
+import { ToastContainer, toast } from "react-toastify";
 
 export const ActivistCampaignsPage = () => {
   const [campaignsList, setCampaignsList] = useState([]);
   const [showClock, setShowClock] = useState(true);
+  const { user } = useAuth0();
   const navigate = useNavigate();
   const location = useLocation();
   const { organ, userEarnings } = location.state;
@@ -17,7 +21,19 @@ export const ActivistCampaignsPage = () => {
     setCampaignsList(res);
   };
 
-  const handleBeActive = () => {};
+  const handleBeActive = (cName) => {
+    signInForCampaign(cName, user.email);
+    toast.success("🦄 Congrats, we signed you to this campaign!", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
 
   const handleClaim = (cName) => {
     console.log(cName);
@@ -55,7 +71,7 @@ export const ActivistCampaignsPage = () => {
               <>
                 <CardToCampagin
                   campaign={campaign}
-                  handleBeActive={() => handleBeActive()}
+                  handleBeActive={() => handleBeActive(campaign.campaignName)}
                   handleClaim={() => handleClaim(campaign.campaignName)}
                 />
               </>
@@ -74,6 +90,18 @@ export const ActivistCampaignsPage = () => {
           </>
         )}
       </div>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };
