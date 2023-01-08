@@ -16,9 +16,22 @@ export const getCampaings = async () => {
     });
 };
 
-export const getDonates = async (Identifier) => {
+export const getActivist = async (allOrNot) => {
   return await axios
-    .get(`http://localhost:7033/api/Business/GETMYPRODUCTS/${Identifier}`)
+    .get(`http://localhost:7033/api/Business/GET_ACTIVIST/${allOrNot}`)
+    .then((response) => {
+      return Object.values(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+export const getDonates = async (Identifier, shipment) => {
+  return await axios
+    .get(
+      `http://localhost:7033/api/Business/GETMYPRODUCTS/${Identifier}/${shipment}`
+    )
     .then((response) => {
       return Object.values(response.data);
     })

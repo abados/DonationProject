@@ -8,9 +8,16 @@ export const CardDonate = ({ product, handleDelete }) => {
           <div className="card-body">
             <h5 className="card-title">{product.productName}</h5>
             <p className="card-text">{}</p>
-            <button className="btnDonate" onClick={() => handleDelete(product)}>
-              Delete{" "}
-            </button>
+            {product.IsBought ? (
+              <p>This item is ordered</p>
+            ) : (
+              <button
+                className="btnDonate"
+                onClick={() => handleDelete(product)}
+              >
+                Delete
+              </button>
+            )}
           </div>
         </div>
       </div>

@@ -20,7 +20,6 @@ export const NavBarComponent = () => {
   const [loading, setLoading] = useState(true);
   const { RoleContext, setRoleContext } = useContext(UserRoleContext);
   const { formSubmitted } = useContext(FormContext);
-  console.log("formSubmitted", formSubmitted);
   const [isExists, setIsExists] = useState("false");
 
   //bring the user Role
@@ -325,7 +324,7 @@ export const NavBarComponent = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/contactus">
+                <Link to="/business/ShipmentPage">
                   <LocalShippingIcon />
                   <label className="navLbl">Shipment tracking </label>
                 </Link>

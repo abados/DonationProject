@@ -8,6 +8,7 @@ namespace CampaignProject.Model
 {
     public class ActivistUser:User
     {
+        public int id { get; set; }
         public string address { get; set; }
 
         public string TwitterAcount { get; set; }

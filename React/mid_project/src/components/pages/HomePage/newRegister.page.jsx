@@ -1,4 +1,5 @@
 import React from "react";
+import "./homePage.css";
 import { useAuth0 } from "@auth0/auth0-react";
 
 export const NewRegisterPage = () => {

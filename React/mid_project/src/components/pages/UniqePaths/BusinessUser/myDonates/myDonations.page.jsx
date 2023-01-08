@@ -13,7 +13,7 @@ export const MyDonationsPage = () => {
   const { user } = useAuth0();
 
   const getProductsFromDB = async () => {
-    let res = await getDonates(user.email);
+    let res = await getDonates(user.email, "");
     setProductList(res);
     console.log(res);
   };

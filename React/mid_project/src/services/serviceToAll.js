@@ -13,7 +13,6 @@ export const getRole = async (userId) => {
 
 export const checkIfExsits = async (userEmail, Table) => {
   let url = `http://localhost:7033/api/${Table}/Find/${userEmail}`;
-  console.log(url);
   let answer = await axios.get(url);
   return answer.data;
 };

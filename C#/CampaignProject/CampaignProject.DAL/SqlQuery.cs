@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -18,15 +19,17 @@ namespace CampaignProject.DAL
         {
             object retHash = null;
             
-
-
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
 
                 // Adapter
                 using (SqlCommand command = new SqlCommand(SqlQuery, connection))
                 {
-                    connection.Open();
+
+                    if (connection.State != ConnectionState.Open)
+                    {
+                        connection.Open();
+                    }
                     //Reader
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
@@ -42,8 +45,7 @@ namespace CampaignProject.DAL
         {
             object retHash = null;
             
-            //string connectionString = ConfigurationManager.AppSettings["connectionString"];
-
+         
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -66,8 +68,6 @@ namespace CampaignProject.DAL
         public static string getOneDataFromDBInString(string SqlQuery, SetDataReader_delegate Ptrfunc)
         {
 
-
-            //string connectionString = ConfigurationManager.AppSettings["connectionString"];
 
             string id;
             using (SqlConnection connection = new SqlConnection(connectionString))

@@ -24,6 +24,7 @@ import { ActivistOrganizationsPage } from "./components/pages/UniqePaths/Activis
 import { ActivistCampaignsPage } from "./components/pages/UniqePaths/ActivistUser/campaignsPage/campaigns.page";
 import { ClaimRwardsForActivist } from "./components/pages/UniqePaths/ActivistUser/claimRewardsPage/productsAsRewards.page";
 import { PurchesOFActivist } from "./components/pages/UniqePaths/ActivistUser/purchesPage/purches.page";
+import { BoughtProductsPage } from "./components/pages/UniqePaths/BusinessUser/shipment/products.Page";
 
 function App() {
   const { isAuthenticated, isLoading, user } = useAuth0();
@@ -68,6 +69,10 @@ function App() {
               <Route
                 path="/activist/Purches"
                 element={<PurchesOFActivist />}
+              ></Route>
+              <Route
+                path="/business/ShipmentPage"
+                element={<BoughtProductsPage />}
               ></Route>
               <Route
                 path="/activist/campaignsProducts"

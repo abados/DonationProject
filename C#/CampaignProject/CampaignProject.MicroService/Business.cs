@@ -21,8 +21,8 @@ namespace CampaignProject.MicroService
     {
         [FunctionName("Business")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post","delete", Route = "Business/{action}/{Identifier?}")] HttpRequest req,
-            string action, string Identifier, ILogger log)
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post","delete", Route = "Business/{action}/{Identifier?}/{specificAction?}")] HttpRequest req,
+            string action, string Identifier, string specificAction, ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
@@ -40,10 +40,15 @@ namespace CampaignProject.MicroService
 
                     break;
                 case "GETMYPRODUCTS":
-                    if (Identifier.Contains("@"))
+                    if (Identifier.Contains("@") && specificAction==null)
                     {//if we came from a business user path and we send business data
                     var id = MainManager.Instance.Business.getIDS(Identifier, "");
-                    return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Product.getProductsOfSpecificBusinessFromDB(int.Parse(id[0]))));
+                    return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Product.getUnBoughtProductsOfSpecificBusinessFromDB(int.Parse(id[0]))));
+                    }
+                    else if(specificAction.Equals("trackShipment"))
+                    {
+                        var id = MainManager.Instance.Business.getIDS(Identifier, "");
+                        return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Product.getBoughtProductsOfSpecificBusinessFromDB(int.Parse(id[0]))));
                     }
                     else
                     {//if we came from a activist user path and we send campaign data
@@ -101,8 +106,10 @@ namespace CampaignProject.MicroService
 
 
 
-                case "GET_CAMPAINGS":
-                    return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Campaign.getCampaignsFromDB()));
+                case "GET_ACTIVIST":
+
+                    return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Activist.getAllOrNotActiveUsers(Identifier)));
+                    
                     break;
             
 

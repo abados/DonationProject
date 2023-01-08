@@ -179,6 +179,13 @@ declare @answer varchar(100)
 select * from Campaigns
 select * from Products
 
+
+select * from Activists where id=(select ActivistBuyerID from Products where IsBought=1)
+
+update Campaigns
+set DonationsAmount = DonationsAmount - 1
+where CampaignId =(select Campaign from Products where ProductName='red')
+
 select * from Products where Campaign=(select CampaignId from Campaigns where CampaignName='sdf')
 
  select * from Campaigns where NonProfitUserID=(select id from NonProfits where OrganizationName ='kuku')
@@ -218,4 +225,13 @@ select * from Products where Campaign=
 (select CampaignId from Campaigns where CampaignName='sdf') and IsBought = 0
 
 select * from Products where ActivistBuyerID=
-(select id from Activists where Email = 'economy.telhai@gmail.com') and IsBought = 1
+(select id from Activists where Email = 'economy.telhai@gmail.com') and IsBought = 1 
+
+
+UPDATE Activists SET Earnings = Earnings - 100 where Email = 'economy.telhai@gmail.com'
+
+UPDATE Products SET IsBought = 1, ActivistBuyerID =
+(select id from Activists where Email = 'economy.telhai@gmail.com') where ProductName = 'red'
+
+ update Campaigns set DonationsAmount = DonationsAmount - 100 where CampaignId =
+ (select Campaign from Products where ProductName='red')

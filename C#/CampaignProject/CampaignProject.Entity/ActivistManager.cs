@@ -50,5 +50,18 @@ namespace CampaignProject.Entity
 
         }
 
+        public List<ActivistUser> ActivistUserList = new List<ActivistUser>();
+        public List<ActivistUser> getAllOrNotActiveUsers(string allOrNot)
+        {
+            Data.Sql.ActivistData user = new Data.Sql.ActivistData();
+
+            ActivistUserList= (List<ActivistUser>)user.getActivistsList(allOrNot);
+
+            return ActivistUserList;
+
+        }
+
+  
+
     }
 }

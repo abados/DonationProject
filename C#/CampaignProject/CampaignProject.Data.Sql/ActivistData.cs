@@ -41,18 +41,44 @@ namespace CampaignProject.Data.Sql
         public CampaignProject.Model.ActivistUser ReadOneFromDb(SqlDataReader reader)
         {
 
+
             CampaignProject.Model.ActivistUser Activist = new CampaignProject.Model.ActivistUser();
+
             while (reader.Read())
             {
 
                 Activist.fullName = reader.GetString(2);
                 Activist.email = reader.GetString(3);
+                
                 Activist.cellPhone = reader.GetString(5);
                 Activist.Earnings = reader.GetDecimal(7);
+                
 
 
             }
             return Activist;
+        }
+
+        public List<Model.ActivistUser> ReadListOfActivistsFromDb(SqlDataReader reader)
+        {
+
+
+            List<Model.ActivistUser> ActivistList = new List<Model.ActivistUser>();
+
+            while (reader.Read())
+            {
+                Model.ActivistUser Activist = new Model.ActivistUser();
+                Activist.id = reader.GetInt32(0);
+                Activist.fullName = reader.GetString(2);
+                Activist.email = reader.GetString(3);
+                Activist.address = reader.GetString(4);
+                Activist.cellPhone = reader.GetString(5);
+                Activist.Earnings = reader.GetDecimal(7);
+                ActivistList.Add(Activist);
+
+
+            }
+            return ActivistList;
         }
 
         public object SendSqlQueryToReadFromDBForOneUser(string userEmail)
@@ -60,19 +86,38 @@ namespace CampaignProject.Data.Sql
             string SqlQuery = "declare @answer varchar(100)\n if exists (select * from Activists where Email=" + "'" + userEmail + "'" + ") begin select @answer = 'true' end else begin select @answer = 'false' end select @answer";
             object retObject = DAL.SqlQuery.getOneDataFromDB(SqlQuery, ReadOneFromDb);
 
-            //string SqlQuery = "select * from Activists where Email=" + "'" + userEmail + "'";
-            //object retObject = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadOneFromDb);
+           
             return retObject;
 
         }
 
         public string getActivistUserEarnings(string userEmail)
         {
-
-
             string SqlQuery = "select Earnings from Activists where Email=" + "'" + userEmail + "'";
             string retObject = (string)DAL.SqlQuery.getOneDataFromDB(SqlQuery, ReadOneFromDb);
             
+            return retObject;
+
+
+        }
+
+        public object getActivistsList(string allOrNot)
+        {
+            object retObject=null;
+
+            if (allOrNot.Equals("NOT"))
+            {
+                string SqlQuery = " select * from Activists where ChosenProducts != 0";
+                retObject = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadListOfActivistsFromDb);
+            }
+            else
+            {
+                string SqlQuery = "select * from Activists";
+                 retObject = (string)DAL.SqlQuery.getDataFromDB(SqlQuery, ReadListOfActivistsFromDb);
+            }
+
+          
+
             return retObject;
 
 
@@ -89,7 +134,7 @@ namespace CampaignProject.Data.Sql
         public void makeAPurchesInTheDB(string productName, decimal productPrice, string userEmail)
         {
             string uploadNewUserQuery = "UPDATE Activists SET Earnings = Earnings - " + productPrice + " where Email = '"+userEmail+"'" +
-                "UPDATE Products SET IsBought = 1, ActivistBuyerID = (select id from Activists where Email = '"+ userEmail + "') where ProductName = '"+ productName + "'\n update Campaigns set DonationsAmount = DonationsAmount - " + productPrice + " where CampaignId =(select Campaign from Products where ProductName='"+ productName + "')";
+                "UPDATE Products SET IsBought = 1, ActivistBuyerID = (select id from Activists where Email = '"+ userEmail + "') where ProductName = '"+ productName + "'\n update Campaigns set DonationsAmount = DonationsAmount - " + productPrice + " where CampaignId =(select Campaign from Products where ProductName='"+ productName + "') update Activists set ChosenProducts = ChosenProducts +1 where Email='"+userEmail+"'";
             DAL.SqlQuery.Update_Delete_Insert_RowInDB(uploadNewUserQuery);
 
         }

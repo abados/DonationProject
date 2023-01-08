@@ -29,7 +29,7 @@ export const ClaimRwardsForActivist = () => {
   const handleBuy = (ProductPrice, productName) => {
     console.log(productName);
 
-    if (ProductPrice >= earnings) {
+    if (ProductPrice > earnings) {
       toast.warn("🛒 insufficient funds!", {
         position: "top-center",
         autoClose: 5000,
@@ -58,8 +58,8 @@ export const ClaimRwardsForActivist = () => {
       getProductsFromDB();
 
       //by this order:
-      //1.lower activist income (i need product price)
-      //2.change IsBought status of the product(i need product name)
+      ////1.lower activist income (i need product price) - DONE
+      ////2.change IsBought status of the product(i need product name) - DONE
       //3. make it not visible to other activists users(add a condition to the getDonates sql query that ignore those which are bought)
       //4. add it to the trackings list of the business user(nre page that take just product that is bought)
       //
