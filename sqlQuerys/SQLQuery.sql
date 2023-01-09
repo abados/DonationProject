@@ -117,15 +117,21 @@ select * from ActiveCampaigns
 select * from Campaigns
 select * from Activists
 
+update Activists 
+set Earnings=300
+where id=3
+
+update Activists set Earnings = Earnings + (5 * 2) where id = 2
+update Activists set Earnings = Earnings + (5 * 2) where ActivistUsersID = 5
+
 insert into ActiveCampaigns 
 values((select CampaignId from Campaigns where CampaignName='aa'),
 'aa',(select CampaignHashtag from Campaigns where CampaignName='aa'),(select ActivistUsersID from Activists where Email='economy.telhai@gmail.com'),
 (select FullName from Activists where Email='economy.telhai@gmail.com'))
 
 
-SELECT AC.*, A.TwitterAcount
-FROM ActiveCampaigns AC
-INNER JOIN Activists A ON AC.ActivistBuyerID = A.ActivistUsersID
+SELECT AC.*, A.TwitterAcount 
+FROM ActiveCampaigns AC INNER JOIN Activists A ON AC.ActivistBuyerID = A.ActivistUsersID
 
 
 

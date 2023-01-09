@@ -33,8 +33,11 @@ namespace CampaignProject.MicroService
             switch (action)
             {
                 case "Find":
-                    try { 
-                    return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Owner.getProductByIDFromDB(Identifier)));
+                    try {
+                       
+                        
+                        return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Owner.getProductByIDFromDB(Identifier)));
+                       
                     }
                     catch (Exception ex)
                     {

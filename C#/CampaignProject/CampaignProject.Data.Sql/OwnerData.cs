@@ -1,5 +1,6 @@
 ﻿using CampaignProject.DAL;
 using CampaignProject.Model;
+using LoggingLibrary;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -67,6 +68,7 @@ namespace CampaignProject.Data.Sql
         {
             string SqlQuery = "declare @answer varchar(100)\n if exists (select * from Owner where Email="+"'"+userEmail+"'"+") begin select @answer = 'true' end else begin select @answer = 'false' end select @answer";
             object retObject = DAL.SqlQuery.getOneDataFromDB(SqlQuery, ReadOneFromDb);
+            Logger.Log("check if the user exsist", LoggingLibrary.LogLevel.Event);
             return retObject;
 
 
