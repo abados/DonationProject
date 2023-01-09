@@ -5,32 +5,38 @@ import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import {
   getDonates,
-  getActivist,
+  sendTheItem,
 } from "../../../../../services/businessService";
 
 export const BoughtProductsPage = () => {
   const [productsData, setProductsData] = useState([]);
   const [countForTable, setCountForTable] = useState(1);
+  const [render, setRender] = useState(false);
 
   const { user } = useAuth0();
 
   const getProductsFromDB = async () => {
     let res = await getDonates(user.email, "trackShipment");
     setProductsData(res);
+    setRender(false);
   };
 
   useEffect(() => {
     setTimeout(() => {
       getProductsFromDB();
     }, 3000);
-  }, []);
+  }, [render]);
 
-  const [expanded, setExpanded] = useState(false);
-  const [key, setKey] = useState();
+  // const [expanded, setExpanded] = useState(false);
+  // const [key, setKey] = useState();
 
   function handleClick(productKey) {
-    setExpanded(!expanded);
-    setKey(productKey);
+    sendTheItem(productKey);
+    getProductsFromDB();
+    setRender(true);
+
+    // setExpanded(!expanded);
+    // setKey(productKey);
   }
 
   return (
@@ -51,44 +57,43 @@ export const BoughtProductsPage = () => {
             productsData.map((product, index) => {
               return (
                 <>
-                  <tr onClick={() => handleClick(product.productID)}>
+                  <tr>
                     <th scope="row">{countForTable + index}</th>
                     <td>{product.productName}</td>
                     <td>{product.price}$</td>
                     <td>{product.fullName}</td>
                     <td>{product.addressToShip}</td>
                     <td>
-                      <button className="btnShipThis">
-                        <div className="svg-wrapper-1">
-                          <div className="svg-wrapper3">
-                            <svg
-                              className="svhShip"
-                              xmlns="http://www.w3.org/2000/svg"
-                              viewBox="0 0 24 24"
-                              width="24"
-                              height="24"
-                            >
-                              <path fill="none" d="M0 0h24v24H0z"></path>
-                              <path
-                                fill="currentColor"
-                                d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"
-                              ></path>
-                            </svg>
+                      {!product.IsDelivered ? (
+                        <button
+                          className="btnShipThis"
+                          onClick={() => handleClick(product.Id)}
+                        >
+                          <div className="svg-wrapper-1">
+                            <div className="svg-wrapper3">
+                              <svg
+                                className="svhShip"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                width="24"
+                                height="24"
+                              >
+                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                <path
+                                  fill="currentColor"
+                                  d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"
+                                ></path>
+                              </svg>
+                            </div>
                           </div>
-                        </div>
-                        <span className="spanSend">Send</span>
-                      </button>
+                          <span className="spanSend">Send</span>
+                        </button>
+                      ) : (
+                        <p>The product shipped</p>
+                      )}
                     </td>
                     <td></td>
                   </tr>
-                  {expanded && product.productID === key ? (
-                    <tr className="expanded">
-                      <td colSpan={4} className="expanded">
-                        <h4>{product.productName} Description : </h4>
-                        {product.quantityPerUnit}
-                      </td>
-                    </tr>
-                  ) : null}
                 </>
               );
             })

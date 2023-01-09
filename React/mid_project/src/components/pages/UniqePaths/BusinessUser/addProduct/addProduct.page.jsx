@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { searchIDS } from "../../../../../services/businessService";
+import { uploadProduct } from "../../../../../services/businessService";
 import { useAuth0 } from "@auth0/auth0-react";
 import "./addProduct.css";
 
@@ -22,7 +22,7 @@ export const AddProductPage = () => {
     const userEmail = user.email;
     const defaultVariableIS = false;
     const defaultActivist = 0;
-    searchIDS(
+    uploadProduct(
       userEmail,
       campaing,
       productName,

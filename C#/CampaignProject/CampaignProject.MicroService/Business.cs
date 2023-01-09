@@ -14,6 +14,7 @@ using Newtonsoft.Json.Linq;
 using Microsoft.VisualBasic;
 using Microsoft.Extensions.FileSystemGlobbing;
 using System.Linq;
+using LoggingLibrary;
 
 namespace CampaignProject.MicroService
 {
@@ -29,37 +30,51 @@ namespace CampaignProject.MicroService
             switch (action)
             {
                 case "Find":
-
+                    try { 
                     return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Business.getProductByIDFromDB(Identifier)));
-
+                    }
+                    catch(Exception ex)
+                    {                                            
+                            Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);     
+                    }
                     break;
                 case "ADD":
-                    Model.BusinessUser business = new Model.BusinessUser();
-                    business = System.Text.Json.JsonSerializer.Deserialize<Model.BusinessUser>(req.Body);
-                    MainManager.Instance.Business.SendNewInputToDataLayer(business);
-
+                    try
+                    {
+                        Model.BusinessUser business = new Model.BusinessUser();
+                        business = System.Text.Json.JsonSerializer.Deserialize<Model.BusinessUser>(req.Body);
+                        MainManager.Instance.Business.SendNewInputToDataLayer(business);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                    }
                     break;
                 case "GETMYPRODUCTS":
-                    if (Identifier.Contains("@") && specificAction==null)
-                    {//if we came from a business user path and we send business data
-                    var id = MainManager.Instance.Business.getIDS(Identifier, "");
-                    return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Product.getUnBoughtProductsOfSpecificBusinessFromDB(int.Parse(id[0]))));
-                    }
-                    else if(specificAction.Equals("trackShipment"))
+                    try
                     {
-                        var id = MainManager.Instance.Business.getIDS(Identifier, "");
-                        return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Product.getBoughtProductsOfSpecificBusinessFromDB(int.Parse(id[0]))));
+                        if (Identifier.Contains("@") && specificAction == null)
+                        {//if we came from a business user path and we send business data
+                            var id = MainManager.Instance.Business.getIDS(Identifier, "");
+                            return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Product.getUnBoughtProductsOfSpecificBusinessFromDB(int.Parse(id[0]))));
+                        }
+                        else if (specificAction.Equals("trackShipment"))
+                        {
+                            var id = MainManager.Instance.Business.getIDS(Identifier, "");
+                            return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Product.getBoughtProductsOfSpecificBusinessFromDB(int.Parse(id[0]))));
+                        }
+                        else
+                        {//if we came from a activist user path and we send campaign data
+                            return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Product.getProductsOfSpecificCampaignFromDB(Identifier)));
+                        }
                     }
-                    else
-                    {//if we came from a activist user path and we send campaign data
-                        return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Product.getProductsOfSpecificCampaignFromDB(Identifier)));
+                    catch (Exception ex)
+                    {
+                        Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
                     }
                     break;
                 case "DELETEAPRODUCT":
-
-
                     //In the case of the POST request, the request body is being sent as a JSON string, so it can be deserialized directly using the JsonSerializer. However, in the case of the DELETE request, when you are trying to send the product object in the request body, rather than as a JSON string.In this case, you need to serialize the object into a string before sending it in the request body with ReadToEndAsync().
-
                     try
                     {
                         Model.Product productToDelete = new Model.Product();
@@ -67,17 +82,13 @@ namespace CampaignProject.MicroService
                         productToDelete = System.Text.Json.JsonSerializer.Deserialize<Model.Product>(requestBodyToDelete);
                         MainManager.Instance.Product.DeleteAProduct(productToDelete.productName,productToDelete.businessID);
                     }
-                    catch (Exception x)
+                    catch (Exception ex)
                     {
-                        Console.WriteLine(x.Message);
+                        Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
                     }
                     break;
-
-
-
                 case "UPLOADPRODUCT":
-         
-
+                    try { 
                     string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
                     dynamic data = JsonConvert.DeserializeObject<JObject>(requestBody);
                     string EmailToSearch = data.Value<string>("variable1");
@@ -102,16 +113,30 @@ namespace CampaignProject.MicroService
 
 
                     return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Business.getIDS(EmailToSearch, CampaignToSearch)));
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                    }                   
                     break;
-
-
-
                 case "GET_ACTIVIST":
-
+                    try { 
                     return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Activist.getAllOrNotActiveUsers(Identifier)));
-                    
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                    }                  
                     break;
-            
+                case "SHIPIT":
+                    try { 
+                    MainManager.Instance.Business.SendTheItems(int.Parse(Identifier));
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                    }                    
+                    break;
 
                 default:
                     break;

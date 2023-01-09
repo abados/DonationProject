@@ -8,10 +8,12 @@
     <PackageReference Include="RestSharp" Version="108.0.3" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
     <PackageReference Include="System.Text.Json" Version="4.7.2" />
+    <PackageReference Include="TweetinviAPI" Version="5.0.4" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CampaignProject.Entity\CampaignProject.Entity.csproj" />
     <ProjectReference Include="..\CampaignProject.Model\CampaignProject.Model.csproj" />
+    <ProjectReference Include="..\LoggingLibrary\LoggingLibrary.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="host.json">

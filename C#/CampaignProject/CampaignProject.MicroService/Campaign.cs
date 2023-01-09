@@ -11,6 +11,7 @@ using System.Reflection;
 using RestSharp;
 using Newtonsoft.Json.Linq;
 using CampaignProject.Entity;
+using LoggingLibrary;
 
 namespace CampaignProject.MicroService
 {
@@ -26,12 +27,18 @@ namespace CampaignProject.MicroService
             switch (action)
             {
                 case "ADD":
+                    try { 
                     Model.Campaign campaign = new Model.Campaign();
                     campaign = System.Text.Json.JsonSerializer.Deserialize<Model.Campaign>(req.Body);
                     MainManager.Instance.Campaign.SendNewInputToDataLayer(campaign, Identifier);
-
+                    }
+                    catch(Exception ex)
+                    {
+                        Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                    }
                     break;
                 case "GET":
+                    try { 
                     if(Identifier==null)
                     { 
                     return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Campaign.getCampaignsFromDB()));
@@ -39,6 +46,11 @@ namespace CampaignProject.MicroService
                     else
                     {
                         return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Campaign.getSpecificCampaignsFromDB(Identifier)));
+                    }
+                    }
+                    catch(Exception ex)
+                    {
+                        Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
                     }
                     break;
                 case "UPDATE":
@@ -52,17 +64,21 @@ namespace CampaignProject.MicroService
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine(ex);
+                        Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
                     }
 
                     break;
                 case "DELETE":
-
+                    try { 
                     MainManager.Instance.Campaign.DeleteACampaingByName(Identifier);
-
+                    }
+                    catch(Exception ex)
+                    {
+                        Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                    }
                     break;
                 case "ROLE":
-                   
+                    try { 
                     var urlGetRole = $"https://dev-qjf7hgqeu16fymem.us.auth0.com/api/v2/users/{Identifier}/roles";
                     var client = new RestClient(urlGetRole);
                     var request = new RestRequest("",Method.Get);
@@ -78,6 +94,11 @@ namespace CampaignProject.MicroService
                     {
                         return new NotFoundResult();
                     }
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                    }
 
                     break;
 
@@ -86,7 +107,7 @@ namespace CampaignProject.MicroService
 
             }
 
-            return new OkObjectResult("here for checking");
+            return new OkObjectResult("not reaching");
         }
     }
 }

@@ -78,5 +78,11 @@ namespace CampaignProject.Data.Sql
                 return "1";
             }
         }
+
+        public void DeliveredTheItem(int productID)
+        {
+            string uploadNewUserQuery = "update Products set IsDelivered=1 where id="+productID+"";
+            DAL.SqlQuery.Update_Delete_Insert_RowInDB(uploadNewUserQuery);
+        }
     }
 }

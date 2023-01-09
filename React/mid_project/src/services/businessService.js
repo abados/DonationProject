@@ -40,7 +40,7 @@ export const getDonates = async (Identifier, shipment) => {
     });
 };
 
-export const searchIDS = async (
+export const uploadProduct = async (
   businessID,
   campaignName,
   productName,
@@ -72,4 +72,12 @@ export const deleteProductFromDb = async (product) => {
   } catch (error) {
     console.error(error);
   }
+};
+
+export const sendTheItem = async (productID) => {
+  return await axios
+    .post(`http://localhost:7033/api/Business/SHIPIT/${productID}`)
+    .catch((error) => {
+      console.log(error);
+    });
 };

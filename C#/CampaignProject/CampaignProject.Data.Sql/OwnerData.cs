@@ -72,10 +72,17 @@ namespace CampaignProject.Data.Sql
 
         }
 
-        Model.Owner newUser = new Model.Owner();
+        //Model.Owner newUser = new Model.Owner();
         public void SendSqlQueryToInsertToDB(Model.Owner NewUser, int userID)
         {
             string uploadNewUserQuery = "insert into Owner values('" + userID + "','" + NewUser.fullName + "','" + NewUser.email + "','" + NewUser.cellPhone + "')";
+            DAL.SqlQuery.Update_Delete_Insert_RowInDB(uploadNewUserQuery);
+
+        }
+
+        public void SendSqlQueryToPay(int ActivityCount,int activistID)
+        {
+            string uploadNewUserQuery = "update Activists set Earnings = Earnings + (5 * "+ ActivityCount+ ") where ActivistUsersID = " + activistID+"";
             DAL.SqlQuery.Update_Delete_Insert_RowInDB(uploadNewUserQuery);
 
         }

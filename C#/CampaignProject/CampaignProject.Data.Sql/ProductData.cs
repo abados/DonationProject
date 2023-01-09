@@ -46,11 +46,13 @@ namespace CampaignProject.Data.Sql
             while (reader.Read())
             {
                 Model.Shipment productToShip = new Model.Shipment();
-                productToShip.productName = reader.GetString(0);
-                productToShip.price = reader.GetDecimal(1);
-                productToShip.ActivistBuyerID = reader.GetInt32(2);
-                productToShip.fullName = reader.GetString(3);
-                productToShip.addressToShip = reader.GetString(4);
+                productToShip.Id = reader.GetInt32(0);
+                productToShip.productName = reader.GetString(1);
+                productToShip.price = reader.GetDecimal(2);
+                productToShip.ActivistBuyerID = reader.GetInt32(3);
+                productToShip.IsDelivered= reader.GetBoolean(4);
+                productToShip.fullName = reader.GetString(5);
+                productToShip.addressToShip = reader.GetString(6);
                 
                 ProductToShipsList.Add(productToShip);
 
@@ -80,7 +82,7 @@ namespace CampaignProject.Data.Sql
 
         public object SqlQueryToReadBoughtProductsFromDB(int userID)
         {
-            string SqlQuery = "SELECT p.ProductName, p.Price, p.ActivistBuyerID, a.FullName, a.Address FROM Products p INNER JOIN Activists a ON p.ActivistBuyerID = a.id WHERE p.BusinessUser ="+userID+ " AND p.IsBought = 1";
+            string SqlQuery = "SELECT p.id, p.ProductName, p.Price, p.ActivistBuyerID,p.IsDelivered , a.FullName, a.Address FROM Products p INNER JOIN Activists a ON p.ActivistBuyerID = a.id WHERE p.BusinessUser ="+userID+ " AND p.IsBought = 1";
             object retDict = null;
             retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadShipmentFromDb);
             return retDict;

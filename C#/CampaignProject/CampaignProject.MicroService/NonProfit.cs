@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using CampaignProject.Entity;
 using CampaignProject.Model;
+using LoggingLibrary;
 
 namespace CampaignProject.MicroService
 {
@@ -24,23 +25,27 @@ namespace CampaignProject.MicroService
             switch (action)
             {
                 case "Find":
-
-                    return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.NonProfit.getProductByIDFromDB(Identifier)));
-
-                    break;
+                    try
+                    {
+                        return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.NonProfit.getProductByIDFromDB(Identifier)));
+                    
+                    }
+                    catch (Exception ex)
+                    {
+                         Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                    }   
+            break;
                 case "ADD":
+                    try { 
                     NonProfitUser newUser = new NonProfitUser();
                     newUser = System.Text.Json.JsonSerializer.Deserialize<NonProfitUser>(req.Body);
                     MainManager.Instance.NonProfit.SendNewInputToDataLayer(newUser);
-                    
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                    }
                     break;
-                case "GETONE":
-
-                    //Model.Product p = MainManager.Instance.product.getProductByIDFromDB(IdNumber);
-                    //return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(p));
-
-                    break;
-
                 default:
                     break;
 

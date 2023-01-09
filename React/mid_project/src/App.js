@@ -26,6 +26,7 @@ import { ClaimRwardsForActivist } from "./components/pages/UniqePaths/ActivistUs
 import { PurchesOFActivist } from "./components/pages/UniqePaths/ActivistUser/purchesPage/purches.page";
 import { BoughtProductsPage } from "./components/pages/UniqePaths/BusinessUser/shipment/products.Page";
 import { CheckTweetsAndGivePoints } from "./components/pages/UniqePaths/Owner/checkingTweets/checkTweets.page";
+import { ReportParamsPage } from "./components/pages/UniqePaths/Owner/reportsPage/reportParams.page";
 
 function App() {
   const { isAuthenticated, isLoading, user } = useAuth0();
@@ -115,6 +116,10 @@ function App() {
               <Route
                 path="/Admin/addingOInfo"
                 element={<OwnerUserForm onFormSubmit={setFormSubmitted} />}
+              ></Route>
+              <Route
+                path="/Admin/Reports"
+                element={<ReportParamsPage />}
               ></Route>
             </Routes>
           </UserRoleContext.Provider>

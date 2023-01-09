@@ -89,7 +89,7 @@ export const NavBarComponent = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/contactus">
+                <Link to="/Admin/Reports">
                   <CallIcon />
                   <label className="navLbl">Reports</label>
                 </Link>

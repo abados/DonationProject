@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CampaignProject.Data.Sql", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CampaignProject.MicroService", "CampaignProject.MicroService\CampaignProject.MicroService.csproj", "{03F907B5-81C0-4358-B36F-5290169F99D0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggingLibrary", "LoggingLibrary\LoggingLibrary.csproj", "{C4A7341D-2046-4464-8E8D-0D9D44A06E6A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{03F907B5-81C0-4358-B36F-5290169F99D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03F907B5-81C0-4358-B36F-5290169F99D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03F907B5-81C0-4358-B36F-5290169F99D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4A7341D-2046-4464-8E8D-0D9D44A06E6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4A7341D-2046-4464-8E8D-0D9D44A06E6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4A7341D-2046-4464-8E8D-0D9D44A06E6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4A7341D-2046-4464-8E8D-0D9D44A06E6A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
