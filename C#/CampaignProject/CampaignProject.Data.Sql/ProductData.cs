@@ -95,6 +95,7 @@ namespace CampaignProject.Data.Sql
             retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadFromDb);
             return retDict;
         }
+
         public object SqlQueryToReadPurchesProductsFromDB(string userEmail)
         {
             string SqlQuery = "select * from Products where ActivistBuyerID=\r\n(select id from Activists where Email ='" + userEmail + "') and IsBought = 1";
@@ -120,6 +121,33 @@ namespace CampaignProject.Data.Sql
             string deleteQuery = "delete from Products where ProductName ='" + productName + "' and BusinessUser=" + businessID + "";
             DAL.SqlQuery.Update_Delete_Insert_RowInDB(deleteQuery);
 
+        }
+
+        /////////////////Reports functions////////////
+        
+
+        public object SqlQueryToReadAllBoughtProductsFromDB()
+        {
+            string SqlQuery = "select * from Products where IsBought=1";
+            object retDict = null;
+            retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadFromDb);
+            return retDict;
+        }
+
+        public object SqlQueryToReadAllBoughtAndNotDeliverdProductsFromDB()
+        {
+            string SqlQuery = "select * from Products where IsBought=1 and IsDelivered=0";
+            object retDict = null;
+            retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadFromDb);
+            return retDict;
+        }
+
+        public object SqlQueryToReadAllProductsFromDB()
+        {
+            string SqlQuery = "select * from Products";
+            object retDict = null;
+            retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadFromDb);
+            return retDict;
         }
     }
 }

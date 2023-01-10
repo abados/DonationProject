@@ -17,6 +17,13 @@ using System.Linq;
 using static System.Net.WebRequestMethods;
 using Tweetinvi;
 using LoggingLibrary;
+using iTextSharp.text.pdf;
+using iTextSharp.text;
+using CsvHelper;
+using CsvHelper.Configuration;
+using System.Globalization;
+using System.Net.Http;
+using System.Net;
 
 namespace CampaignProject.MicroService
 {
@@ -36,7 +43,7 @@ namespace CampaignProject.MicroService
                     try {
                        
                         
-                        return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Owner.getProductByIDFromDB(Identifier)));
+                        return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Owner.FindTheUser(Identifier)));
                        
                     }
                     catch (Exception ex)
@@ -113,13 +120,174 @@ namespace CampaignProject.MicroService
                     }
 
                     break;
-              
+                case "REPORT":
+                    try
+                    {
+                        string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+                        dynamic data = JsonConvert.DeserializeObject<JObject>(requestBody);
+                        string Table = data.Value<string>("variable1");
+                        string Search = data.Value<string>("variable2");
+                        string TypeOfFile = data.Value<string>("variable3");
+
+                        switch (Table)
+                        {
+                            case "Products":
+                                try
+                                {
+                                    if (Search == "All products")
+                                    {
+                                        return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Product.getAllProductsForReport()));
+                                    }
+                                    else if (Search == "Bought products") {
+                         
+                                        return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Product.getBoughtProductsFromDB()));
+                                    }
+                                    else
+                                    { //Bought and not deliverd products
+
+                                        return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Product.getBoughtAndNotDeliverdProductsFromDB()));
+                                    }
+                                }
+
+                                catch (Exception ex)
+                                {
+                                    Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                                }
+                                break;
+                            case "Users":
+                                try
+                                {
+                                    if (Search == "Business users") {
+                                        return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Owner.getBusinessUsers()));
+                                    }
+                                    else if (Search == "Nonprofits users") {
+                                        return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Owner.getNonProfitUsers()));
+                                    }
+                                    else if (Search == "Activists users") {
+                                        return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Owner.getActivistUsers()));
+                                    }
+                                    else {
+                                        return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Owner.UsersEarningsSum()));
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                                }
+                                break;
+                            case "Campaigns":
+                                try
+                                {
+                                    if (Search == "All campaigns") {
+                                        return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Campaign.getCampaignsFromDBInList()));
+                                    }
+                                    else {
+                                        return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Owner.bringDataAboutCampaignsActivity()));
+                                    }
+
+                                }
+                                catch(Exception ex) {
+                                    Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                                }
+                                break;
+                            default:
+                                Console.WriteLine("Invalid choice.");
+                                break;
+                        }
+
+                    
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                    }
+
+                    break;
+
                 default:
                     break;
 
             }
 
             return new OkObjectResult("here for checking");
+        }
+    }
+
+    public class CreatePDF
+    {
+        // Method to create a pdf
+        public HttpResponseMessage CreatePdf(List<Product> products)
+        {
+            MemoryStream memory = new MemoryStream();
+            // Create a new PDF document
+            Document pdfDocument = new Document();
+            try
+            {
+                // Create a PdfWriter to write the PDF document to the Memory stream
+                PdfWriter pdfWriter = PdfWriter.GetInstance(pdfDocument, memory);
+
+                // Open the PDF document
+                pdfDocument.Open();
+
+                // Add content to the PDF document
+                pdfDocument.Add(new Paragraph("Product List:"));
+                pdfDocument.Add(new Paragraph("\n"));
+                PdfPTable table = new PdfPTable(7);
+                table.WidthPercentage = 100;
+                
+                table.AddCell("Name");
+                table.AddCell("Price");
+                table.AddCell("Donate By");
+                table.AddCell("Donate To");
+                table.AddCell("Is Bought");
+                table.AddCell("Is Deliverd");
+
+                foreach (var product in products)
+                {
+                    table.AddCell(product.productName);
+                    table.AddCell(product.price.ToString());
+                    table.AddCell(product.businessID.ToString());
+                    table.AddCell(product.campaignID.ToString());
+                    table.AddCell(product.IsBought.ToString());
+                    table.AddCell(product.IsDelivered.ToString());
+                }
+                pdfDocument.Add(table);
+
+                // Close the PDF document
+                pdfDocument.Close();
+
+                pdfWriter.Close();
+            }
+            catch (Exception ex)
+            {
+                // handle exception
+            }
+
+            HttpResponseMessage result = new HttpResponseMessage(HttpStatusCode.OK);
+            result.Content = new StreamContent(memory);
+            result.Content.Headers.ContentDisposition =
+                new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment")
+                {
+                    FileName = "Myfile.pdf"
+                };
+            result.Content.Headers.ContentType =
+               new System.Net.Http.Headers.MediaTypeHeaderValue("application/pdf");
+
+            return result;
+        }
+    }
+
+    public class CreateCSV
+    {
+        public MemoryStream CreateCsv(List<Product> products)
+        {
+            MemoryStream memory = new MemoryStream();
+            var writer = new StreamWriter(memory);
+            var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture));
+            csv.WriteRecords(products);
+            writer.Flush();
+            memory.Position = 0;
+            return memory;
         }
     }
 }

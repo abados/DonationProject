@@ -29,7 +29,7 @@ namespace CampaignProject.Data.Sql
         public object SendSqlQueryToReadFromDBForOneUser(string userEmail)
         {
             string SqlQuery = "declare @answer varchar(100)\n if exists (select * from Businesses where Email=" + "'" + userEmail + "'" + ") begin select @answer = 'true' end else begin select @answer = 'false' end select @answer";
-            object retObject = DAL.SqlQuery.getOneDataFromDB(SqlQuery, ReadOneFromDb);
+            object retObject = DAL.SqlQuery.getOneDataFromDB(SqlQuery);
             return retObject;
 
 
@@ -39,7 +39,7 @@ namespace CampaignProject.Data.Sql
         {
             
             string SqlQueryForBusinessID = "select id from Businesses where  Email=" + "'" + userEmail + "'" + "";
-            string retObject = DAL.SqlQuery.getOneDataFromDBInString(SqlQueryForBusinessID, ReadOneFromDb);
+            string retObject = DAL.SqlQuery.getOneDataFromDBInString(SqlQueryForBusinessID);
 
             if (campaignName == "")
             {
@@ -49,7 +49,7 @@ namespace CampaignProject.Data.Sql
             }
 
             string SqlQueryForCampaignID = "select CampaignId from Campaigns where  CampaignName=" + "'" + campaignName + "'" + "";
-            string retObjec2 = DAL.SqlQuery.getOneDataFromDBInString(SqlQueryForCampaignID, ReadOneFromDb);
+            string retObjec2 = DAL.SqlQuery.getOneDataFromDBInString(SqlQueryForCampaignID);
             string[] array = new string[2] { retObject, retObjec2 };
 
             return array;

@@ -27,7 +27,7 @@ namespace CampaignProject.MicroService
                 case "Find":
                     try
                     {
-                        return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.NonProfit.getProductByIDFromDB(Identifier)));
+                        return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.NonProfit.FindTheUser(Identifier)));
                     
                     }
                     catch (Exception ex)

@@ -12,14 +12,17 @@ namespace CampaignProject.Entity
     {
 
         //Global Dictionary
-        public Dictionary<string, Campaign> CampaignsList = new Dictionary<string, Campaign>();
+        public Dictionary<string, Campaign> CampaignsDict = new Dictionary<string, Campaign>();
 
-        public Dictionary<string, Campaign> getCampaignsFromDB()
+        public List<Campaign> CampaignsList = new List<Campaign>();
+
+        public List<ActiveCampaigns> ActiveCampaignsList = new List<ActiveCampaigns>();
+        public Dictionary<string, Campaign> getCampaignsFromDBInDIctionary()
         {
             Data.Sql.CampaignData campaign = new Data.Sql.CampaignData();
-            try { 
-            CampaignsList = (Dictionary<string, Campaign>)campaign.SqlQueryToReadFromDB();
-                return CampaignsList;
+            try {
+                CampaignsDict = (Dictionary<string, Campaign>)campaign.SqlQueryToReadCampaignsFromDBIntoDict();
+                return CampaignsDict;
             }
             catch (Exception ex)
             {
@@ -29,12 +32,45 @@ namespace CampaignProject.Entity
            
         }
 
+        public List<Campaign> getCampaignsFromDBInList()
+        {
+            Data.Sql.CampaignData campaign = new Data.Sql.CampaignData();
+            try
+            {
+                CampaignsList = (List<Campaign>)campaign.SqlQueryToReadCampaignsFromDBIntoList();
+                return CampaignsList;
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                return null;
+            }
+
+        }
+
+
+        public List<ActiveCampaigns> getActiveCampaignsFromDBInList()
+        {
+            Data.Sql.CampaignData campaign = new Data.Sql.CampaignData();
+            try
+            {
+                ActiveCampaignsList = (List<ActiveCampaigns>)campaign.SqlQueryToReadActiveCampaignsFromDBIntoList();
+                return ActiveCampaignsList;
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                return null;
+            }
+
+        }
+
         public Dictionary<string, Campaign> getSpecificCampaignsFromDB(string organizationEmail)
         {
             Data.Sql.CampaignData campaign = new Data.Sql.CampaignData();
-            try { 
-            CampaignsList = (Dictionary<string, Campaign>)campaign.specificCampaigns(organizationEmail); ;
-            return CampaignsList;
+            try {
+                CampaignsDict = (Dictionary<string, Campaign>)campaign.specificCampaigns(organizationEmail); ;
+            return CampaignsDict;
             }
             catch (Exception ex)
             {

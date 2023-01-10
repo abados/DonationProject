@@ -16,17 +16,7 @@ namespace LoggingLibrary
     public static class Logger
     {
 
-        static Logger()
-        {
-            AppDomain.CurrentDomain.ProcessExit += (sender, eventArgs) =>
-            {
-                using (var fileStream = new FileStream("log.txt", FileMode.Truncate))
-                {
-                    
-                }
-            };
-        }
-
+       
         public static void Log(string message, LogLevel level)
         {
             // Code to write the log message to a file or database, or send it to a logging service.
@@ -35,6 +25,7 @@ namespace LoggingLibrary
             using (var fileStream = new FileStream("log.txt", FileMode.Append))
             using (var writer = new StreamWriter(fileStream))
             {
+
                 writer.WriteLine($"{DateTime.Now} {level}: {message}");
                 
             }

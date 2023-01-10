@@ -10,7 +10,7 @@ namespace CampaignProject.Entity
 {
     public class NonProfitManager
     {
-        public string getProductByIDFromDB(string UserEmail)
+        public string FindTheUser(string UserEmail)
         {
             Data.Sql.NonProfitData NonProfit = new Data.Sql.NonProfitData();
             try

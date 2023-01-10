@@ -31,7 +31,7 @@ namespace CampaignProject.MicroService
                 case "Find":
                     //check if the user allready sign as a role
                     try { 
-                    return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Activist.getProductByIDFromDB(Identifier)));
+                    return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Activist.FindTheUser(Identifier)));
                     }
                     catch (Exception ex)
                     {

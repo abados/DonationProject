@@ -64,10 +64,71 @@ namespace CampaignProject.Data.Sql
             return owner;
         }
 
+        public List<BusinessUser> ReadBusinessUsersFromDb(SqlDataReader reader)
+        {
+            List<BusinessUser> businessUsers = new List<BusinessUser>();
+            CampaignProject.Model.BusinessUser Buser = new CampaignProject.Model.BusinessUser();
+            while (reader.Read())
+            {
+
+                Buser.fullName = reader.GetString(1);
+                Buser.email = reader.GetString(2);
+                Buser.cellPhone = reader.GetString(3);
+                Buser.businessName= reader.GetString(4);
+
+                businessUsers.Add(Buser);
+
+            }
+            return businessUsers;
+        }
+
+
+        public List<NonProfitUser> ReadProfitUsersFromDb(SqlDataReader reader)
+        {
+            List<NonProfitUser> NonProfitUsers = new List<NonProfitUser>();
+            CampaignProject.Model.NonProfitUser Nuser = new CampaignProject.Model.NonProfitUser();
+            while (reader.Read())
+            {
+
+                Nuser.fullName = reader.GetString(2);
+                Nuser.email = reader.GetString(3);
+                Nuser.cellPhone = reader.GetString(4);
+                Nuser.organizationUrl = reader.GetString(5);
+                Nuser.organizationName = reader.GetString(6);
+                Nuser.organizationDescription = reader.GetString(7);
+
+                NonProfitUsers.Add(Nuser);
+
+            }
+            return NonProfitUsers;
+        }
+
+
+        public List<ActivistUser> ReadActivistUsersFromDb(SqlDataReader reader)
+        {
+            List<ActivistUser> ActivistUsers = new List<ActivistUser>();
+            CampaignProject.Model.ActivistUser Auser = new CampaignProject.Model.ActivistUser();
+            while (reader.Read())
+            {
+
+                Auser.fullName = reader.GetString(2);
+                Auser.email = reader.GetString(3);
+                Auser.address = reader.GetString(4);
+                Auser.cellPhone = reader.GetString(5);
+                Auser.TwitterAcount = reader.GetString(6);
+                Auser.Earnings = reader.GetDecimal(7);
+               
+
+                ActivistUsers.Add(Auser);
+
+            }
+            return ActivistUsers;
+        }
+
         public object SendSqlQueryToReadFromDBForOneUser(string userEmail)
         {
             string SqlQuery = "declare @answer varchar(100)\n if exists (select * from Owner where Email="+"'"+userEmail+"'"+") begin select @answer = 'true' end else begin select @answer = 'false' end select @answer";
-            object retObject = DAL.SqlQuery.getOneDataFromDB(SqlQuery, ReadOneFromDb);
+            object retObject = DAL.SqlQuery.getOneDataFromDB(SqlQuery);
             Logger.Log("check if the user exsist", LoggingLibrary.LogLevel.Event);
             return retObject;
 
@@ -109,6 +170,40 @@ namespace CampaignProject.Data.Sql
             object retDict = null;
             retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadTweetActivityFromDb);
             return retDict;
+        }
+
+        ////////Report functions/////
+        
+        public object bringAallBusinessUsers()
+        {
+            string SqlQuery = "SELECT * from Businesses";
+            object retDict = null;
+            retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadBusinessUsersFromDb);
+            return retDict;
+        }
+
+        public object bringAallNonProfitUsers()
+        {
+            string SqlQuery = "SELECT * from NonProfits";
+            object retDict = null;
+            retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadProfitUsersFromDb);
+            return retDict;
+        }
+
+        public object bringAllActivistUsers()
+        {
+            string SqlQuery = "SELECT * from Activists";
+            object retDict = null;
+            retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadActivistUsersFromDb);
+            return retDict;
+        }
+
+        public string bringEarningSumUp()
+        {
+            string SqlQuery = "SELECT SUM(Earnings) as TotalEarnings FROM Activists;";
+            string EarningsSum = null;
+            EarningsSum = DAL.SqlQuery.getOneDataFromDBInString(SqlQuery);
+            return EarningsSum;
         }
 
     }

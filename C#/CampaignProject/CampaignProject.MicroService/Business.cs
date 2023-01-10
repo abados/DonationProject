@@ -31,7 +31,7 @@ namespace CampaignProject.MicroService
             {
                 case "Find":
                     try { 
-                    return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Business.getProductByIDFromDB(Identifier)));
+                    return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Business.FindTheUser(Identifier)));
                     }
                     catch(Exception ex)
                     {                                            

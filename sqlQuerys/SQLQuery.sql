@@ -36,6 +36,8 @@ CREATE TABLE "Campaigns"(
 
 );
 
+SELECT SUM(Earnings) as TotalEarnings FROM Activists;
+
 CREATE TABLE "Activists"(
     "id" INT NOT NULL  primary key identity,
 	"ActivistUsersID" INT NOT NULL foreign key references Users (id),
@@ -133,6 +135,8 @@ values((select CampaignId from Campaigns where CampaignName='aa'),
 SELECT AC.*, A.TwitterAcount 
 FROM ActiveCampaigns AC INNER JOIN Activists A ON AC.ActivistBuyerID = A.ActivistUsersID
 
+SELECT AC.*, A.TwitterAcount FROM ActiveCampaigns AC 
+INNER JOIN Activists A ON AC.ActivistBuyerID = A.ActivistUsersID
 
 
 

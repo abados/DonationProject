@@ -41,7 +41,7 @@ namespace CampaignProject.MicroService
                     try { 
                     if(Identifier==null)
                     { 
-                    return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Campaign.getCampaignsFromDB()));
+                    return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Campaign.getCampaignsFromDBInDIctionary()));
                     }
                     else
                     {

@@ -9,7 +9,7 @@ namespace CampaignProject.Entity
 {
     public class BusinessManager
     {
-        public string getProductByIDFromDB(string UserEmail)
+        public string FindTheUser(string UserEmail)
         {
             try
             {

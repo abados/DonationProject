@@ -10,7 +10,7 @@ namespace CampaignProject.Data.Sql
 {
     public class CampaignData
     {
-        public Dictionary<string, Model.Campaign> ReadFromDb(SqlDataReader reader)
+        public Dictionary<string, Model.Campaign> ReadFromDbIntoDict(SqlDataReader reader)
         {
             Dictionary<string, Model.Campaign> CampaignsList = new Dictionary<string, Model.Campaign>();
 
@@ -43,11 +43,68 @@ namespace CampaignProject.Data.Sql
             return CampaignsList;
         }
 
-        public object SqlQueryToReadFromDB()
+        public List<Campaign> ReadFromDbIntoList(SqlDataReader reader)
+        {
+            List<Campaign> CampaignsList = new List<Campaign>();
+
+            //Clear Hashtable Before Inserting Information From Sql Server
+            CampaignsList.Clear();
+
+            while (reader.Read())
+            {
+                Model.Campaign campaign = new Model.Campaign();
+                campaign.campaignName = reader.GetString(2);
+                campaign.campaignInfo = reader.GetString(3);
+                campaign.campaignHashtag = reader.GetString(4);
+                campaign.campaignUrl = reader.GetString(5);
+                campaign.donationAmount = reader.GetDecimal(6);
+
+                   
+                 CampaignsList.Add(campaign);
+            }
+            return CampaignsList;
+        }
+
+        public List<ActiveCampaigns> ReadFromActiveCampaignsDbIntoList(SqlDataReader reader)
+        {
+            List<ActiveCampaigns> CampaignsList = new List<ActiveCampaigns>();
+
+            //Clear Hashtable Before Inserting Information From Sql Server
+            CampaignsList.Clear();
+
+            while (reader.Read())
+            {
+                Model.ActiveCampaigns active = new Model.ActiveCampaigns();
+                active.campaignName = reader.GetString(2);
+                active.campaignHashtag = reader.GetString(3);
+                active.activeUserId = reader.GetInt32(4);
+                active.ActiveUserName = reader.GetString(5);
+                
+                CampaignsList.Add(active);
+            }
+            return CampaignsList;
+        }
+        public object SqlQueryToReadCampaignsFromDBIntoDict()
         {
             string SqlQuery = "select * from Campaigns";
             object retDict = null;
-            retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadFromDb);
+            retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadFromDbIntoDict);
+            return retDict;
+        }
+
+        public object SqlQueryToReadActiveCampaignsFromDBIntoList()
+        {
+            string SqlQuery = "select * from ActiveCampaigns";
+            object retDict = null;
+            retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadFromActiveCampaignsDbIntoList);
+            return retDict;
+        }
+
+        public object SqlQueryToReadCampaignsFromDBIntoList()
+        {
+            string SqlQuery = "select * from Campaigns";
+            object retDict = null;
+            retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadFromDbIntoList);
             return retDict;
         }
 
@@ -55,7 +112,7 @@ namespace CampaignProject.Data.Sql
         {
             string SqlQuery = " select * from Campaigns where NonProfitUserID=(select id from NonProfits where Email =" + "'" + organ + "'" + ")";
             object retDict = null;
-            retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadFromDb);
+            retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadFromDbIntoDict);
             return retDict;
         }
 

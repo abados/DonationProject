@@ -27,6 +27,7 @@ namespace CampaignProject.Entity
             return ProductsToShipList;
         }
 
+
         public List<Product> getPurchesProductsOFromDB(string userEmail)
         {//to get bought products of specific Activist
             Data.Sql.ProductData product = new Data.Sql.ProductData();
@@ -52,6 +53,31 @@ namespace CampaignProject.Entity
             Data.Sql.ProductData product = new Data.Sql.ProductData();
             product.SendSqlQueryToInsertNewProductToDB(newProduct);
 
+        }
+
+
+        /////////////Report functions////////////
+        
+
+        public List<Product> getBoughtProductsFromDB()
+        {//to get products that specific Business donate
+            Data.Sql.ProductData product = new Data.Sql.ProductData();
+            ProductsList = (List<Product>)product.SqlQueryToReadAllBoughtProductsFromDB();
+            return ProductsList;
+        }
+
+        public List<Product> getBoughtAndNotDeliverdProductsFromDB()
+        {//to get products that specific Business donate
+            Data.Sql.ProductData product = new Data.Sql.ProductData();
+            ProductsList = (List<Product>)product.SqlQueryToReadAllBoughtAndNotDeliverdProductsFromDB();
+            return ProductsList;
+        }
+
+        public List<Product> getAllProductsForReport()
+        {
+            Data.Sql.ProductData product = new Data.Sql.ProductData();
+            ProductsList = (List<Product>)product.SqlQueryToReadAllProductsFromDB();
+            return ProductsList;
         }
     }
 }

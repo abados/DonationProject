@@ -10,7 +10,7 @@ namespace CampaignProject.Entity
 {
     public class ActivistManager
     {
-        public string getProductByIDFromDB(string UserEmail)
+        public string FindTheUser(string UserEmail)
         {//chack if the userEmail is allready in the sql to know if the user signUp
 
             Data.Sql.ActivistData Activist = new Data.Sql.ActivistData();

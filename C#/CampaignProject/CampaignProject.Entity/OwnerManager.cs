@@ -10,7 +10,7 @@ namespace CampaignProject.Entity
 {
     public class OwnerManager
     {
-        public string getProductByIDFromDB(string UserEmail)
+        public string FindTheUser(string UserEmail)
         {
             Data.Sql.OwnerData Owner = new Data.Sql.OwnerData();
             try { 
@@ -65,6 +65,31 @@ namespace CampaignProject.Entity
             }
         }
 
+     ///////////Report Function////////
+     
+        public List<BusinessUser> getBusinessUsers()
+        {
+            Data.Sql.OwnerData Owner = new Data.Sql.OwnerData();
+            return (List<BusinessUser>)Owner.bringAallBusinessUsers();
+        }
 
+        public List<NonProfitUser> getNonProfitUsers()
+        {
+            Data.Sql.OwnerData Owner = new Data.Sql.OwnerData();
+            return (List<NonProfitUser>)Owner.bringAallNonProfitUsers();
+        }
+
+        public List<ActivistUser> getActivistUsers()
+        {
+            Data.Sql.OwnerData Owner = new Data.Sql.OwnerData();
+            return (List<ActivistUser>)Owner.bringAllActivistUsers();
+        }
+
+        public string UsersEarningsSum()
+        {
+            Data.Sql.OwnerData Owner = new Data.Sql.OwnerData();
+            return Owner.bringEarningSumUp();
+            
+        }
     }
 }

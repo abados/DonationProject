@@ -33,7 +33,7 @@ namespace CampaignProject.Data.Sql
         public object SendSqlQueryToReadFromDBForOneUser(string userEmail)
         {
             string SqlQuery = "declare @answer varchar(100)\n if exists (select * from NonProfits where Email=" + "'" + userEmail + "'" + ") begin select @answer = 'true' end else begin select @answer = 'false' end select @answer";
-            object retObject = DAL.SqlQuery.getOneDataFromDB(SqlQuery, ReadOneFromDb);
+            object retObject = DAL.SqlQuery.getOneDataFromDB(SqlQuery);
             return retObject;
 
 

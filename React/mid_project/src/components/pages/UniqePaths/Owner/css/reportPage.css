@@ -1,3 +1,8 @@
+.reportPage {
+  width: 84%;
+  height: 100vh;
+  margin-left: 210px;
+}
 .reportHeader {
   display: flex;
   justify-content: center;
@@ -11,17 +16,17 @@
 }
 
 .reportNav {
-  width: 83%;
+  width: 100% !important;
   height: 30px;
-  margin-left: 217px;
+
   background-color: slategrey;
 }
 
 .btnReport {
   height: 25px !important;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
 }
 
 .selectReport {
