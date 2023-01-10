@@ -39,10 +39,6 @@ export const ReportParamsPage = () => {
       setOption3(event.target.value);
     }
     if (showOptions) setShowOptions(false);
-
-    console.log(option1);
-    console.log(option2);
-    console.log(option3);
   };
 
   const handleSendReport = async () => {
@@ -50,7 +46,7 @@ export const ReportParamsPage = () => {
 
     var dataArray = await GenerateReport(option1, option2, option3);
     setListOfData(dataArray);
-
+    console.log(listOfData);
     setShowOptions(!showOptions);
   };
 
@@ -177,9 +173,11 @@ export const ReportParamsPage = () => {
         {showOptions && (
           <div>
             {option1 === "Products" && (
-              <ProductReport Productlist={listOfData} />
+              <ProductReport Productlist={listOfData} result={option2} />
             )}
-            {option1 === "Users" && <UsersReport Userslist={listOfData} />}
+            {option1 === "Users" && (
+              <UsersReport Userslist={listOfData} result={option2} />
+            )}
             {option1 === "Campaigns" && (
               <CampaignReport Campaignlist={listOfData} result={option2} />
             )}

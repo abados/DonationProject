@@ -67,10 +67,10 @@ namespace CampaignProject.Data.Sql
         public List<BusinessUser> ReadBusinessUsersFromDb(SqlDataReader reader)
         {
             List<BusinessUser> businessUsers = new List<BusinessUser>();
-            CampaignProject.Model.BusinessUser Buser = new CampaignProject.Model.BusinessUser();
+            
             while (reader.Read())
             {
-
+                CampaignProject.Model.BusinessUser Buser = new CampaignProject.Model.BusinessUser();
                 Buser.fullName = reader.GetString(1);
                 Buser.email = reader.GetString(2);
                 Buser.cellPhone = reader.GetString(3);
@@ -86,10 +86,10 @@ namespace CampaignProject.Data.Sql
         public List<NonProfitUser> ReadProfitUsersFromDb(SqlDataReader reader)
         {
             List<NonProfitUser> NonProfitUsers = new List<NonProfitUser>();
-            CampaignProject.Model.NonProfitUser Nuser = new CampaignProject.Model.NonProfitUser();
+            
             while (reader.Read())
             {
-
+                CampaignProject.Model.NonProfitUser Nuser = new CampaignProject.Model.NonProfitUser();
                 Nuser.fullName = reader.GetString(2);
                 Nuser.email = reader.GetString(3);
                 Nuser.cellPhone = reader.GetString(4);
@@ -107,21 +107,23 @@ namespace CampaignProject.Data.Sql
         public List<ActivistUser> ReadActivistUsersFromDb(SqlDataReader reader)
         {
             List<ActivistUser> ActivistUsers = new List<ActivistUser>();
-            CampaignProject.Model.ActivistUser Auser = new CampaignProject.Model.ActivistUser();
+           
+
+            ActivistUsers.Clear();
+
             while (reader.Read())
             {
-
+                CampaignProject.Model.ActivistUser Auser = new CampaignProject.Model.ActivistUser();
                 Auser.fullName = reader.GetString(2);
                 Auser.email = reader.GetString(3);
                 Auser.address = reader.GetString(4);
                 Auser.cellPhone = reader.GetString(5);
                 Auser.TwitterAcount = reader.GetString(6);
                 Auser.Earnings = reader.GetDecimal(7);
-               
 
                 ActivistUsers.Add(Auser);
-
             }
+
             return ActivistUsers;
         }
 

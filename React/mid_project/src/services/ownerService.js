@@ -1,5 +1,4 @@
 import axios from "axios";
-import FileSaver from "file-saver";
 
 export const checkIfExsits2 = async (userEmail) => {
   let url = `http://localhost:7033/api/Owner/Find/${userEmail}`;

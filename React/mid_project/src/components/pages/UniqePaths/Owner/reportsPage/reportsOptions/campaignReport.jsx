@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 
 export const CampaignReport = ({ Campaignlist, result }) => {
-  //const [campaignList, setCampaignList] = useState([]);
-  const [countForTable, setCountForTable] = useState(1);
+  const [countForTable] = useState(1);
 
   if (result === "All campaigns") {
     return (

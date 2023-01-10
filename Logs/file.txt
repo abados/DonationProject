@@ -34,3 +34,4 @@
    at CampaignProject.Data.Sql.CampaignData.SqlQueryToReadActiveCampaignsFromDBIntoList() in C:\Users\User\source\Projects\Semester2\MidProject\C#\CampaignProject\CampaignProject.Data.Sql\CampaignData.cs:line 99
    at CampaignProject.Entity.CampaignManager.getActiveCampaignsFromDBInList() in C:\Users\User\source\Projects\Semester2\MidProject\C#\CampaignProject\CampaignProject.Entity\CampaignManager.cs:line 57
 10/01/2023 18:40:46 Event: check if the user exsist
+10/01/2023 21:59:49 Event: check if the user exsist
