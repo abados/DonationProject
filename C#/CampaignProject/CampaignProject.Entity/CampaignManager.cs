@@ -119,5 +119,11 @@ namespace CampaignProject.Entity
              
             }
         }
+
+        public string GetAuth0Bearer()
+        {
+            Data.Sql.CampaignData campaignData = new Data.Sql.CampaignData();
+            return campaignData.getBearer();
+        }
     }
 }

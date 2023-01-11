@@ -24,11 +24,13 @@ using CsvHelper.Configuration;
 using System.Globalization;
 using System.Net.Http;
 using System.Net;
+using Microsoft.Extensions.Configuration;
 
 namespace CampaignProject.MicroService
 {
     public static class Owner
     {
+
         [FunctionName("Owner")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "Owner/{action}/{Identifier?}")] HttpRequest req,

@@ -1,6 +1,7 @@
 ﻿using CampaignProject.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -142,6 +143,13 @@ namespace CampaignProject.Data.Sql
             string updateQuery = "update Campaigns set CampaignName ='" + campaign.campaignName + "', CampaignInfo='" + campaign.campaignInfo + "', CampaignHashtag='" + campaign.campaignHashtag + "', CampaignWebUrl='" + campaign.campaignUrl + "'where CampaignName='" + campaignName + "'";
             DAL.SqlQuery.Update_Delete_Insert_RowInDB(updateQuery);
 
+        }
+
+        public string getBearer()
+        {
+            string BearerQuery = "select VALUE from Config where [KEY]='Bearer'";
+            string Key = DAL.SqlQuery.getOneDataFromDBInString(BearerQuery);
+            return Key;
         }
     }
 }

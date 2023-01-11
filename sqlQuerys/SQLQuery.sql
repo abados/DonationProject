@@ -4,6 +4,24 @@ CREATE TABLE "Users"(
 );
 
 
+
+CREATE TABLE "ConfigData"(
+    "KEY_TOKEN" NVARCHAR(max) NOT NULL,
+    "VALUE" NVARCHAR(max) NOT NULL
+);
+
+select * from Config
+ insert into Config values('ACCESS_TOKEN_SECRET','bu9nlH5Rf9MdspFM2PrX1JUeTzf2H3DCXDRizFFOBrQAn')
+ select VALUE from Config where [KEY]='CONSUMER_KEY' or [KEY]='CONSUMER_SECRET' or
+ [KEY]='ACCESS_TOKEN' or [KEY]='ACCESS_TOKEN_SECRET'
+ SELECT  VALUE FROM Config WHERE [KEY]='CONSUMER_KEY'
+SELECT  VALUE FROM Config WHERE [KEY]='CONSUMER_SECRET'
+SELECT  VALUE FROM Config WHERE [KEY]='ACCESS_TOKEN'
+SELECT  VALUE FROM Config WHERE [KEY]='ACCESS_TOKEN_SECRET'
+
+select * from Config where [KEY]!='Bearer'
+
+
 CREATE TABLE "Businesses"(
     "id" INT NOT NULL primary key identity,
     "FullName" NVARCHAR(max) NOT NULL,
@@ -119,9 +137,9 @@ select * from ActiveCampaigns
 select * from Campaigns
 select * from Activists
 
-update Activists 
-set Earnings=300
-where id=3
+update Products 
+set IsDelivered=0,IsBought=0
+where id=25
 
 update Activists set Earnings = Earnings + (5 * 2) where id = 2
 update Activists set Earnings = Earnings + (5 * 2) where ActivistUsersID = 5

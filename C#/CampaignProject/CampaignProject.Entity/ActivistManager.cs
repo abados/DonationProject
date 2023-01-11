@@ -115,7 +115,15 @@ namespace CampaignProject.Entity
 
         }
 
-  
+        public ConfigData getTwitterKeys()
+        {
+            Data.Sql.ActivistData user = new Data.Sql.ActivistData();
+            ConfigData config = (ConfigData)user.bringTwitterKeysFromDB();
+            return config;
+
+        }
+
+
 
     }
 }

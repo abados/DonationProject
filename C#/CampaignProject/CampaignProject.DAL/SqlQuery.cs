@@ -6,11 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace CampaignProject.DAL
 {
     public class SqlQuery
     {
         static string connectionString = "Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=MidProject; Data Source=localhost\\SQLEXPRESS";
+
+  
         public delegate object SetDataReader_delegate(SqlDataReader reader);
         //Function that returns information from database and send the inforamtion to another function 
         //SqlDataReader reader contains all the information in sql database 

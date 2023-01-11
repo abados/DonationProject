@@ -11,6 +11,7 @@ using CampaignProject.Entity;
 using Newtonsoft.Json.Linq;
 using Tweetinvi;
 using LoggingLibrary;
+using CampaignProject.Model;
 
 namespace CampaignProject.MicroService
 {
@@ -23,7 +24,11 @@ namespace CampaignProject.MicroService
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
-            var userClient = new TwitterClient("zX1EUFfCOOjylrZVYqPGWhaFW", "IxVGJT46f1wg10abLtYyc6BSczCFWVR8n3xDKstLqquATdR0c4", "1606952036783751170-d3yI2QLY1rDQMGYUF1HzlOQQcvLSwl", "bu9nlH5Rf9MdspFM2PrX1JUeTzf2H3DCXDRizFFOBrQAn");
+            ConfigData config = new ConfigData();
+
+            config = MainManager.Instance.Activist.getTwitterKeys();
+
+            var userClient = new TwitterClient(config.CONSUMER_KEY, config.CONSUMER_SECRET, config.ACCESS_TOKEN, config.ACCESS_TOKEN_SECRET);
             var user = await userClient.Users.GetAuthenticatedUserAsync();
             
             switch (action)

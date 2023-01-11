@@ -60,6 +60,44 @@ namespace CampaignProject.Data.Sql
             return Activist;
         }
 
+
+        public CampaignProject.Model.ConfigData ReadTwitterKeysFromDb(SqlDataReader reader)
+        {
+
+
+            CampaignProject.Model.ConfigData TwitterKeys = new CampaignProject.Model.ConfigData();
+
+            while (reader.Read())
+            {
+
+                string key = reader.GetString(0);
+                string value = reader.GetString(1);
+                if (key == "CONSUMER_KEY")
+                {
+                    if (value != null)
+                        TwitterKeys.CONSUMER_KEY = value;
+                }
+                else if (key == "CONSUMER_SECRET")
+                {
+                    if (value != null)
+                        TwitterKeys.CONSUMER_SECRET = value;
+                }
+                else if (key == "ACCESS_TOKEN")
+                {
+                    if (value != null)
+                        TwitterKeys.ACCESS_TOKEN = value;
+                }
+                else if (key == "ACCESS_TOKEN_SECRET")
+                {
+                    if (value != null)
+                        TwitterKeys.ACCESS_TOKEN_SECRET = value;
+
+                }
+            }
+            return TwitterKeys;
+        }
+
+
         public List<Model.ActivistUser> ReadListOfActivistsFromDb(SqlDataReader reader)
         {
 
@@ -169,6 +207,14 @@ namespace CampaignProject.Data.Sql
             string SqlQuery = "select * from NonProfits";
             object retDict = null;
             retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadOrganizationFromDb);
+            return retDict;
+        }
+
+        public object bringTwitterKeysFromDB()
+        {
+            string SqlQuery = "select * from Config where [KEY]!='Bearer'";
+            object retDict = null;
+            retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadTwitterKeysFromDb);
             return retDict;
         }
     }
