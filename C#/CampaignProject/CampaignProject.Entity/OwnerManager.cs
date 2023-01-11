@@ -24,7 +24,7 @@ namespace CampaignProject.Entity
 
         }
 
-        public void SendNewInputToDataLayer(Model.Owner newOwner)
+        public void InsertNewItem(Model.Owner newOwner)
         {
             Data.Sql.OwnerData Owner = new Data.Sql.OwnerData();
             string userType = "Admin";
@@ -70,26 +70,55 @@ namespace CampaignProject.Entity
         public List<BusinessUser> getBusinessUsers()
         {
             Data.Sql.OwnerData Owner = new Data.Sql.OwnerData();
+            try { 
             return (List<BusinessUser>)Owner.bringAallBusinessUsers();
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
+            return null;
         }
+
 
         public List<NonProfitUser> getNonProfitUsers()
         {
             Data.Sql.OwnerData Owner = new Data.Sql.OwnerData();
+            try { 
             return (List<NonProfitUser>)Owner.bringAallNonProfitUsers();
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
+            return null;
         }
 
         public List<ActivistUser> getActivistUsers()
         {
             Data.Sql.OwnerData Owner = new Data.Sql.OwnerData();
+            try { 
             return (List<ActivistUser>)Owner.bringAllActivistUsers();
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
+            return null;
         }
 
         public string UsersEarningsSum()
         {
             Data.Sql.OwnerData Owner = new Data.Sql.OwnerData();
+            try { 
             return Owner.bringEarningSumUp();
-            
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
+            return null;
+
         }
     }
 }

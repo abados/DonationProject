@@ -25,6 +25,7 @@ using System.Globalization;
 using System.Net.Http;
 using System.Net;
 using Microsoft.Extensions.Configuration;
+using CampaignProject.DAL;
 
 namespace CampaignProject.MicroService
 {
@@ -41,32 +42,35 @@ namespace CampaignProject.MicroService
 
             switch (action)
             {
-                case "Find":
-                    try {
-                       
-                        
-                        return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Owner.FindTheUser(Identifier)));
-                       
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
-                    }
-                    break;
-                case "ADD":
-                    try { 
-                    Model.Owner owner = new Model.Owner();
-                    owner = System.Text.Json.JsonSerializer.Deserialize<Model.Owner>(req.Body);
-                    MainManager.Instance.Owner.SendNewInputToDataLayer(owner);
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
-                    }
-                    break;
-                case "TWEET":
+                case "Find"://Check if the user is in the DB
                     try
                     {
+                        Logger.Log("looking for a user in the DB", LoggingLibrary.LogLevel.Event);
+                        return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Owner.FindTheUser(Identifier)));
+
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                    }
+                    break;
+                case "ADD"://ADD ths user to the DB
+                    Logger.Log("adding user to the DB: ", LoggingLibrary.LogLevel.Event);
+                    try
+                    {
+                        Model.Owner owner = new Model.Owner();
+                        owner = System.Text.Json.JsonSerializer.Deserialize<Model.Owner>(req.Body);
+                        MainManager.Instance.Owner.InsertNewItem(owner);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                    }
+                    break;
+                case "TWEET"://A call to a function that checks tweets of specific people and specific tags and gives value accordingly
+                    Logger.Log("giveCreditOnActions called: ", LoggingLibrary.LogLevel.Event);
+                    try
+                    {//bring all of the active campaigns and the people that are sign to them, those are the activist we will check for TWEETS
                         Dictionary<int, Model.ActiveCampaigns> activeCampaignList = MainManager.Instance.Owner.bringDataAboutCampaignsActivity();
 
                         DateTime currentDate = DateTime.Today.AddDays(-1); ;
@@ -80,14 +84,14 @@ namespace CampaignProject.MicroService
                             Model.ActiveCampaigns value = pair.Value;
                             string startDate = "" + currentDay;
                             string endDate = "" + tomorrow;
-
+                            //search url that check if there are tweets of specific user, with specific hashtag on the last day
                             string urlTweets = $"https://api.twitter.com/1.1/search/tweets.json?q=from%3A{value.TwitterAcount}%20since%3A{startDate}%20until%3A{endDate}%20{value.campaignHashtag}result_type=recent&count=10";
 
 
                             var client = new RestClient(urlTweets);
                             var request = new RestRequest("", Method.Get);
                             // Our bearer token for twitter
-                            request.AddHeader("authorization", "Bearer AAAAAAAAAAAAAAAAAAAAAENakwEAAAAAMheCg%2FAIMZdIWvt6anqHp%2B46MN8%3DQhqomMVza0yUop6wV4YkrataIc2PfPHRPGTQ3rxydLSdahTn4Q");
+                            request.AddHeader("authorization", "" + MainManager.Instance.Campaign.GetBearer("TweetBearer"));
 
                             var response = client.Execute(request);
                             if (response.IsSuccessful)
@@ -122,7 +126,8 @@ namespace CampaignProject.MicroService
                     }
 
                     break;
-                case "REPORT":
+                case "REPORT"://A report page, it gets what type on information the owner seeks and make the specific query for it.
+                    Logger.Log("report called: ", LoggingLibrary.LogLevel.Event);
                     try
                     {
                         string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
@@ -140,8 +145,9 @@ namespace CampaignProject.MicroService
                                     {
                                         return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Product.getAllProductsForReport()));
                                     }
-                                    else if (Search == "Bought products") {
-                         
+                                    else if (Search == "Bought products")
+                                    {
+
                                         return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Product.getBoughtProductsFromDB()));
                                     }
                                     else
@@ -159,16 +165,20 @@ namespace CampaignProject.MicroService
                             case "Users":
                                 try
                                 {
-                                    if (Search == "Business users") {
+                                    if (Search == "Business users")
+                                    {
                                         return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Owner.getBusinessUsers()));
                                     }
-                                    else if (Search == "Nonprofits users") {
+                                    else if (Search == "Nonprofits users")
+                                    {
                                         return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Owner.getNonProfitUsers()));
                                     }
-                                    else if (Search == "Activists users") {
+                                    else if (Search == "Activists users")
+                                    {
                                         return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Owner.getActivistUsers()));
                                     }
-                                    else {
+                                    else
+                                    {
                                         return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Owner.UsersEarningsSum()));
                                     }
                                 }
@@ -180,15 +190,18 @@ namespace CampaignProject.MicroService
                             case "Campaigns":
                                 try
                                 {
-                                    if (Search == "All campaigns") {
+                                    if (Search == "All campaigns")
+                                    {
                                         return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Campaign.getCampaignsFromDBInList()));
                                     }
-                                    else {
+                                    else
+                                    {
                                         return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Owner.bringDataAboutCampaignsActivity()));
                                     }
 
                                 }
-                                catch(Exception ex) {
+                                catch (Exception ex)
+                                {
                                     Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
                                 }
                                 break;
@@ -197,7 +210,7 @@ namespace CampaignProject.MicroService
                                 break;
                         }
 
-                    
+
                     }
                     catch (Exception ex)
                     {
@@ -212,84 +225,6 @@ namespace CampaignProject.MicroService
             }
 
             return new OkObjectResult("here for checking");
-        }
-    }
-
-    public class CreatePDF
-    {
-        // Method to create a pdf
-        public HttpResponseMessage CreatePdf(List<Product> products)
-        {
-            MemoryStream memory = new MemoryStream();
-            // Create a new PDF document
-            Document pdfDocument = new Document();
-            try
-            {
-                // Create a PdfWriter to write the PDF document to the Memory stream
-                PdfWriter pdfWriter = PdfWriter.GetInstance(pdfDocument, memory);
-
-                // Open the PDF document
-                pdfDocument.Open();
-
-                // Add content to the PDF document
-                pdfDocument.Add(new Paragraph("Product List:"));
-                pdfDocument.Add(new Paragraph("\n"));
-                PdfPTable table = new PdfPTable(7);
-                table.WidthPercentage = 100;
-                
-                table.AddCell("Name");
-                table.AddCell("Price");
-                table.AddCell("Donate By");
-                table.AddCell("Donate To");
-                table.AddCell("Is Bought");
-                table.AddCell("Is Deliverd");
-
-                foreach (var product in products)
-                {
-                    table.AddCell(product.productName);
-                    table.AddCell(product.price.ToString());
-                    table.AddCell(product.businessID.ToString());
-                    table.AddCell(product.campaignID.ToString());
-                    table.AddCell(product.IsBought.ToString());
-                    table.AddCell(product.IsDelivered.ToString());
-                }
-                pdfDocument.Add(table);
-
-                // Close the PDF document
-                pdfDocument.Close();
-
-                pdfWriter.Close();
-            }
-            catch (Exception ex)
-            {
-                // handle exception
-            }
-
-            HttpResponseMessage result = new HttpResponseMessage(HttpStatusCode.OK);
-            result.Content = new StreamContent(memory);
-            result.Content.Headers.ContentDisposition =
-                new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment")
-                {
-                    FileName = "Myfile.pdf"
-                };
-            result.Content.Headers.ContentType =
-               new System.Net.Http.Headers.MediaTypeHeaderValue("application/pdf");
-
-            return result;
-        }
-    }
-
-    public class CreateCSV
-    {
-        public MemoryStream CreateCsv(List<Product> products)
-        {
-            MemoryStream memory = new MemoryStream();
-            var writer = new StreamWriter(memory);
-            var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture));
-            csv.WriteRecords(products);
-            writer.Flush();
-            memory.Position = 0;
-            return memory;
         }
     }
 }

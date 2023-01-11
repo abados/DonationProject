@@ -79,7 +79,7 @@ namespace CampaignProject.Entity
             }
         }
 
-        public void SendNewInputToDataLayer(Model.Campaign newCampaign, string uesrEmail)
+        public void InsertNewItem(Model.Campaign newCampaign, string uesrEmail)
         {
             Data.Sql.CampaignData campaign = new Data.Sql.CampaignData();
             try
@@ -120,10 +120,17 @@ namespace CampaignProject.Entity
             }
         }
 
-        public string GetAuth0Bearer()
+        public string GetBearer(string Bearer)
         {
             Data.Sql.CampaignData campaignData = new Data.Sql.CampaignData();
-            return campaignData.getBearer();
+            try { 
+            return campaignData.getBearer(Bearer);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
+            return null;
         }
     }
 }

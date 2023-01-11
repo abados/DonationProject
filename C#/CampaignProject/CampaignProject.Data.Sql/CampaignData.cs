@@ -1,4 +1,5 @@
 ﻿using CampaignProject.Model;
+using LoggingLibrary;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
@@ -17,7 +18,7 @@ namespace CampaignProject.Data.Sql
 
             //Clear Hashtable Before Inserting Information From Sql Server
             CampaignsList.Clear();
-
+            try { 
             while (reader.Read())
             {
                 Model.Campaign campaign = new Model.Campaign();
@@ -41,6 +42,12 @@ namespace CampaignProject.Data.Sql
                 }
 
             }
+            
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
             return CampaignsList;
         }
 
@@ -50,7 +57,7 @@ namespace CampaignProject.Data.Sql
 
             //Clear Hashtable Before Inserting Information From Sql Server
             CampaignsList.Clear();
-
+            try { 
             while (reader.Read())
             {
                 Model.Campaign campaign = new Model.Campaign();
@@ -63,6 +70,11 @@ namespace CampaignProject.Data.Sql
                    
                  CampaignsList.Add(campaign);
             }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
             return CampaignsList;
         }
 
@@ -72,7 +84,7 @@ namespace CampaignProject.Data.Sql
 
             //Clear Hashtable Before Inserting Information From Sql Server
             CampaignsList.Clear();
-
+            try { 
             while (reader.Read())
             {
                 Model.ActiveCampaigns active = new Model.ActiveCampaigns();
@@ -83,13 +95,24 @@ namespace CampaignProject.Data.Sql
                 
                 CampaignsList.Add(active);
             }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
             return CampaignsList;
         }
         public object SqlQueryToReadCampaignsFromDBIntoDict()
         {
             string SqlQuery = "select * from Campaigns";
             object retDict = null;
+            try { 
             retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadFromDbIntoDict);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
             return retDict;
         }
 
@@ -97,7 +120,13 @@ namespace CampaignProject.Data.Sql
         {
             string SqlQuery = "select * from ActiveCampaigns";
             object retDict = null;
+            try { 
             retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadFromActiveCampaignsDbIntoList);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
             return retDict;
         }
 
@@ -105,7 +134,13 @@ namespace CampaignProject.Data.Sql
         {
             string SqlQuery = "select * from Campaigns";
             object retDict = null;
+            try { 
             retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadFromDbIntoList);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
             return retDict;
         }
 
@@ -113,7 +148,13 @@ namespace CampaignProject.Data.Sql
         {
             string SqlQuery = " select * from Campaigns where NonProfitUserID=(select id from NonProfits where Email =" + "'" + organ + "'" + ")";
             object retDict = null;
+            try { 
             retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadFromDbIntoDict);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
             return retDict;
         }
 
@@ -125,7 +166,13 @@ namespace CampaignProject.Data.Sql
             string uploadNewCampaignQuery = "declare @NonID int\n" +
             "select @NonID = (select id from NonProfits where Email = '"+ userEmail+"')\n"+
              "insert into Campaigns values(@NonID,'"+ newCampaign.campaignName+ "','"+ newCampaign.campaignInfo+ "','"+ newCampaign.campaignHashtag+ "','"+ newCampaign.campaignUrl+"',0)";
+            try { 
                 DAL.SqlQuery.Update_Delete_Insert_RowInDB(uploadNewCampaignQuery);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
 
         }
 
@@ -133,7 +180,13 @@ namespace CampaignProject.Data.Sql
         public void DeleteCampaign(string name)
         {
             string deleteQuery = "delete from Campaigns where CampaignName ='" + name + "'";
+            try { 
             DAL.SqlQuery.Update_Delete_Insert_RowInDB(deleteQuery);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
 
         }
         public void UpdateACampaing(string campaignName, Model.Campaign campaign)
@@ -141,15 +194,28 @@ namespace CampaignProject.Data.Sql
 
 
             string updateQuery = "update Campaigns set CampaignName ='" + campaign.campaignName + "', CampaignInfo='" + campaign.campaignInfo + "', CampaignHashtag='" + campaign.campaignHashtag + "', CampaignWebUrl='" + campaign.campaignUrl + "'where CampaignName='" + campaignName + "'";
+            try { 
             DAL.SqlQuery.Update_Delete_Insert_RowInDB(updateQuery);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
 
         }
 
-        public string getBearer()
+        public string getBearer(string Bearer)
         {
-            string BearerQuery = "select VALUE from Config where [KEY]='Bearer'";
+            string BearerQuery = "select VALUE from Config where [KEY]='"+ Bearer+"'";
+            try { 
             string Key = DAL.SqlQuery.getOneDataFromDBInString(BearerQuery);
-            return Key;
+                return Key;
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
+            return null;
         }
     }
 }

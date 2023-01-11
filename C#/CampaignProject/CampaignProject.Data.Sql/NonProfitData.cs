@@ -1,5 +1,6 @@
 ﻿using CampaignProject.DAL;
 using CampaignProject.Model;
+using LoggingLibrary;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -18,23 +19,39 @@ namespace CampaignProject.Data.Sql
         {
 
             CampaignProject.Model.NonProfitUser NonProfit = new CampaignProject.Model.NonProfitUser();
-            while (reader.Read())
+            try
             {
+                while (reader.Read())
+                {
 
-                NonProfit.fullName = reader.GetString(3);
-                NonProfit.email = reader.GetString(4);
-                NonProfit.cellPhone = reader.GetString(5);
+                    NonProfit.fullName = reader.GetString(3);
+                    NonProfit.email = reader.GetString(4);
+                    NonProfit.cellPhone = reader.GetString(5);
 
 
+                }
+                return NonProfit;
             }
-            return NonProfit;
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
+            return null;
         }
 
         public object SendSqlQueryToReadFromDBForOneUser(string userEmail)
         {
             string SqlQuery = "declare @answer varchar(100)\n if exists (select * from NonProfits where Email=" + "'" + userEmail + "'" + ") begin select @answer = 'true' end else begin select @answer = 'false' end select @answer";
-            object retObject = DAL.SqlQuery.getOneDataFromDB(SqlQuery);
-            return retObject;
+            try
+            {
+                object retObject = DAL.SqlQuery.getOneDataFromDB(SqlQuery);
+                return retObject;
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
+            return null;
 
 
         }
@@ -43,7 +60,14 @@ namespace CampaignProject.Data.Sql
         public void SendSqlQueryToInsertToDB(Model.NonProfitUser NewUser, int userID)
         {
             string uploadNewUserQuery = "insert into NonProfits values('" + userID + "','" + NewUser.fullName + "','" + NewUser.email + "','" + NewUser.cellPhone + "','" + NewUser.organizationUrl + "','" + NewUser.organizationName + "','" + NewUser.organizationDescription + "')";
-            DAL.SqlQuery.Update_Delete_Insert_RowInDB(uploadNewUserQuery);
+            try
+            {
+                DAL.SqlQuery.Update_Delete_Insert_RowInDB(uploadNewUserQuery);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
 
         }
 

@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "../css/organizationCard.css";
 
-export const CardToReward = ({ Product, handleBuy, isBought, namekey }) => {
+export const CardToReward = ({
+  Product,
+  handleBuy,
+  handleDonate,
+  isBought,
+  namekey,
+}) => {
   const [localIsBought, setLocalIsBought] = useState(isBought);
 
   useEffect(() => {
@@ -18,6 +24,12 @@ export const CardToReward = ({ Product, handleBuy, isBought, namekey }) => {
             <h5 className="card-title">{Product.productName}</h5>
             <p className="card-text">Product Price:{Product.price}</p>
 
+            <button
+              className="btnDonate"
+              onClick={() => handleDonate(Product.price)}
+            >
+              Donate Item
+            </button>
             {localIsBought && Product.productName === namekey ? (
               <>
                 <h5>Ordered</h5>

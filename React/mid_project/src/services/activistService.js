@@ -60,3 +60,10 @@ export const signInForCampaign = async (campaignName, userEmail) => {
       console.log(error);
     });
 };
+
+export const donateByTheUser = async (userEmail, ItemPrice) => {
+  console.log(userEmail, ItemPrice);
+  await axios.post(
+    `http://localhost:7033/api/Activist/Donate/${userEmail}/${ItemPrice}`
+  );
+};

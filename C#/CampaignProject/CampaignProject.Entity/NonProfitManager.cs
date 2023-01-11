@@ -24,13 +24,13 @@ namespace CampaignProject.Entity
             }
 }
 
-        public void SendNewInputToDataLayer(Model.NonProfitUser newOwner)
+        public void InsertNewItem(Model.NonProfitUser nonProfit)
         {
             Data.Sql.NonProfitData user = new Data.Sql.NonProfitData();
             string userType = "NonProfit";
             try { 
             string userID = user.AddNewUser(userType);
-            user.SendSqlQueryToInsertToDB(newOwner, int.Parse(userID));
+            user.SendSqlQueryToInsertToDB(nonProfit, int.Parse(userID));
             }
             catch (Exception ex)
             {

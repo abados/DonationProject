@@ -38,13 +38,13 @@ namespace CampaignProject.Entity
             }
         }
 
-        public void SendNewInputToDataLayer(Model.ActivistUser newOwner)
+        public void InsertNewMember(Model.ActivistUser newActivist)
         {//insert of a new user to both tables - users and activists after the user signUp
             Data.Sql.ActivistData user = new Data.Sql.ActivistData();
             string userType = "Activist";
             try { 
             string userID = user.AddNewUser(userType);
-            user.SendSqlQueryToInsertToDB(newOwner, int.Parse(userID));
+            user.SendSqlQueryToInsertToDB(newActivist, int.Parse(userID));
             }
             catch (Exception ex)
             {
@@ -84,6 +84,22 @@ namespace CampaignProject.Entity
             }
         }
 
+        public void DonateByActivist(decimal productPrice, string userEmail)
+        {
+            Data.Sql.ActivistData user = new Data.Sql.ActivistData();
+            try
+            {
+                user.makeADonateInTheDB(productPrice,userEmail);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+
+            }
+        }
+
+        
+
         public void signActivistToCampaign(string campaignName, string userEmail)
         {
             Data.Sql.ActivistData user = new Data.Sql.ActivistData();
@@ -98,28 +114,21 @@ namespace CampaignProject.Entity
             }
         }
 
-        public List<ActivistUser> ActivistUserList = new List<ActivistUser>();
-        public List<ActivistUser> getAllOrNotActiveUsers(string allOrNot)
-        {
-            Data.Sql.ActivistData user = new Data.Sql.ActivistData();
-            try { 
-                 ActivistUserList= (List<ActivistUser>)user.getActivistsList(allOrNot);
-                return ActivistUserList;
-            }
-            catch (Exception ex)
-            {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
-                return null;
-            }
-            
 
-        }
 
         public ConfigData getTwitterKeys()
         {
             Data.Sql.ActivistData user = new Data.Sql.ActivistData();
+            try { 
             ConfigData config = (ConfigData)user.bringTwitterKeysFromDB();
-            return config;
+                return config;
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
+            return null;
+            
 
         }
 

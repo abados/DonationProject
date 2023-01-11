@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { getDonates } from "../../../../../services/businessService";
-import { makeAPurchase } from "../../../../../services/activistService";
+import {
+  makeAPurchase,
+  donateByTheUser,
+} from "../../../../../services/activistService";
 import { ClockLoader } from "react-spinners";
 import { useLocation } from "react-router-dom";
 import "../css/organizationCard.css";
@@ -24,6 +27,21 @@ export const ClaimRwardsForActivist = () => {
     let res = await getDonates(cName);
     setProductList(res);
     console.log(res);
+  };
+
+  const handleDonate = async (ProductPrice) => {
+    await donateByTheUser(user.email, ProductPrice);
+    setEarnings(earnings - ProductPrice);
+    toast.success("🏆 Thank you for your donation!", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   };
 
   const handleBuy = (ProductPrice, productName) => {
@@ -56,13 +74,6 @@ export const ClaimRwardsForActivist = () => {
       });
       makeAPurchase(productName, ProductPrice, user.email);
       getProductsFromDB();
-
-      //by this order:
-      ////1.lower activist income (i need product price) - DONE
-      ////2.change IsBought status of the product(i need product name) - DONE
-      //3. make it not visible to other activists users(add a condition to the getDonates sql query that ignore those which are bought)
-      //4. add it to the trackings list of the business user(nre page that take just product that is bought)
-      //
     }
   };
 
@@ -97,6 +108,7 @@ export const ClaimRwardsForActivist = () => {
                   handleBuy={() =>
                     handleBuy(Product.price, Product.productName)
                   }
+                  handleDonate={() => handleDonate(Product.price)}
                   isBought={isBought}
                   namekey={namekey}
                 />

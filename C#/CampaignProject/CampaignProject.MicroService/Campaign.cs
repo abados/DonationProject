@@ -26,18 +26,20 @@ namespace CampaignProject.MicroService
             string requestBody;
             switch (action)
             {
-                case "ADD":
+                case "ADD"://adding a new campaign to the campaigns table 
+                    Logger.Log("adding campaign to the DB ", LoggingLibrary.LogLevel.Event);
                     try { 
                     Model.Campaign campaign = new Model.Campaign();
                     campaign = System.Text.Json.JsonSerializer.Deserialize<Model.Campaign>(req.Body);
-                    MainManager.Instance.Campaign.SendNewInputToDataLayer(campaign, Identifier);
+                    MainManager.Instance.Campaign.InsertNewItem(campaign, Identifier);
                     }
                     catch(Exception ex)
                     {
                         Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
                     }
                     break;
-                case "GET":
+                case "GET"://get All/Specific Campaign list
+                    Logger.Log("get All/Specific Campaign list from the DB ", LoggingLibrary.LogLevel.Event);
                     try { 
                     if(Identifier==null)
                     { 
@@ -53,7 +55,8 @@ namespace CampaignProject.MicroService
                         Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
                     }
                     break;
-                case "UPDATE":
+                case "UPDATE"://Update a campaign
+                    Logger.Log("Update a campaign called ", LoggingLibrary.LogLevel.Event);
                     try
                     {
 
@@ -68,7 +71,8 @@ namespace CampaignProject.MicroService
                     }
 
                     break;
-                case "DELETE":
+                case "DELETE"://Delete a campaign(only if it now Active)
+                    Logger.Log("delete a campaign called ", LoggingLibrary.LogLevel.Event);
                     try { 
                     MainManager.Instance.Campaign.DeleteACampaingByName(Identifier);
                     }
@@ -77,13 +81,14 @@ namespace CampaignProject.MicroService
                         Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
                     }
                     break;
-                case "ROLE":
+                case "ROLE"://Chekcing the user Role from AUTH0
+                    Logger.Log("search a role in auth0 ", LoggingLibrary.LogLevel.Event);
                     try { 
                     var urlGetRole = $"https://dev-qjf7hgqeu16fymem.us.auth0.com/api/v2/users/{Identifier}/roles";
                     var client = new RestClient(urlGetRole);
                     var request = new RestRequest("",Method.Get);
 
-                        request.AddHeader("authorization",""+MainManager.Instance.Campaign.GetAuth0Bearer());
+                        request.AddHeader("authorization",""+MainManager.Instance.Campaign.GetBearer("Bearer"));
                         var response = client.Execute(request);
 
                     if(response.IsSuccessful)   

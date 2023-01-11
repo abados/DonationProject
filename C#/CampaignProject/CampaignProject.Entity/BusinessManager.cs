@@ -38,7 +38,7 @@ namespace CampaignProject.Entity
 
         }
 
-        public void SendNewInputToDataLayer(Model.BusinessUser newOwner)
+        public void InsertNewMember(Model.BusinessUser newOwner)
         {
             Data.Sql.BusinessData user = new Data.Sql.BusinessData();
             string userType = "Business";

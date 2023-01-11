@@ -29,7 +29,8 @@ namespace CampaignProject.MicroService
 
             switch (action)
             {
-                case "Find":
+                case "Find": //check if the user allready sign as a role
+                    Logger.Log("looking for a user in the DB", LoggingLibrary.LogLevel.Event);
                     try { 
                     return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Business.FindTheUser(Identifier)));
                     }
@@ -38,19 +39,21 @@ namespace CampaignProject.MicroService
                             Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);     
                     }
                     break;
-                case "ADD":
+                case "ADD"://adding the user to the users table and to Business table
+                    Logger.Log("adding user to the DB: ", LoggingLibrary.LogLevel.Event);
                     try
                     {
                         Model.BusinessUser business = new Model.BusinessUser();
                         business = System.Text.Json.JsonSerializer.Deserialize<Model.BusinessUser>(req.Body);
-                        MainManager.Instance.Business.SendNewInputToDataLayer(business);
+                        MainManager.Instance.Business.InsertNewMember(business);
                     }
                     catch (Exception ex)
                     {
                         Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
                     }
                     break;
-                case "GETMYPRODUCTS":
+                case "GETMYPRODUCTS"://get products of the specific Business user
+                    Logger.Log("business man called prodcuts: ", LoggingLibrary.LogLevel.Event);
                     try
                     {
                         if (Identifier.Contains("@") && specificAction == null)
@@ -59,7 +62,7 @@ namespace CampaignProject.MicroService
                             return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Product.getUnBoughtProductsOfSpecificBusinessFromDB(int.Parse(id[0]))));
                         }
                         else if (specificAction.Equals("trackShipment"))
-                        {
+                        {//for shipment tracking page
                             var id = MainManager.Instance.Business.getIDS(Identifier, "");
                             return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Product.getBoughtProductsOfSpecificBusinessFromDB(int.Parse(id[0]))));
                         }
@@ -73,8 +76,9 @@ namespace CampaignProject.MicroService
                         Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
                     }
                     break;
-                case "DELETEAPRODUCT":
+                case "DELETEAPRODUCT"://the user can see only products that are available and didnt ordered
                     //In the case of the POST request, the request body is being sent as a JSON string, so it can be deserialized directly using the JsonSerializer. However, in the case of the DELETE request, when you are trying to send the product object in the request body, rather than as a JSON string.In this case, you need to serialize the object into a string before sending it in the request body with ReadToEndAsync().
+                    Logger.Log("DeleteAProduct called", LoggingLibrary.LogLevel.Event);
                     try
                     {
                         Model.Product productToDelete = new Model.Product();
@@ -87,7 +91,8 @@ namespace CampaignProject.MicroService
                         Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
                     }
                     break;
-                case "UPLOADPRODUCT":
+                case "UPLOADPRODUCT"://upload a new product from a specific user to a specific Campaign
+                    Logger.Log("InsertNewProduct called", LoggingLibrary.LogLevel.Event);
                     try { 
                     string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
                     dynamic data = JsonConvert.DeserializeObject<JObject>(requestBody);
@@ -109,7 +114,7 @@ namespace CampaignProject.MicroService
                     product.IsDelivered = data.Value<bool>("variable6");
                     product.ActivistBuyerID = data.Value<int>("variable7");
 
-                    MainManager.Instance.Product.SendNewInputToDataLayer(product);
+                    MainManager.Instance.Product.InsertNewItem(product);
 
 
                     return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Business.getIDS(EmailToSearch, CampaignToSearch)));
@@ -119,16 +124,8 @@ namespace CampaignProject.MicroService
                         Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
                     }                   
                     break;
-                case "GET_ACTIVIST":
-                    try { 
-                    return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Activist.getAllOrNotActiveUsers(Identifier)));
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
-                    }                  
-                    break;
-                case "SHIPIT":
+                case "SHIPIT"://the business man can see orders that didn't completed, if he psuh "send" we get here to finish them
+                    Logger.Log("SendTheItems called", LoggingLibrary.LogLevel.Event);
                     try { 
                     MainManager.Instance.Business.SendTheItems(int.Parse(Identifier));
                     }

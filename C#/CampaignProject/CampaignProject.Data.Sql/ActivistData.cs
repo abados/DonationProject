@@ -1,5 +1,6 @@
 ﻿using CampaignProject.DAL;
 using CampaignProject.Model;
+using LoggingLibrary;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -18,7 +19,7 @@ namespace CampaignProject.Data.Sql
 
             //Clear Hashtable Before Inserting Information From Sql Server
             OrganizationList.Clear();
-
+            try { 
             while (reader.Read())
             {
                 Model.NonProfitUser nonProfitUser = new Model.NonProfitUser();
@@ -35,6 +36,11 @@ namespace CampaignProject.Data.Sql
 
 
             }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
             return OrganizationList;
         }
 
@@ -44,18 +50,21 @@ namespace CampaignProject.Data.Sql
 
 
             CampaignProject.Model.ActivistUser Activist = new CampaignProject.Model.ActivistUser();
-
-            while (reader.Read())
+            try
             {
+                while (reader.Read())
+                {
+                    Activist.fullName = reader.GetString(2);
+                    Activist.email = reader.GetString(3);
 
-                Activist.fullName = reader.GetString(2);
-                Activist.email = reader.GetString(3);
-                
-                Activist.cellPhone = reader.GetString(5);
-                Activist.Earnings = reader.GetDecimal(7);
-                
+                    Activist.cellPhone = reader.GetString(5);
+                    Activist.Earnings = reader.GetDecimal(7);
 
-
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
             }
             return Activist;
         }
@@ -66,7 +75,7 @@ namespace CampaignProject.Data.Sql
 
 
             CampaignProject.Model.ConfigData TwitterKeys = new CampaignProject.Model.ConfigData();
-
+            try { 
             while (reader.Read())
             {
 
@@ -94,6 +103,11 @@ namespace CampaignProject.Data.Sql
 
                 }
             }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
             return TwitterKeys;
         }
 
@@ -103,7 +117,7 @@ namespace CampaignProject.Data.Sql
 
 
             List<Model.ActivistUser> ActivistList = new List<Model.ActivistUser>();
-
+            try { 
             while (reader.Read())
             {
                 Model.ActivistUser Activist = new Model.ActivistUser();
@@ -117,56 +131,56 @@ namespace CampaignProject.Data.Sql
 
 
             }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
             return ActivistList;
         }
 
         public object SendSqlQueryToReadFromDBForOneUser(string userEmail)
         {
             string SqlQuery = "declare @answer varchar(100)\n if exists (select * from Activists where Email=" + "'" + userEmail + "'" + ") begin select @answer = 'true' end else begin select @answer = 'false' end select @answer";
+            try { 
             object retObject = DAL.SqlQuery.getOneDataFromDB(SqlQuery);
-
-           
             return retObject;
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
+            return null;
 
         }
 
         public string getActivistUserEarnings(string userEmail)
         {
             string SqlQuery = "select Earnings from Activists where Email=" + "'" + userEmail + "'";
+            try { 
             string retObject = (string)DAL.SqlQuery.getOneDataFromDB(SqlQuery);
-            
             return retObject;
-
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
+            return null;
 
         }
 
-        public object getActivistsList(string allOrNot)
-        {
-            object retObject=null;
-
-            if (allOrNot.Equals("NOT"))
-            {
-                string SqlQuery = " select * from Activists where ChosenProducts != 0";
-                retObject = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadListOfActivistsFromDb);
-            }
-            else
-            {
-                string SqlQuery = "select * from Activists";
-                 retObject = (string)DAL.SqlQuery.getDataFromDB(SqlQuery, ReadListOfActivistsFromDb);
-            }
-
-          
-
-            return retObject;
-
-
-        }
 
         Model.ActivistUser newUser = new Model.ActivistUser();
         public void SendSqlQueryToInsertToDB(Model.ActivistUser NewUser, int userID)
         {
             string uploadNewUserQuery = "insert into Activists values('" + userID + "','" + NewUser.fullName + "','" + NewUser.email + "','" + NewUser.address + "','" + NewUser.cellPhone + "','" + NewUser.TwitterAcount + "','" + NewUser.Earnings + "',0,0)";
+            try { 
             DAL.SqlQuery.Update_Delete_Insert_RowInDB(uploadNewUserQuery);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
 
         }
 
@@ -174,16 +188,42 @@ namespace CampaignProject.Data.Sql
         {
             string uploadNewUserQuery = "UPDATE Activists SET Earnings = Earnings - " + productPrice + " where Email = '"+userEmail+"'" +
                 "UPDATE Products SET IsBought = 1, ActivistBuyerID = (select id from Activists where Email = '"+ userEmail + "') where ProductName = '"+ productName + "'\n update Campaigns set DonationsAmount = DonationsAmount - " + productPrice + " where CampaignId =(select Campaign from Products where ProductName='"+ productName + "') update Activists set ChosenProducts = ChosenProducts +1 where Email='"+userEmail+"'";
+            try { 
             DAL.SqlQuery.Update_Delete_Insert_RowInDB(uploadNewUserQuery);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
 
+        }
+
+
+        
+
+        public void makeADonateInTheDB( decimal productPrice, string userEmail)
+        {
+            string uploadNewUserQuery = "UPDATE Activists SET Earnings = Earnings - " + productPrice + " where Email = '" + userEmail + "'";
+            try { 
+            DAL.SqlQuery.Update_Delete_Insert_RowInDB(uploadNewUserQuery);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
         }
 
         public void signActivistToCampaignInTheDB(string campaignName, string userEmail)
         {
 
             string uploadActiveCampaignQuery = "insert into ActiveCampaigns select CampaignId, '"+ campaignName + "', CampaignHashtag, ActivistUsersID, FullName from Campaigns, Activists where Campaigns.CampaignName='"+ campaignName + "' and Activists.Email='"+ userEmail + "' and not exists (select * from ActiveCampaigns where CampaignId = (select CampaignId from Campaigns where CampaignName='" + campaignName + "') and Email='"+ userEmail + "')";
+            try { 
             DAL.SqlQuery.Update_Delete_Insert_RowInDB(uploadActiveCampaignQuery);
-
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
         }
 
 
@@ -206,7 +246,13 @@ namespace CampaignProject.Data.Sql
         {
             string SqlQuery = "select * from NonProfits";
             object retDict = null;
+            try { 
             retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadOrganizationFromDb);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
             return retDict;
         }
 
@@ -214,7 +260,13 @@ namespace CampaignProject.Data.Sql
         {
             string SqlQuery = "select * from Config where [KEY]!='Bearer'";
             object retDict = null;
+            try { 
             retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadTwitterKeysFromDb);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
             return retDict;
         }
     }

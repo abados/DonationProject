@@ -18,7 +18,7 @@ namespace CampaignProject.Data.Sql
 
     
             activeCampaignsList.Clear();
-
+            try { 
             while (reader.Read())
             {
                 Model.ActiveCampaigns activeCampaign = new Model.ActiveCampaigns();
@@ -45,6 +45,12 @@ namespace CampaignProject.Data.Sql
 
             }
             return activeCampaignsList;
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
+            return null;
         }
 
 
@@ -52,6 +58,7 @@ namespace CampaignProject.Data.Sql
         {
 
             CampaignProject.Model.Owner owner = new CampaignProject.Model.Owner();
+            try { 
             while (reader.Read())
             {
 
@@ -62,12 +69,18 @@ namespace CampaignProject.Data.Sql
 
             }
             return owner;
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
+            return null;
         }
 
         public List<BusinessUser> ReadBusinessUsersFromDb(SqlDataReader reader)
         {
             List<BusinessUser> businessUsers = new List<BusinessUser>();
-            
+            try { 
             while (reader.Read())
             {
                 CampaignProject.Model.BusinessUser Buser = new CampaignProject.Model.BusinessUser();
@@ -80,13 +93,19 @@ namespace CampaignProject.Data.Sql
 
             }
             return businessUsers;
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
+            return null;
         }
 
 
         public List<NonProfitUser> ReadProfitUsersFromDb(SqlDataReader reader)
         {
             List<NonProfitUser> NonProfitUsers = new List<NonProfitUser>();
-            
+            try { 
             while (reader.Read())
             {
                 CampaignProject.Model.NonProfitUser Nuser = new CampaignProject.Model.NonProfitUser();
@@ -101,6 +120,12 @@ namespace CampaignProject.Data.Sql
 
             }
             return NonProfitUsers;
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
+            return null;
         }
 
 
@@ -110,7 +135,7 @@ namespace CampaignProject.Data.Sql
            
 
             ActivistUsers.Clear();
-
+            try { 
             while (reader.Read())
             {
                 CampaignProject.Model.ActivistUser Auser = new CampaignProject.Model.ActivistUser();
@@ -125,36 +150,67 @@ namespace CampaignProject.Data.Sql
             }
 
             return ActivistUsers;
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
+            return null;
         }
 
         public object SendSqlQueryToReadFromDBForOneUser(string userEmail)
         {
             string SqlQuery = "declare @answer varchar(100)\n if exists (select * from Owner where Email="+"'"+userEmail+"'"+") begin select @answer = 'true' end else begin select @answer = 'false' end select @answer";
+            try { 
             object retObject = DAL.SqlQuery.getOneDataFromDB(SqlQuery);
-            Logger.Log("check if the user exsist", LoggingLibrary.LogLevel.Event);
-            return retObject;
+                Logger.Log("check if the user exsist as Owner in the DB", LoggingLibrary.LogLevel.Event);
+                return retObject;
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
 
+
+
+            return null;
 
         }
 
-        //Model.Owner newUser = new Model.Owner();
+   
         public void SendSqlQueryToInsertToDB(Model.Owner NewUser, int userID)
         {
             string uploadNewUserQuery = "insert into Owner values('" + userID + "','" + NewUser.fullName + "','" + NewUser.email + "','" + NewUser.cellPhone + "')";
-            DAL.SqlQuery.Update_Delete_Insert_RowInDB(uploadNewUserQuery);
+            try
+            {
+                DAL.SqlQuery.Update_Delete_Insert_RowInDB(uploadNewUserQuery);
+                
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
 
         }
 
         public void SendSqlQueryToPay(int ActivityCount,int activistID)
         {
             string uploadNewUserQuery = "update Activists set Earnings = Earnings + (5 * "+ ActivityCount+ ") where ActivistUsersID = " + activistID+"";
-            DAL.SqlQuery.Update_Delete_Insert_RowInDB(uploadNewUserQuery);
-
+            try
+            {
+                DAL.SqlQuery.Update_Delete_Insert_RowInDB(uploadNewUserQuery);
+                
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
         }
 
         public string AddNewUser(string userType)
         {
             object userID = SqlQuery.insertIntoConnectedTable("INSERT INTO Users ([UserType]) VALUES ('" + userType + "') SELECT @@IDENTITY");
+            
             // return his identity
             if (userID != null)
             {
@@ -170,7 +226,14 @@ namespace CampaignProject.Data.Sql
         {
             string SqlQuery = "SELECT AC.*, A.TwitterAcount FROM ActiveCampaigns AC INNER JOIN Activists A ON AC.ActivistBuyerID = A.ActivistUsersID";
             object retDict = null;
-            retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadTweetActivityFromDb);
+            try
+            {
+                retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadTweetActivityFromDb);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
             return retDict;
         }
 
@@ -180,7 +243,14 @@ namespace CampaignProject.Data.Sql
         {
             string SqlQuery = "SELECT * from Businesses";
             object retDict = null;
-            retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadBusinessUsersFromDb);
+            try
+            {
+                retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadBusinessUsersFromDb);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
             return retDict;
         }
 
@@ -188,7 +258,14 @@ namespace CampaignProject.Data.Sql
         {
             string SqlQuery = "SELECT * from NonProfits";
             object retDict = null;
-            retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadProfitUsersFromDb);
+            try
+            {
+                retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadProfitUsersFromDb);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
             return retDict;
         }
 
@@ -196,7 +273,14 @@ namespace CampaignProject.Data.Sql
         {
             string SqlQuery = "SELECT * from Activists";
             object retDict = null;
-            retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadActivistUsersFromDb);
+            try
+            {
+                retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadActivistUsersFromDb);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
             return retDict;
         }
 
@@ -204,7 +288,14 @@ namespace CampaignProject.Data.Sql
         {
             string SqlQuery = "SELECT SUM(Earnings) as TotalEarnings FROM Activists;";
             string EarningsSum = null;
-            EarningsSum = DAL.SqlQuery.getOneDataFromDBInString(SqlQuery);
+            try
+            {
+                EarningsSum = DAL.SqlQuery.getOneDataFromDBInString(SqlQuery);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
             return EarningsSum;
         }
 
