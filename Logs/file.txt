@@ -1,2 +1,189 @@
-11/01/2023 13:28:22 Event: check if the user exsist
-11/01/2023 13:52:15 Event: check if the user exsist
+11/01/2023 20:49:49 Event: search a role in auth0 
+11/01/2023 20:49:49 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+11/01/2023 20:49:51 Event: search a role in auth0 
+11/01/2023 20:49:51 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+11/01/2023 20:49:51 Event: search a role in auth0 
+11/01/2023 20:49:51 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+11/01/2023 20:49:52 Event: Get Data from DB: select * from Config where [KEY]!='Bearer'
+11/01/2023 20:49:53 Event: looking for a user in the DB
+11/01/2023 20:49:53 Event: Get 1 Data from DB: declare @answer varchar(100)
+ if exists (select * from Activists where Email='economy.telhai@gmail.com') begin select @answer = 'true' end else begin select @answer = 'false' end select @answer
+11/01/2023 20:49:53 Event: Get Data from DB: select * from Config where [KEY]!='Bearer'
+11/01/2023 20:49:54 Event: looking for a user in the DB
+11/01/2023 20:49:54 Event: Get 1 Data from DB: declare @answer varchar(100)
+ if exists (select * from Activists where Email='economy.telhai@gmail.com') begin select @answer = 'true' end else begin select @answer = 'false' end select @answer
+11/01/2023 20:49:54 Event: Get Data from DB: select * from Config where [KEY]!='Bearer'
+11/01/2023 20:49:54 Event: looking for a user in the DB
+11/01/2023 20:49:54 Event: Get 1 Data from DB: declare @answer varchar(100)
+ if exists (select * from Activists where Email='economy.telhai@gmail.com') begin select @answer = 'true' end else begin select @answer = 'false' end select @answer
+11/01/2023 20:50:00 Event: Get Data from DB: select * from Config where [KEY]!='Bearer'
+11/01/2023 20:50:00 Event: getPurchesProductsOFromDB called
+11/01/2023 20:50:00 Event: Get Data from DB: select * from Products where ActivistBuyerID=
+(select id from Activists where Email ='economy.telhai@gmail.com') and IsBought = 1
+11/01/2023 20:50:01 Event: Get Data from DB: select * from Config where [KEY]!='Bearer'
+11/01/2023 20:50:01 Event: getPurchesProductsOFromDB called
+11/01/2023 20:50:01 Event: Get Data from DB: select * from Products where ActivistBuyerID=
+(select id from Activists where Email ='economy.telhai@gmail.com') and IsBought = 1
+11/01/2023 20:50:04 Event: Get Data from DB: select * from Config where [KEY]!='Bearer'
+11/01/2023 20:50:04 Event: getPurchesProductsOFromDB called
+11/01/2023 20:50:04 Event: Get Data from DB: select * from Products where ActivistBuyerID=
+(select id from Activists where Email ='economy.telhai@gmail.com') and IsBought = 1
+11/01/2023 20:50:17 Event: search a role in auth0 
+11/01/2023 20:50:17 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+11/01/2023 20:50:17 Event: search a role in auth0 
+11/01/2023 20:50:17 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+11/01/2023 20:50:18 Event: search a role in auth0 
+11/01/2023 20:50:18 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+11/01/2023 20:50:18 Error: System.IO.IOException: The process cannot access the file 'C:\Users\User\source\Projects\Semester2\MidProject\C#\CampaignProject\CampaignProject.MicroService\bin\Debug\net6.0\log.txt' because it is being used by another process.
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategy(FileStream fileStream, String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, Int64 preallocationSize)
+   at System.IO.FileStream..ctor(String path, FileMode mode)
+   at LoggingLibrary.Logger.Log(String message, LogLevel level) in C:\Users\User\source\Projects\Semester2\MidProject\C#\CampaignProject\LoggingLibrary\Logger.cs:line 25
+   at CampaignProject.MicroService.Owner.Run(HttpRequest req, String action, String Identifier, ILogger log) in C:\Users\User\source\Projects\Semester2\MidProject\C#\CampaignProject\CampaignProject.MicroService\Owner.cs:line 48
+11/01/2023 20:50:33 Event: search a role in auth0 
+11/01/2023 20:50:33 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+11/01/2023 20:50:34 Event: search a role in auth0 
+11/01/2023 20:50:34 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+11/01/2023 20:50:35 Event: search a role in auth0 
+11/01/2023 20:50:35 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+11/01/2023 20:51:05 Event: search a role in auth0 
+11/01/2023 20:51:05 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+11/01/2023 20:51:06 Event: search a role in auth0 
+11/01/2023 20:51:06 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+11/01/2023 20:51:07 Event: search a role in auth0 
+11/01/2023 20:51:11 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+11/01/2023 20:52:12 Error: System.IO.IOException: The process cannot access the file 'C:\Users\User\source\Projects\Semester2\MidProject\C#\CampaignProject\CampaignProject.MicroService\bin\Debug\net6.0\log.txt' because it is being used by another process.
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategy(FileStream fileStream, String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, Int64 preallocationSize)
+   at System.IO.FileStream..ctor(String path, FileMode mode)
+   at LoggingLibrary.Logger.Log(String message, LogLevel level) in C:\Users\User\source\Projects\Semester2\MidProject\C#\CampaignProject\LoggingLibrary\Logger.cs:line 25
+   at CampaignProject.MicroService.Owner.Run(HttpRequest req, String action, String Identifier, ILogger log)
+11/01/2023 20:52:20 Event: search a role in auth0 
+11/01/2023 20:52:20 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+11/01/2023 20:52:20 Event: search a role in auth0 
+11/01/2023 20:52:20 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+11/01/2023 20:52:21 Event: search a role in auth0 
+11/01/2023 20:52:23 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+11/01/2023 20:52:23 Error: System.IO.IOException: The process cannot access the file 'C:\Users\User\source\Projects\Semester2\MidProject\C#\CampaignProject\CampaignProject.MicroService\bin\Debug\net6.0\log.txt' because it is being used by another process.
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategy(FileStream fileStream, String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, Int64 preallocationSize)
+   at System.IO.FileStream..ctor(String path, FileMode mode)
+   at LoggingLibrary.Logger.Log(String message, LogLevel level) in C:\Users\User\source\Projects\Semester2\MidProject\C#\CampaignProject\LoggingLibrary\Logger.cs:line 25
+   at CampaignProject.DAL.SqlQuery.getOneDataFromDB(String SqlQuery) in C:\Users\User\source\Projects\Semester2\MidProject\C#\CampaignProject\CampaignProject.DAL\SqlQuery.cs:line 60
+   at CampaignProject.Data.Sql.OwnerData.SendSqlQueryToReadFromDBForOneUser(String userEmail) in C:\Users\User\source\Projects\Semester2\MidProject\C#\CampaignProject\CampaignProject.Data.Sql\OwnerData.cs:line 165
+11/01/2023 20:52:33 Event: search a role in auth0 
+11/01/2023 20:52:33 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+11/01/2023 20:52:34 Event: search a role in auth0 
+11/01/2023 20:52:34 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+11/01/2023 20:52:35 Event: search a role in auth0 
+11/01/2023 20:52:39 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+11/01/2023 20:52:52 Event: Get 1 Data from DB: declare @answer varchar(100)
+ if exists (select * from Owner where Email='abados9891@gmail.com') begin select @answer = 'true' end else begin select @answer = 'false' end select @answer
+11/01/2023 20:52:53 Event: check if the user exsist as Owner in the DB
+11/01/2023 20:53:18 Event: Get 1 Data from DB: declare @answer varchar(100)
+ if exists (select * from Owner where Email='abados9891@gmail.com') begin select @answer = 'true' end else begin select @answer = 'false' end select @answer
+11/01/2023 20:53:18 Event: check if the user exsist as Owner in the DB
+11/01/2023 20:53:20 Event: Get 1 Data from DB: declare @answer varchar(100)
+ if exists (select * from Owner where Email='abados9891@gmail.com') begin select @answer = 'true' end else begin select @answer = 'false' end select @answer
+11/01/2023 20:53:21 Event: check if the user exsist as Owner in the DB
+11/01/2023 20:53:36 Event: search a role in auth0 
+11/01/2023 20:53:36 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+11/01/2023 20:53:37 Event: search a role in auth0 
+11/01/2023 20:53:37 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+11/01/2023 20:53:37 Event: search a role in auth0 
+11/01/2023 20:53:37 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+11/01/2023 20:53:38 Event: Get 1 Data from DB: declare @answer varchar(100)
+ if exists (select * from Owner where Email='abados9891@gmail.com') begin select @answer = 'true' end else begin select @answer = 'false' end select @answer
+11/01/2023 20:53:38 Event: check if the user exsist as Owner in the DB
+11/01/2023 20:57:29 Event: report called: 
+11/01/2023 20:57:29 Event: Get Data from DB: SELECT AC.*, A.TwitterAcount FROM ActiveCampaigns AC INNER JOIN Activists A ON AC.ActivistBuyerID = A.ActivistUsersID
+11/01/2023 21:00:26 Event: search a role in auth0 
+11/01/2023 21:00:26 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+11/01/2023 21:00:27 Event: search a role in auth0 
+11/01/2023 21:00:27 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+11/01/2023 21:00:28 Event: search a role in auth0 
+11/01/2023 21:00:28 Error: System.IO.IOException: The process cannot access the file 'C:\Users\User\source\Projects\Semester2\MidProject\C#\CampaignProject\CampaignProject.MicroService\bin\Debug\net6.0\log.txt' because it is being used by another process.
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategy(FileStream fileStream, String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, Int64 preallocationSize)
+   at System.IO.FileStream..ctor(String path, FileMode mode)
+   at LoggingLibrary.Logger.Log(String message, LogLevel level) in C:\Users\User\source\Projects\Semester2\MidProject\C#\CampaignProject\LoggingLibrary\Logger.cs:line 25
+   at CampaignProject.DAL.SqlQuery.getOneDataFromDB(String SqlQuery) in C:\Users\User\source\Projects\Semester2\MidProject\C#\CampaignProject\CampaignProject.DAL\SqlQuery.cs:line 60
+   at CampaignProject.Data.Sql.OwnerData.SendSqlQueryToReadFromDBForOneUser(String userEmail) in C:\Users\User\source\Projects\Semester2\MidProject\C#\CampaignProject\CampaignProject.Data.Sql\OwnerData.cs:line 165
+11/01/2023 21:00:28 Error: System.IO.IOException: The process cannot access the file 'C:\Users\User\source\Projects\Semester2\MidProject\C#\CampaignProject\CampaignProject.MicroService\bin\Debug\net6.0\log.txt' because it is being used by another process.
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategy(FileStream fileStream, String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, Int64 preallocationSize)
+   at System.IO.FileStream..ctor(String path, FileMode mode)
+   at LoggingLibrary.Logger.Log(String message, LogLevel level) in C:\Users\User\source\Projects\Semester2\MidProject\C#\CampaignProject\LoggingLibrary\Logger.cs:line 25
+   at CampaignProject.DAL.SqlQuery.getOneDataFromDBInString(String SqlQuery) in C:\Users\User\source\Projects\Semester2\MidProject\C#\CampaignProject\CampaignProject.DAL\SqlQuery.cs:line 83
+   at CampaignProject.Data.Sql.CampaignData.getBearer(String Bearer) in C:\Users\User\source\Projects\Semester2\MidProject\C#\CampaignProject\CampaignProject.Data.Sql\CampaignData.cs:line 211
+11/01/2023 21:00:56 Event: search a role in auth0 
+11/01/2023 21:00:56 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+11/01/2023 21:00:57 Event: search a role in auth0 
+11/01/2023 21:00:58 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+11/01/2023 21:00:58 Event: search a role in auth0 
+11/01/2023 21:00:58 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+11/01/2023 21:00:58 Error: System.IO.IOException: The process cannot access the file 'C:\Users\User\source\Projects\Semester2\MidProject\C#\CampaignProject\CampaignProject.MicroService\bin\Debug\net6.0\log.txt' because it is being used by another process.
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategy(FileStream fileStream, String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, Int64 preallocationSize)
+   at System.IO.FileStream..ctor(String path, FileMode mode)
+   at LoggingLibrary.Logger.Log(String message, LogLevel level) in C:\Users\User\source\Projects\Semester2\MidProject\C#\CampaignProject\LoggingLibrary\Logger.cs:line 25
+   at CampaignProject.Data.Sql.OwnerData.SendSqlQueryToReadFromDBForOneUser(String userEmail) in C:\Users\User\source\Projects\Semester2\MidProject\C#\CampaignProject\CampaignProject.Data.Sql\OwnerData.cs:line 171
+   at CampaignProject.Entity.OwnerManager.FindTheUser(String UserEmail) in C:\Users\User\source\Projects\Semester2\MidProject\C#\CampaignProject\CampaignProject.Entity\OwnerManager.cs:line 17
+11/01/2023 21:02:04 Event: search a role in auth0 
+11/01/2023 21:02:05 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+11/01/2023 21:02:06 Event: search a role in auth0 
+11/01/2023 21:02:06 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+11/01/2023 21:02:07 Event: search a role in auth0 
+11/01/2023 21:02:07 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+11/01/2023 21:02:15 Event: report called: 
+11/01/2023 21:02:16 Event: Get Data from DB: select * from Products
+11/01/2023 21:02:50 Event: search a role in auth0 
+11/01/2023 21:02:50 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+11/01/2023 21:02:51 Event: search a role in auth0 
+11/01/2023 21:02:51 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+11/01/2023 21:02:52 Event: search a role in auth0 
+11/01/2023 21:02:52 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+11/01/2023 21:03:26 Event: report called: 
+11/01/2023 21:03:26 Event: Get Data from DB: select * from Products
+11/01/2023 21:07:38 Event: search a role in auth0 
+11/01/2023 21:07:38 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+11/01/2023 21:07:39 Event: search a role in auth0 
+11/01/2023 21:07:39 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+11/01/2023 21:07:40 Event: search a role in auth0 
+11/01/2023 21:07:40 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+11/01/2023 21:13:58 Event: report called: 
+11/01/2023 21:13:58 Event: Get Data from DB: select * from Products
+11/01/2023 21:16:06 Event: report called: 
+11/01/2023 21:16:06 Event: Get Data from DB: select * from Products where IsBought=1
+11/01/2023 21:16:51 Event: report called: 
+11/01/2023 21:16:51 Event: Get 1 Data from DB: SELECT SUM(Earnings) as TotalEarnings FROM Activists;
+11/01/2023 21:16:54 Event: report called: 
+11/01/2023 21:16:54 Event: Get Data from DB: SELECT * from Activists
+11/01/2023 21:21:17 Event: search a role in auth0 
+11/01/2023 21:21:17 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+11/01/2023 21:21:18 Event: search a role in auth0 
+11/01/2023 21:21:18 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+11/01/2023 21:21:19 Event: search a role in auth0 
+11/01/2023 21:21:19 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+11/01/2023 21:23:17 Event: report called: 
+11/01/2023 21:23:17 Event: Get Data from DB: SELECT * from Activists
+11/01/2023 21:24:20 Event: report called: 
+11/01/2023 21:24:20 Event: Get Data from DB: select * from Campaigns

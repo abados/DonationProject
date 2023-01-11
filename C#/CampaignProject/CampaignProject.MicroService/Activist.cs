@@ -34,7 +34,7 @@ namespace CampaignProject.MicroService
             switch (action)
             {
                 case "Find":  //check if the user allready sign as a role
-                    Logger.Log("looking for a user in the DB", LoggingLibrary.LogLevel.Event);
+                    //Logger.Log("looking for a user in the DB", LoggingLibrary.LogLevel.Event);
                     try { 
                     return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Activist.FindTheUser(Identifier)));
                     }

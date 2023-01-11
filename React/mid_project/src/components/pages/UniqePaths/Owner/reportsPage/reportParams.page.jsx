@@ -4,7 +4,7 @@ import "../css/reportPage.css";
 import { CampaignReport } from "./reportsOptions/campaignReport";
 import { ProductReport } from "./reportsOptions/productReport";
 import { UsersReport } from "./reportsOptions/usersReport";
-
+import jsPDF from "jspdf";
 export const ReportParamsPage = () => {
   // State variables to store the selected values of the dropdown lists
   const [option1, setOption1] = useState("");
@@ -39,6 +39,20 @@ export const ReportParamsPage = () => {
       setOption3(event.target.value);
     }
     if (showOptions) setShowOptions(false);
+  };
+
+  const generatePDF = () => {
+    var doc = new jsPDF("l", "pt", "a3");
+    doc.html(document.querySelector("#content"), {
+      callback: function (pdf) {
+        var pageCount = doc.internal.getNumberOfPages();
+        for (var i = 0; i < pageCount + 6; i++) {
+          pdf.deletePage(2);
+        }
+        pdf.deletePage(pageCount);
+        pdf.save("MyPDF.pdf");
+      },
+    });
   };
 
   const handleSendReport = async () => {
@@ -141,37 +155,21 @@ export const ReportParamsPage = () => {
               </select>
             </div>
           )}
-          <div>
-            <label className="lblReport" htmlFor="option3">
-              Generate:
-            </label>
-            <select
-              className="selectReport"
-              name="option3"
-              value={option3}
-              onChange={handleChange}
-            >
-              <option value="" disabled>
-                Select an option
-              </option>
-              {options3.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-          </div>
+
           <button
             className="btn btn-primary btnReport"
             onClick={() => handleSendReport()}
           >
             Send Request
           </button>
+          <button className="btnFile" onClick={() => generatePDF()}>
+            📑
+          </button>
         </div>
       </nav>
       <body>
         {showOptions && (
-          <div>
+          <div id="content">
             {option1 === "Products" && (
               <ProductReport Productlist={listOfData} result={option2} />
             )}

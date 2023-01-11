@@ -16,14 +16,13 @@ export const CheckTweets = async (user) => {
   await axios.post("http://localhost:7033/api/Owner/TWEET");
 };
 
-export const GenerateReport = async (Table, search, File) => {
+export const GenerateReport = async (Table, search) => {
   try {
     const response = await axios.post(
       "http://localhost:7033/api/Owner/REPORT",
       {
         variable1: Table,
         variable2: search,
-        variable3: File,
       }
     );
 

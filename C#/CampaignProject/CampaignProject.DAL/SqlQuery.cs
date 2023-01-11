@@ -57,7 +57,7 @@ namespace CampaignProject.DAL
                 {
                     connection.Open();
                     //Reader
-                    Logger.Log("Get 1 Data from DB: " + SqlQuery, LoggingLibrary.LogLevel.Event);
+                   // Logger.Log("Get 1 Data from DB: " + SqlQuery, LoggingLibrary.LogLevel.Event);
                     retHash = command.ExecuteScalar().ToString();
                     
 

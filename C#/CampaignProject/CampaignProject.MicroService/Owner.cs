@@ -45,7 +45,7 @@ namespace CampaignProject.MicroService
                 case "Find"://Check if the user is in the DB
                     try
                     {
-                        Logger.Log("looking for a user in the DB", LoggingLibrary.LogLevel.Event);
+                        //Logger.Log("looking for a user in the DB", LoggingLibrary.LogLevel.Event);
                         return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Owner.FindTheUser(Identifier)));
 
                     }
@@ -134,7 +134,7 @@ namespace CampaignProject.MicroService
                         dynamic data = JsonConvert.DeserializeObject<JObject>(requestBody);
                         string Table = data.Value<string>("variable1");
                         string Search = data.Value<string>("variable2");
-                        string TypeOfFile = data.Value<string>("variable3");
+                        //string TypeOfFile = data.Value<string>("variable3");
 
                         switch (Table)
                         {

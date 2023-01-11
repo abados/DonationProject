@@ -163,7 +163,7 @@ namespace CampaignProject.Data.Sql
             string SqlQuery = "declare @answer varchar(100)\n if exists (select * from Owner where Email="+"'"+userEmail+"'"+") begin select @answer = 'true' end else begin select @answer = 'false' end select @answer";
             try { 
             object retObject = DAL.SqlQuery.getOneDataFromDB(SqlQuery);
-                Logger.Log("check if the user exsist as Owner in the DB", LoggingLibrary.LogLevel.Event);
+                //Logger.Log("check if the user exsist as Owner in the DB", LoggingLibrary.LogLevel.Event);
                 return retObject;
             }
             catch (Exception ex)
