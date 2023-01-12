@@ -29,7 +29,7 @@ export const ActivistOrganizationsPage = () => {
     setTimeout(() => {
       getOrganizaionsFromDB();
     }, 3000);
-  }, [organizaionList.length]);
+  }, []);
 
   useEffect(() => {
     const timeout = setTimeout(() => {

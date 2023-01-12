@@ -172,9 +172,10 @@ namespace CampaignProject.Data.Sql
             }
         }
 
-        public void DeleteProduct(string productName, int businessID)
+        public void DeleteProduct(string productName, int businessID, int campaignID)
         {
-            string deleteQuery = "delete from Products where ProductName ='" + productName + "' and BusinessUser=" + businessID + "";
+        
+            string deleteQuery = "update Campaigns SET DonationsAmount = DonationsAmount - (SELECT Price from Products where ProductName ='" + productName + "')  where CampaignId = "+ campaignID+"\ndelete from Products where ProductName ='" + productName + "' and BusinessUser=" + businessID + " ";
             try { 
             DAL.SqlQuery.Update_Delete_Insert_RowInDB(deleteQuery);
             }

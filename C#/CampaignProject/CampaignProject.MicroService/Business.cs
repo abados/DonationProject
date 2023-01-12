@@ -53,7 +53,7 @@ namespace CampaignProject.MicroService
                     }
                     break;
                 case "GETMYPRODUCTS"://get products of the specific Business user
-                    Logger.Log("business man called prodcuts: ", LoggingLibrary.LogLevel.Event);
+                    //Logger.Log("business man called prodcuts: ", LoggingLibrary.LogLevel.Event);
                     try
                     {
                         if (Identifier.Contains("@") && specificAction == null)
@@ -78,13 +78,13 @@ namespace CampaignProject.MicroService
                     break;
                 case "DELETEAPRODUCT"://the user can see only products that are available and didnt ordered
                     //In the case of the POST request, the request body is being sent as a JSON string, so it can be deserialized directly using the JsonSerializer. However, in the case of the DELETE request, when you are trying to send the product object in the request body, rather than as a JSON string.In this case, you need to serialize the object into a string before sending it in the request body with ReadToEndAsync().
-                    Logger.Log("DeleteAProduct called", LoggingLibrary.LogLevel.Event);
+                    //Logger.Log("DeleteAProduct called", LoggingLibrary.LogLevel.Event);
                     try
                     {
                         Model.Product productToDelete = new Model.Product();
                         string requestBodyToDelete = await new StreamReader(req.Body).ReadToEndAsync();
                         productToDelete = System.Text.Json.JsonSerializer.Deserialize<Model.Product>(requestBodyToDelete);
-                        MainManager.Instance.Product.DeleteAProduct(productToDelete.productName,productToDelete.businessID);
+                        MainManager.Instance.Product.DeleteAProduct(productToDelete.productName,productToDelete.businessID,productToDelete.campaignID);
                     }
                     catch (Exception ex)
                     {
@@ -125,7 +125,7 @@ namespace CampaignProject.MicroService
                     }                   
                     break;
                 case "SHIPIT"://the business man can see orders that didn't completed, if he psuh "send" we get here to finish them
-                    Logger.Log("SendTheItems called", LoggingLibrary.LogLevel.Event);
+                    
                     try { 
                     MainManager.Instance.Business.SendTheItems(int.Parse(Identifier));
                     }

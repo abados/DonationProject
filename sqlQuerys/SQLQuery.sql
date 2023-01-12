@@ -11,7 +11,7 @@ CREATE TABLE "ConfigData"(
 );
 
 select * from Config
- insert into Config values('ACCESS_TOKEN_SECRET','bu9nlH5Rf9MdspFM2PrX1JUeTzf2H3DCXDRizFFOBrQAn')
+ insert into Config values('TweetBearer','Bearer AAAAAAAAAAAAAAAAAAAAAENakwEAAAAAMheCg%2FAIMZdIWvt6anqHp%2B46MN8%3DQhqomMVza0yUop6wV4YkrataIc2PfPHRPGTQ3rxydLSdahTn4Q')
  select VALUE from Config where [KEY]='CONSUMER_KEY' or [KEY]='CONSUMER_SECRET' or
  [KEY]='ACCESS_TOKEN' or [KEY]='ACCESS_TOKEN_SECRET'
  SELECT  VALUE FROM Config WHERE [KEY]='CONSUMER_KEY'
@@ -20,6 +20,7 @@ SELECT  VALUE FROM Config WHERE [KEY]='ACCESS_TOKEN'
 SELECT  VALUE FROM Config WHERE [KEY]='ACCESS_TOKEN_SECRET'
 
 select * from Config where [KEY]!='Bearer'
+
 
 
 CREATE TABLE "Businesses"(
@@ -132,17 +133,34 @@ select * from Owner
 select * from Users
 select * from Businesses
 select * from NonProfits
-select * from Products
+
 select * from ActiveCampaigns
+select * from Products
 select * from Campaigns
-select * from Activists
+select * from Activistss
+update Products set IsDelivered=0
+UPDATE NonProfits SET FullName ='Hay',[OrganizationWebUrl]='https://www.ausa.org/',[OrganizationName]='ASSOCIATION OF THE UNITED STATES ARMY
+' where id=2
+UPDATE NonProfits SET OrganizationDesc='The Gave us so much, so lets give them back' where id=2
+delete from ActiveCampaigns where CampaignId=11
+delete from Products where BusinessUser=1
+
+update Campaigns SET DonationsAmount = DonationsAmount - (SELECT Price from Products where ProductName ='bike') where CampaignId=43 
+delete from Products where ProductName ='bike' and BusinessUser=1
+
+update Campaigns SET DonationsAmount =0 DonationsAmount - (SELECT Price from Products where 
 
 update Products 
 set IsDelivered=0,IsBought=0
 where id=25
 
+update Activists set Earnings = 500
 update Activists set Earnings = Earnings + (5 * 2) where id = 2
 update Activists set Earnings = Earnings + (5 * 2) where ActivistUsersID = 5
+
+delete from Products where ProductName ='Bicycle' and BusinessUser=1
+ update Campaigns SET DonationsAmount = DonationsAmount - (SELECT Price from Products where ProductName ='Bicycle') 
+
 
 insert into ActiveCampaigns 
 values((select CampaignId from Campaigns where CampaignName='aa'),

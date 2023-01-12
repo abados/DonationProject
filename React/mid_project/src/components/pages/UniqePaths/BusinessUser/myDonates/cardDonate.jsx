@@ -7,6 +7,7 @@ export const CardDonate = ({ product, handleDelete }) => {
         <div className="card">
           <div className="card-body">
             <h5 className="card-title">{product.productName}</h5>
+            <h5 className="card-title">Price:{product.price}</h5>
             <p className="card-text">{}</p>
             {product.IsBought ? (
               <p>This item is ordered</p>

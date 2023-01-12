@@ -68,11 +68,11 @@ namespace CampaignProject.Entity
             return ProductsList;
         }
 
-        public void DeleteAProduct(string productName, int businessID)
+        public void DeleteAProduct(string productName, int businessID,int campaignID)
         {//only by the business man and only if not bought
             Data.Sql.ProductData campaign = new Data.Sql.ProductData();
             try {
-                campaign.DeleteProduct(productName, businessID);
+                campaign.DeleteProduct(productName, businessID, campaignID);
             } 
             catch(Exception ex)
             {

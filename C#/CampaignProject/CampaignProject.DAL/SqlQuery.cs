@@ -34,7 +34,7 @@ namespace CampaignProject.DAL
                     //Reader
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        Logger.Log("Get Data from DB: "+ SqlQuery, LoggingLibrary.LogLevel.Event);
+                        //Logger.Log("Get Data from DB: "+ SqlQuery, LoggingLibrary.LogLevel.Event);
                         retHash = Ptrfunc(reader);
 
                     }
@@ -57,7 +57,7 @@ namespace CampaignProject.DAL
                 {
                     connection.Open();
                     //Reader
-                   // Logger.Log("Get 1 Data from DB: " + SqlQuery, LoggingLibrary.LogLevel.Event);
+                   //Logger.Log("Get 1 Data from DB: " + SqlQuery, LoggingLibrary.LogLevel.Event);
                     retHash = command.ExecuteScalar().ToString();
                     
 
@@ -103,7 +103,7 @@ namespace CampaignProject.DAL
                     // Create a new SQL command
                     using (SqlCommand command = new SqlCommand(updateQuery, connection))
                     {
-                        Logger.Log("update/delete/insert DB: " + updateQuery, LoggingLibrary.LogLevel.Event);
+                        //Logger.Log("update/delete/insert DB: " + updateQuery, LoggingLibrary.LogLevel.Event);
                         //Execute the command
                         command.ExecuteNonQuery();
                     }

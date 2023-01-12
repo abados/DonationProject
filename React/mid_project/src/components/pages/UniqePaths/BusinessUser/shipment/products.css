@@ -5,6 +5,10 @@
   margin-left: 218px;
 }
 
+.clock--td {
+  margin-left: 450px;
+}
+
 td:nth-child(2):hover {
   cursor: pointer;
 }

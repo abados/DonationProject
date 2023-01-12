@@ -44,7 +44,7 @@ export const BusinessCampaignPage = () => {
 
   return (
     <div className="cardlistContainer">
-      <h1>My Campaigns</h1>
+      <h1>Campaigns List</h1>
       <div className="cardlistContainer2">
         {campaingList && campaingList.length > 0 ? (
           campaingList.map((campaing) => {

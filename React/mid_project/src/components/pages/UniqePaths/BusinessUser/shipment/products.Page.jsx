@@ -11,6 +11,7 @@ import {
 export const BoughtProductsPage = () => {
   const [productsData, setProductsData] = useState([]);
   const [countForTable, setCountForTable] = useState(1);
+  const [showClock, setShowClock] = useState(true);
   const [render, setRender] = useState(false);
 
   const { user } = useAuth0();
@@ -26,6 +27,16 @@ export const BoughtProductsPage = () => {
       getProductsFromDB();
     }, 3000);
   }, [render]);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setShowClock(false);
+    }, 5000); // 5000 milliseconds = 5 seconds
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, []);
 
   // const [expanded, setExpanded] = useState(false);
   // const [key, setKey] = useState();
@@ -98,11 +109,20 @@ export const BoughtProductsPage = () => {
               );
             })
           ) : (
-            <tr className="clock--tr">
-              <td className="clock--td2" colSpan={4}>
-                <ClockLoader color="#36d7b7" size={86} />
-              </td>
-            </tr>
+            <div className="clock--td">
+              {showClock && (
+                <tr className="clock--tr">
+                  <td className="clock--td" colSpan={4}>
+                    <ClockLoader color="#36d7b7" size={86} />
+                  </td>
+                </tr>
+              )}
+            </div>
+          )}
+          {!showClock && productsData.length < 0 && (
+            <div className="NoActivitytd">
+              <h1>There is not Activity yet</h1>
+            </div>
           )}
         </tbody>{" "}
       </table>

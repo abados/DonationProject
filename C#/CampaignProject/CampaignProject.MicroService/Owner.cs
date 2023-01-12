@@ -77,16 +77,19 @@ namespace CampaignProject.MicroService
                         DateTime dateOfTomorrow = DateTime.Today;
                         string currentDay = currentDate.ToString("yyyy-MM-dd");
                         string tomorrow = dateOfTomorrow.ToString("yyyy-MM-dd");
+                        string start_time = currentDay + "T00:00:00Z";
+                        string end_time = tomorrow + "T00:00:00Z";
 
                         foreach (KeyValuePair<int, Model.ActiveCampaigns> pair in activeCampaignList)
                         {
                             int key = pair.Key;
                             Model.ActiveCampaigns value = pair.Value;
-                            string startDate = "" + currentDay;
-                            string endDate = "" + tomorrow;
+                           
                             //search url that check if there are tweets of specific user, with specific hashtag on the last day
-                            string urlTweets = $"https://api.twitter.com/1.1/search/tweets.json?q=from%3A{value.TwitterAcount}%20since%3A{startDate}%20until%3A{endDate}%20{value.campaignHashtag}result_type=recent&count=10";
 
+                            string urlTweets = $"https://api.twitter.com/2/tweets/search/recent?start_time={start_time}&end_time={end_time}&query=from:{value.TwitterAcount}";
+
+                            
 
                             var client = new RestClient(urlTweets);
                             var request = new RestRequest("", Method.Get);
@@ -96,6 +99,25 @@ namespace CampaignProject.MicroService
                             var response = client.Execute(request);
                             if (response.IsSuccessful)
                             {
+                                JObject json = JObject.Parse(response.Content);
+                                int tweetCount = 0;
+                                int resultCount = (int)json["meta"]["result_count"];
+                                if (resultCount != 0)
+                                {
+                                    foreach (var tweet in json["data"])
+                                {
+                                    if (tweet["text"].ToString().Contains(value.campaignHashtag))
+                                    {
+                                        tweetCount++;
+                                    }
+                                }
+                                }
+                                MainManager.Instance.Owner.giveCreditOnActions(tweetCount, value.activeUserId);
+
+
+                              //string urlTweets = $"https://api.twitter.com/1.1/search/tweets.json?q=from%3A{value.TwitterAcount}%20since%3A{startDate}%20until%3A{endDate}%20{value.campaignHashtag}result_type=recent&count=10";
+
+                                /*another way to count all tweets of a specific user in a range of time with a different query
                                 // Still need to understand how and if to parse the response
                                 JObject json = JObject.Parse(response.Content);
                                 if (((JArray)json["statuses"]).Count == 0)
@@ -109,6 +131,7 @@ namespace CampaignProject.MicroService
 
                                 }
                                 //return new OkObjectResult(json);
+                                */
                             }
                             else
                             {
