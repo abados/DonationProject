@@ -139,6 +139,34 @@ namespace CampaignProject.Data.Sql
             return ActivistList;
         }
 
+        public List<Model.ActiveCampaigns> ReadListOfActivistCampaignsFromDb(SqlDataReader reader)
+        {
+
+
+            List<Model.ActiveCampaigns> ActivistList = new List<Model.ActiveCampaigns>();
+            try
+            {
+                while (reader.Read())
+                {
+                    Model.ActiveCampaigns Activist = new Model.ActiveCampaigns();
+                    Activist.id = reader.GetInt32(0);
+                    Activist.campaignId = reader.GetInt32(1);
+                    Activist.campaignName = reader.GetString(2);
+                    Activist.campaignHashtag = reader.GetString(3);
+                    Activist.activeUserId = reader.GetInt32(4);
+                    Activist.ActiveUserName = reader.GetString(5);
+                    ActivistList.Add(Activist);
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
+            return ActivistList;
+        }
+
         public object SendSqlQueryToReadFromDBForOneUser(string userEmail)
         {
             string SqlQuery = "declare @answer varchar(100)\n if exists (select * from Activists where Email=" + "'" + userEmail + "'" + ") begin select @answer = 'true' end else begin select @answer = 'false' end select @answer";
@@ -248,6 +276,21 @@ namespace CampaignProject.Data.Sql
             object retDict = null;
             try { 
             retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadOrganizationFromDb);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
+            return retDict;
+        }
+
+        public object bringActiveCampaignOfUsrFromDB(string Email)
+        {
+            string SqlQuery = "SELECT AC.* FROM ActiveCampaigns AC INNER JOIN Activists A ON AC.ActivistBuyerID = A.ActivistUsersID where A.Email='"+ Email+"'";
+            object retDict = null;
+            try
+            {
+                retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadListOfActivistCampaignsFromDb);
             }
             catch (Exception ex)
             {

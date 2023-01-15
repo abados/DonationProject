@@ -27,6 +27,17 @@ export const getUserEarnings = async (uesrEmail) => {
     });
 };
 
+export const getActiveCampaigns = async (uesrEmail) => {
+  return await axios
+    .get(`http://localhost:7033/api/Activist/GETACTIVECAMPAIGN/${uesrEmail}`)
+    .then((response) => {
+      return Object.values(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
 export const makeAPurchase = async (productName, productPrice, userEmail) => {
   return await axios
     .post("http://localhost:7033/api/Activist/PURCHES", {

@@ -107,6 +107,20 @@ namespace CampaignProject.Entity
             return null;
         }
 
+        public List<Tweet> getTweets()
+        {
+            Data.Sql.OwnerData Owner = new Data.Sql.OwnerData();
+            try
+            {
+                return (List<Tweet>)Owner.bringAllTweets();
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
+            return null;
+        }
+
         public string UsersEarningsSum()
         {
             Data.Sql.OwnerData Owner = new Data.Sql.OwnerData();
@@ -120,5 +134,21 @@ namespace CampaignProject.Entity
             return null;
 
         }
+
+        public void InsertNewTweet(string tweetID, string tweetHashtag, string tweetText, Model.ActiveCampaigns active)
+        {
+            Data.Sql.OwnerData Owner = new Data.Sql.OwnerData();
+
+            try
+            {
+                Owner.InsertTweetsintoDB(tweetID, tweetHashtag, tweetText, active);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
+        }
     }
+
+  
 }

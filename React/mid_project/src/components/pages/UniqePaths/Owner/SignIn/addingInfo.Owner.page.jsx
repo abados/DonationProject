@@ -21,11 +21,6 @@ export const OwnerUserForm = () => {
       addOwnerUser(newOwnerToAdd);
       setFormSubmitted(true);
       navigate("/thankYou");
-      //alert("we recive your comment, thanks for it");
-      //   setFullName("");
-      //   setPhone("");
-      //   setEmail("");
-      //   setOwnerId("");
     }
   };
 

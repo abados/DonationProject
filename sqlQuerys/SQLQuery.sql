@@ -90,15 +90,32 @@ CREATE TABLE "ActiveCampaigns"(
     "ActivistFullName" NVARCHAR(max) NOT NULL,
 );
 
-ALTER TABLE ActiveCampaigns
-change COLUMN ActivistBuyerID TO ActivistUserID;
+CREATE TABLE "Tweets"(
+    "id" INT NOT NULL primary key identity,
+	"TweetId" NVARCHAR(max) NOT NULL,
+	"ActivistUserID" INT,
+	"CampaignId" INT NOT NULL,
+	"CampaignName" NVARCHAR(max) NOT NULL,
+	"TweetHashtag" NVARCHAR(max) NOT NULL,
+    "ActivistFullName" NVARCHAR(max) NOT NULL,
+	"TweetText" NVARCHAR(max) NOT NULL,
+	"Date" DATE NOT NULL,
+	"Time" TIME NOT NULL,
+);
+
+insert into Tweets values('1614531797416648705','5','40','Animal & Plant Health Inspection Service','#PlantHealth','hay',
+'save the ower plant',
+GETDATE(), CONVERT(TIME, DATEADD(second, DATEPART(HOUR, GETDATE())*3600+DATEPART(MINUTE, GETDATE())*60+DATEPART(SECOND, GETDATE()), 0)));
+select * from Tweets
+drop table Tweets
+
 
 SELECT p.ProductName, p.Price, p.ActivistBuyerID, a.FullName, a.Address
 FROM Products p
 INNER JOIN Activists a ON p.ActivistBuyerID = a.id
 WHERE p.BusinessUser = 1 AND p.IsBought = 1
 
-
+select * from Config
 
 select * from Products where BusinessUser=1
 
@@ -137,11 +154,19 @@ select * from NonProfits
 select * from ActiveCampaigns
 select * from Products
 select * from Campaigns
-select * from Activistss
+select * from Activists
+
+
+SELECT AC.*
+FROM ActiveCampaigns AC INNER JOIN Activists A ON AC.ActivistBuyerID = A.ActivistUsersID where	A.Email='economy.telhai@gmail.com'
+
+SELECT AC.* FROM ActiveCampaigns AC INNER JOIN Activists A ON
+AC.ActivistBuyerID = A.ActivistUsersID where A.Email='economy.telhai@gmail.com'
+
 update Products set IsDelivered=0
 UPDATE NonProfits SET FullName ='Hay',[OrganizationWebUrl]='https://www.ausa.org/',[OrganizationName]='ASSOCIATION OF THE UNITED STATES ARMY
 ' where id=2
-UPDATE NonProfits SET OrganizationDesc='The Gave us so much, so lets give them back' where id=2
+UPDATE NonProfits SET OrganizationDesc='They Gave us so much, so lets give them back' where id=2
 delete from ActiveCampaigns where CampaignId=11
 delete from Products where BusinessUser=1
 
@@ -149,6 +174,8 @@ update Campaigns SET DonationsAmount = DonationsAmount - (SELECT Price from Prod
 delete from Products where ProductName ='bike' and BusinessUser=1
 
 update Campaigns SET DonationsAmount =0 DonationsAmount - (SELECT Price from Products where 
+
+select * from ActiveCampaigns where A
 
 update Products 
 set IsDelivered=0,IsBought=0
@@ -274,7 +301,7 @@ declare @answer varchar(100)
 select * from Campaigns
 select * from Products
 
-update Activists set ChosenProducts = ChosenProducts +1 where FullName='nasir'
+update Activists set Earnings = 400 where id=2
 
 
 select * from Activists where id=(select ActivistBuyerID from Products where IsBought=1)

@@ -158,6 +158,40 @@ namespace CampaignProject.Data.Sql
             return null;
         }
 
+        public List<Tweet> ReadTweetsFromDb(SqlDataReader reader)
+        {
+            List<Tweet> listOfTweets = new List<Tweet>();
+
+
+            listOfTweets.Clear();
+            try
+            {
+                while (reader.Read())
+                {
+                    CampaignProject.Model.Tweet Tweet = new CampaignProject.Model.Tweet();
+                    Tweet.id = reader.GetInt32(0);
+                    Tweet.TweetID = reader.GetString(1);
+                    Tweet.activeUserId = reader.GetInt32(2);
+                    Tweet.campaignId = reader.GetInt32(3);
+                    Tweet.campaignName = reader.GetString(4);
+                    Tweet.TweetHashtag = reader.GetString(5);
+                    Tweet.ActiveUserName = reader.GetString(6);
+                    Tweet.TweetText = reader.GetString(7);
+                    Tweet.Date = reader.GetDateTime(8).ToString();
+                    Tweet.Time = reader.GetTimeSpan(9).ToString();
+
+                    listOfTweets.Add(Tweet);
+                }
+
+                return listOfTweets;
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
+            return null;
+        }
+
         public object SendSqlQueryToReadFromDBForOneUser(string userEmail)
         {
             string SqlQuery = "declare @answer varchar(100)\n if exists (select * from Owner where Email="+"'"+userEmail+"'"+") begin select @answer = 'true' end else begin select @answer = 'false' end select @answer";
@@ -284,6 +318,24 @@ namespace CampaignProject.Data.Sql
             return retDict;
         }
 
+        
+
+         public object bringAllTweets()
+         {
+            string SqlQuery = "SELECT * from Tweets";
+            object retDict = null;
+            try
+            {
+                retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadTweetsFromDb);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
+            return retDict;
+        }
+
+
         public string bringEarningSumUp()
         {
             string SqlQuery = "SELECT SUM(Earnings) as TotalEarnings FROM Activists;";
@@ -298,6 +350,22 @@ namespace CampaignProject.Data.Sql
             }
             return EarningsSum;
         }
+
+        public void InsertTweetsintoDB(string tweetID,string tweetHashtag, string tweetText, Model.ActiveCampaigns active)
+        {
+            string uploadNewUserQuery = "insert into Tweets values('" + tweetID + "','" + active.activeUserId + "','" + active.campaignId + "','" + active.campaignName + "','" + tweetHashtag + "','" + active.ActiveUserName + "','" + tweetText + "',GETDATE(), CONVERT(TIME, DATEADD(second, DATEPART(HOUR, GETDATE())*3600+DATEPART(MINUTE, GETDATE())*60+DATEPART(SECOND, GETDATE()), 0)))";
+            try
+            {
+                DAL.SqlQuery.Update_Delete_Insert_RowInDB(uploadNewUserQuery);
+
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
+
+        }
+
 
     }
 }

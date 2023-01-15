@@ -14,7 +14,7 @@ export const ActivistCampaignsPage = () => {
   const { user } = useAuth0();
   const navigate = useNavigate();
   const location = useLocation();
-  const { organ, userEarnings } = location.state;
+  const { organ, userEarnings, activeCampaignList } = location.state;
 
   const getCampaignsFromDB = async () => {
     let res = await getSpecificCampaigns(organ.email);
@@ -35,12 +35,13 @@ export const ActivistCampaignsPage = () => {
     });
   };
 
-  const handleClaim = (cName) => {
+  const handleClaim = (cName, cHashtag) => {
     console.log(cName);
     navigate("/activist/campaignsProducts", {
       state: {
         cName,
         userEarnings,
+        cHashtag,
       },
     });
   };
@@ -71,8 +72,11 @@ export const ActivistCampaignsPage = () => {
               <>
                 <CardToCampagin
                   campaign={campaign}
+                  activeCampaignList={activeCampaignList}
                   handleBeActive={() => handleBeActive(campaign.campaignName)}
-                  handleClaim={() => handleClaim(campaign.campaignName)}
+                  handleClaim={() =>
+                    handleClaim(campaign.campaignName, campaign.campaignHashtag)
+                  }
                 />
               </>
             );

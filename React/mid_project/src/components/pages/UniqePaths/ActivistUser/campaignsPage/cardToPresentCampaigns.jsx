@@ -1,7 +1,16 @@
 import React from "react";
 import "../css/organizationCard.css";
 
-export const CardToCampagin = ({ campaign, handleBeActive, handleClaim }) => {
+export const CardToCampagin = ({
+  campaign,
+  handleBeActive,
+  handleClaim,
+  activeCampaignList,
+}) => {
+  const campaignNames = [...activeCampaignList].map(
+    (item) => item.campaignName
+  );
+
   return (
     <div className="row">
       <div className="col-sm-6 cardDonateConteinar">
@@ -12,15 +21,27 @@ export const CardToCampagin = ({ campaign, handleBeActive, handleClaim }) => {
             <p className="card-text">
               Potential Profit:{campaign.donationAmount}
             </p>
-            <button className="btnDonate" onClick={() => handleBeActive()}>
-              Promote
-            </button>
-            <button
-              className="btnDonate"
-              onClick={() => handleClaim(campaign.campaignName)}
-            >
-              Claim Earnings
-            </button>
+            {activeCampaignList.filter(
+              (item) => item.campaignName === campaign.campaignName
+            ).length > 0 ? (
+              <h2>Great Job Promoting Me</h2>
+            ) : (
+              <button className="btnDonate" onClick={() => handleBeActive()}>
+                Promote
+              </button>
+            )}
+            {activeCampaignList.filter(
+              (item) => item.campaignName === campaign.campaignName
+            ).length > 0 ? (
+              <button
+                className="btnDonate"
+                onClick={() => handleClaim(campaign.campaignName)}
+              >
+                Claim Earnings
+              </button>
+            ) : (
+              <></>
+            )}
           </div>
         </div>
       </div>

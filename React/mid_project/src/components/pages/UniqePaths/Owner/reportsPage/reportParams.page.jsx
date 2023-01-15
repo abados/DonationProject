@@ -4,6 +4,7 @@ import "../css/reportPage.css";
 import { CampaignReport } from "./reportsOptions/campaignReport";
 import { ProductReport } from "./reportsOptions/productReport";
 import { UsersReport } from "./reportsOptions/usersReport";
+import { TweetsReport } from "./reportsOptions/tweetsReport";
 import jsPDF from "jspdf";
 export const ReportParamsPage = () => {
   // State variables to store the selected values of the dropdown lists
@@ -26,7 +27,7 @@ export const ReportParamsPage = () => {
     "Activists users",
     "Sum of the users Money",
   ];
-  const options2Campaigns = ["All campaigns", "Active campaigns"];
+  const options2Campaigns = ["All campaigns", "Active campaigns", "Tweets"];
   const options3 = ["Table", "PDF", "CVS"];
 
   // A function to handle changes to the dropdown lists
@@ -56,11 +57,9 @@ export const ReportParamsPage = () => {
   };
 
   const handleSendReport = async () => {
-    console.log("send report");
-
     var dataArray = await GenerateReport(option1, option2, option3);
     setListOfData(dataArray);
-    console.log(listOfData);
+
     setShowOptions(!showOptions);
   };
 
@@ -176,8 +175,11 @@ export const ReportParamsPage = () => {
             {option1 === "Users" && (
               <UsersReport Userslist={listOfData} result={option2} />
             )}
-            {option1 === "Campaigns" && (
+            {option1 === "Campaigns" && option2 !== "Tweets" && (
               <CampaignReport Campaignlist={listOfData} result={option2} />
+            )}
+            {option1 === "Campaigns" && option2 === "Tweets" && (
+              <TweetsReport Tweetslist={listOfData} />
             )}
           </div>
         )}

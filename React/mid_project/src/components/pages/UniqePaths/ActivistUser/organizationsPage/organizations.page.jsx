@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import {
   getOrganizations,
   getUserEarnings,
+  getActiveCampaigns,
 } from "../../../../../services/activistService";
 import { ClockLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +12,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 export const ActivistOrganizationsPage = () => {
   const [organizaionList, setOrganizaionList] = useState([]);
+  const [activeCampaignList, setActiveCampaignList] = useState([]);
   const [showClock, setShowClock] = useState(true);
   const [userEarnings, setUserEarnings] = useState(true);
   const navigate = useNavigate();
@@ -20,9 +22,10 @@ export const ActivistOrganizationsPage = () => {
     let res = await getOrganizations();
     setOrganizaionList(res);
     let earnings = await getUserEarnings(user.email);
-    console.log(earnings);
     setUserEarnings(parseFloat(earnings.join("")));
-    console.log(userEarnings);
+    let activeCampaigns = await getActiveCampaigns(user.email);
+    setActiveCampaignList(activeCampaigns);
+    console.log(activeCampaigns);
   };
 
   useEffect(() => {
@@ -47,6 +50,7 @@ export const ActivistOrganizationsPage = () => {
       state: {
         organ,
         userEarnings,
+        activeCampaignList,
       },
     });
   };

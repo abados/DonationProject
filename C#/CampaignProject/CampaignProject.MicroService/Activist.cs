@@ -12,6 +12,8 @@ using Newtonsoft.Json.Linq;
 using Tweetinvi;
 using LoggingLibrary;
 using CampaignProject.Model;
+using iTextSharp.text;
+using System.Collections.Generic;
 
 namespace CampaignProject.MicroService
 {
@@ -78,8 +80,17 @@ namespace CampaignProject.MicroService
                      Logger.Log("proccesing a Purches of "+ productName+"by"+userEmail, LoggingLibrary.LogLevel.Event);
 
                         MainManager.Instance.Activist.makeAPurchesChanges(productName, productPrice, userEmail);
-
-                    var tweet = await userClient.Tweets.PublishTweetAsync("the user:"+ userEmail+" just bought an:"+ productName+"");
+                        int emailLength = userEmail.IndexOf("@");
+                        string hiddenEmail;
+                        if (emailLength > 3)
+                        {
+                            hiddenEmail = userEmail.Substring(0, emailLength - 3) + new string('*', 3) + userEmail.Substring(emailLength);
+                        }
+                        else
+                        {
+                            hiddenEmail = new string('*', emailLength) + userEmail.Substring(emailLength);
+                        }
+                        var tweet = await userClient.Tweets.PublishTweetAsync("the user:"+ hiddenEmail + " just bought: "+ productName+"");
                     }
                     catch (Exception ex)
                     {
@@ -127,6 +138,19 @@ namespace CampaignProject.MicroService
                     {
                         
                         MainManager.Instance.Activist.DonateByActivist(int.Parse(SecondIdentifier), Identifier);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                    }
+                    break; 
+
+                case "GETACTIVECAMPAIGN"://Bring the Active Campaigns of the user
+                   
+                    try
+                    {
+                        var activeList = MainManager.Instance.Activist.getActiveCampaignsOfUserFromDB(Identifier);
+                        return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(activeList));
                     }
                     catch (Exception ex)
                     {

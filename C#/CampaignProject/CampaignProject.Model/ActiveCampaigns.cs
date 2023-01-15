@@ -22,5 +22,7 @@ namespace CampaignProject.Model
 
         public string TwitterAcount { get; set; }
 
+        public string UserEmail { get; set; }
+
     }
 }

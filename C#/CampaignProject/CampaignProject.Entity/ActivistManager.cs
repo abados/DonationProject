@@ -70,6 +70,21 @@ namespace CampaignProject.Entity
                 return null;
             }
 }
+        public List<ActiveCampaigns> ActiveCampaignsLise = new List<ActiveCampaigns>();
+        public List<ActiveCampaigns> getActiveCampaignsOfUserFromDB(string Email)
+        {
+            Data.Sql.ActivistData activist = new Data.Sql.ActivistData();
+            try
+            {
+                ActiveCampaignsLise = (List<ActiveCampaigns>)activist.bringActiveCampaignOfUsrFromDB(Email);
+                return ActiveCampaignsLise;
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                return null;
+            }
+        }
 
         public void makeAPurchesChanges(string productName, decimal productPrice, string userEmail)
         {

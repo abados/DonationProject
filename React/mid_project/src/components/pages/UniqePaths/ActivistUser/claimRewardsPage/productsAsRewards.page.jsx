@@ -21,7 +21,7 @@ export const ClaimRwardsForActivist = () => {
 
   const { user } = useAuth0();
   const location = useLocation();
-  const { cName, userEarnings } = location.state;
+  const { cName, userEarnings, cHashtag } = location.state;
 
   const getProductsFromDB = async () => {
     let res = await getDonates(cName);
@@ -30,25 +30,26 @@ export const ClaimRwardsForActivist = () => {
   };
 
   const handleDonate = async (ProductPrice) => {
-    await donateByTheUser(user.email, ProductPrice);
-    setEarnings(earnings - ProductPrice);
-    toast.success("🏆 Thank you for your donation!", {
-      position: "top-center",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  };
-
-  const handleBuy = (ProductPrice, productName) => {
-    console.log(productName);
-
     if (ProductPrice > earnings) {
-      toast.warn("🛒 insufficient funds!", {
+      toast.warn(
+        `🛒 insufficient funds! you need to Earn another ${
+          ProductPrice - earnings
+        }$\n Go TWEET ${cHashtag} `,
+        {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        }
+      );
+    } else {
+      await donateByTheUser(user.email, ProductPrice);
+      setEarnings(earnings - ProductPrice);
+      toast.success("🏆 Thank you for your donation!", {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -58,6 +59,27 @@ export const ClaimRwardsForActivist = () => {
         progress: undefined,
         theme: "light",
       });
+    }
+  };
+  const handleBuy = (ProductPrice, productName) => {
+    console.log(productName);
+
+    if (ProductPrice > earnings) {
+      toast.warn(
+        `🛒 insufficient funds! you need to Earn another ${
+          ProductPrice - earnings
+        }$\n Go TWEET ${cHashtag} `,
+        {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        }
+      );
     } else {
       setNameKey(productName);
       setIsBought(true);

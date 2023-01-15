@@ -1,17 +1,54 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import Cookies from "js-cookie";
 import "../css/checkTweet.css";
 import { CheckTweets } from "../../../../../services/ownerService";
 
-const checkAndPay = () => {
-  //1. להשיג את שמות המשתמשים של כל הפעילים שנרשמו לקמפיינים
-  //2.לראות לאיזה קמפיינים נרשם כל פעיל
-  //3.להשיג את ההשטגים הספציפיים עבור כל קמפיין
-  //4. לבדוק האם הפעילים פרסמו את האשטאג הספציפי ביממה האחרונה ולהוסיף להם כסף
-
-  CheckTweets();
-};
-
 export const CheckTweetsAndGivePoints = () => {
+  const [isButtonEnabled, setIsButtonEnabled] = useState(true);
+  const [TimePast, setTimePast] = useState();
+  const [nextClickTime, setNextClickTime] = useState();
+
+  const checkAndPay = () => {
+    if (isButtonEnabled === false) {
+      alert(
+        `It's been ${TimePast} minutes since your last click, The next click will be possible at: ${nextClickTime}`
+      );
+    } else {
+      // Set a cookie to store the date and time of the last button click
+      Cookies.set("lastButtonClick", new Date(), { expires: 1 }); // expires after 1 day
+      CheckTweets();
+      setIsButtonEnabled(false);
+    }
+  };
+
+  useEffect(() => {
+    // Check if the cookie exists
+    const lastButtonClick = Cookies.get("lastButtonClick");
+    if (lastButtonClick) {
+      // Get the current date and time
+      const currentDate = new Date();
+      // Get the date and time of the last button click from the cookie
+      const lastClickDate = new Date(lastButtonClick);
+      setNextClickTime(new Date(lastClickDate.getTime() + 24 * 60 * 60 * 1000));
+      const timeDifference =
+        (currentDate.getTime() - lastClickDate.getTime()) / 1000 / 60;
+      const timeDifferenceMinutes = Math.round(timeDifference * 100) / 100;
+      setTimePast(timeDifferenceMinutes);
+      // Check if the last button click was today
+      if (
+        currentDate.getFullYear() === lastClickDate.getFullYear() &&
+        currentDate.getMonth() === lastClickDate.getMonth() &&
+        currentDate.getDate() === lastClickDate.getDate()
+      ) {
+        // If the last button click was today, disable the button
+        setIsButtonEnabled(false);
+      } else {
+        // If the last button click was not today, enable the button
+        setIsButtonEnabled(true);
+      }
+    }
+  }, [isButtonEnabled]);
+
   return (
     <div className="containerTweetPage">
       <h1>

@@ -99,8 +99,9 @@ namespace CampaignProject.MicroService
                             var response = client.Execute(request);
                             if (response.IsSuccessful)
                             {
-                                JObject json = JObject.Parse(response.Content);
                                 int tweetCount = 0;
+                                JObject json = JObject.Parse(response.Content);
+                                
                                 int resultCount = (int)json["meta"]["result_count"];
                                 if (resultCount != 0)
                                 {
@@ -109,10 +110,17 @@ namespace CampaignProject.MicroService
                                     if (tweet["text"].ToString().Contains(value.campaignHashtag))
                                     {
                                         tweetCount++;
-                                    }
+                                            
+                                            string id = (string)json["data"][0]["id"];
+                                            string text = (string)json["data"][0]["text"];
+                                            string[] tweetContant = text.Split(new string[] { "\n" }, StringSplitOptions.None);
+                                            MainManager.Instance.Owner.InsertNewTweet(id, tweetContant[0], tweetContant[1], value);
+                                        }
                                 }
                                 }
-                                MainManager.Instance.Owner.giveCreditOnActions(tweetCount, value.activeUserId);
+
+                                if (tweetCount > 0) { MainManager.Instance.Owner.giveCreditOnActions(tweetCount, value.activeUserId); }
+                                
 
 
                               //string urlTweets = $"https://api.twitter.com/1.1/search/tweets.json?q=from%3A{value.TwitterAcount}%20since%3A{startDate}%20until%3A{endDate}%20{value.campaignHashtag}result_type=recent&count=10";
@@ -216,6 +224,10 @@ namespace CampaignProject.MicroService
                                     if (Search == "All campaigns")
                                     {
                                         return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Campaign.getCampaignsFromDBInList()));
+                                    }
+                                    else if(Search == "Tweets")
+                                    {
+                                        return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Owner.getTweets()));
                                     }
                                     else
                                     {

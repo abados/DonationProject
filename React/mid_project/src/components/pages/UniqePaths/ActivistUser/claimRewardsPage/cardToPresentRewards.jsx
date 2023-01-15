@@ -23,13 +23,18 @@ export const CardToReward = ({
           <div className="card-body ">
             <h5 className="card-title">{Product.productName}</h5>
             <p className="card-text">Product Price:{Product.price}</p>
-
-            <button
-              className="btnDonate"
-              onClick={() => handleDonate(Product.price)}
-            >
-              Donate Item
-            </button>
+            {localIsBought && Product.productName === namekey ? (
+              <>
+                <h5>Congrats</h5>
+              </>
+            ) : (
+              <button
+                className="btnDonate"
+                onClick={() => handleDonate(Product.price)}
+              >
+                Donate Item
+              </button>
+            )}
             {localIsBought && Product.productName === namekey ? (
               <>
                 <h5>Ordered</h5>
