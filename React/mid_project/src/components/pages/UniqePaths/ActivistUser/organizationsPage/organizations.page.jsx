@@ -25,7 +25,7 @@ export const ActivistOrganizationsPage = () => {
     setUserEarnings(parseFloat(earnings.join("")));
     let activeCampaigns = await getActiveCampaigns(user.email);
     setActiveCampaignList(activeCampaigns);
-    console.log(activeCampaigns);
+   
   };
 
   useEffect(() => {

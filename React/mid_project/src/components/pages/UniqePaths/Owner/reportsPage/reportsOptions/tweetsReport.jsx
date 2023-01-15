@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import moment from "moment";
+import { TwitterShareButton } from "react-twitter-embed";
 
 export const TweetsReport = ({ Tweetslist }) => {
   const [countForTable] = useState(1);
@@ -31,6 +31,16 @@ export const TweetsReport = ({ Tweetslist }) => {
                     <td>{Tweet.ActiveUserName}</td>
                     <td>{Tweet.Date.split(" ")[0]}</td>
                     <td>{Tweet.Time}</td>
+                    <td>
+                      <TwitterShareButton
+                        options={{
+                          text: `I just saw the activity on my donation site and it's amazing, I suggest you also log in and start donating to the community! you can donate to ${Tweet.campaignName} and even earn money. #Donor #Community ${Tweet.TweetHashtag}`,
+                        }}
+                        url={"www.PromoteIt.com"}
+                      >
+                        Tweet it
+                      </TwitterShareButton>
+                    </td>
                   </tr>
                 </>
               );

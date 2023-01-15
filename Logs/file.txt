@@ -3256,3 +3256,41 @@ insert into Campaigns values(@NonID,'Veterans','Veterans Campaign began with a c
 15/01/2023 13:26:29 Event: search a role in auth0 
 15/01/2023 13:26:30 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
 15/01/2023 13:35:12 Event: report called: 
+15/01/2023 14:05:58 Event: search a role in auth0 
+15/01/2023 14:05:59 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+15/01/2023 14:06:01 Event: search a role in auth0 
+15/01/2023 14:06:01 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+15/01/2023 14:06:02 Event: search a role in auth0 
+15/01/2023 14:06:02 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+15/01/2023 14:08:33 Event: report called: 
+15/01/2023 19:00:27 Event: search a role in auth0 
+15/01/2023 19:00:27 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+15/01/2023 19:00:28 Event: search a role in auth0 
+15/01/2023 19:00:28 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+15/01/2023 19:00:29 Event: search a role in auth0 
+15/01/2023 19:00:29 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+15/01/2023 19:24:19 Event: search a role in auth0 
+15/01/2023 19:24:19 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+15/01/2023 19:24:20 Event: search a role in auth0 
+15/01/2023 19:24:20 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+15/01/2023 19:24:21 Event: search a role in auth0 
+15/01/2023 19:24:21 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+15/01/2023 19:25:46 Event: report called: 
+15/01/2023 19:33:25 Event: report called: 
+15/01/2023 19:40:39 Event: report called: 
+15/01/2023 19:51:46 Event: report called: 
+15/01/2023 19:51:49 Event: report called: 
+15/01/2023 19:52:32 Event: search a role in auth0 
+15/01/2023 19:52:32 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+15/01/2023 19:52:33 Event: search a role in auth0 
+15/01/2023 19:52:33 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+15/01/2023 19:52:34 Event: search a role in auth0 
+15/01/2023 19:52:34 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+15/01/2023 19:52:40 Event: report called: 
+15/01/2023 19:54:36 Event: report called: 
+15/01/2023 20:31:54 Event: search a role in auth0 
+15/01/2023 20:31:54 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+15/01/2023 20:31:55 Event: search a role in auth0 
+15/01/2023 20:31:55 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+15/01/2023 20:31:55 Event: search a role in auth0 
+15/01/2023 20:31:55 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'

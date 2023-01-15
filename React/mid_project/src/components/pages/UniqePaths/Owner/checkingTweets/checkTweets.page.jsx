@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import "../css/checkTweet.css";
 import { CheckTweets } from "../../../../../services/ownerService";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const CheckTweetsAndGivePoints = () => {
   const [isButtonEnabled, setIsButtonEnabled] = useState(true);
@@ -10,8 +12,21 @@ export const CheckTweetsAndGivePoints = () => {
 
   const checkAndPay = () => {
     if (isButtonEnabled === false) {
-      alert(
-        `It's been ${TimePast} minutes since your last click, The next click will be possible at: ${nextClickTime}`
+      let TimePastInHours = TimePast > 60 ? Math.floor(TimePast / 60) : null;
+      toast.warn(
+        `It's been ${
+          TimePastInHours ? TimePastInHours + " hours" : TimePast + " minutes"
+        } since your last click, The next click will be possible at: ${nextClickTime}`,
+        {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        }
       );
     } else {
       // Set a cookie to store the date and time of the last button click
@@ -86,6 +101,18 @@ export const CheckTweetsAndGivePoints = () => {
           </svg>
         </div>
       </button>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };
