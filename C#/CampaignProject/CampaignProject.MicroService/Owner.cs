@@ -73,12 +73,12 @@ namespace CampaignProject.MicroService
                     {//bring all of the active campaigns and the people that are sign to them, those are the activist we will check for TWEETS
                         Dictionary<int, Model.ActiveCampaigns> activeCampaignList = MainManager.Instance.Owner.bringDataAboutCampaignsActivity();
 
-                        DateTime currentDate = DateTime.Today.AddDays(-1); ;
-                        DateTime dateOfTomorrow = DateTime.Today;
-                        string currentDay = currentDate.ToString("yyyy-MM-dd");
-                        string tomorrow = dateOfTomorrow.ToString("yyyy-MM-dd");
-                        string start_time = currentDay + "T00:00:00Z";
-                        string end_time = tomorrow + "T00:00:00Z";
+                        DateTime yesterday = DateTime.Today.AddDays(-1); ;
+                        DateTime today = DateTime.Today;
+                        string lastDay = yesterday.ToString("yyyy-MM-dd");
+                        string currentDay = today.ToString("yyyy-MM-dd");
+                        string start_time = lastDay + "T00:00:00Z";
+                        string end_time = currentDay + "T00:00:00Z";
 
                         foreach (KeyValuePair<int, Model.ActiveCampaigns> pair in activeCampaignList)
                         {
@@ -113,33 +113,14 @@ namespace CampaignProject.MicroService
                                             
                                             string id = (string)json["data"][0]["id"];
                                             string text = (string)json["data"][0]["text"];
-                                            string[] tweetContant = text.Split(new string[] { "\n" }, StringSplitOptions.None);
-                                            MainManager.Instance.Owner.InsertNewTweet(id, tweetContant[0], tweetContant[1], value);
+                                            string[] tweetContant = text.Split(new string[] { "\n" },                       StringSplitOptions.None);
+                                            MainManager.Instance.Owner.InsertNewTweet(id, tweetContant[0],                  tweetContant[1], value);
                                         }
                                 }
                                 }
 
-                                if (tweetCount > 0) { MainManager.Instance.Owner.giveCreditOnActions(tweetCount, value.activeUserId); }
+                                if (tweetCount > 0) { MainManager.Instance.Owner.giveCreditOnActions                                (tweetCount, value.activeUserId); }
                                 
-
-
-                              //string urlTweets = $"https://api.twitter.com/1.1/search/tweets.json?q=from%3A{value.TwitterAcount}%20since%3A{startDate}%20until%3A{endDate}%20{value.campaignHashtag}result_type=recent&count=10";
-
-                                /*another way to count all tweets of a specific user in a range of time with a different query
-                                // Still need to understand how and if to parse the response
-                                JObject json = JObject.Parse(response.Content);
-                                if (((JArray)json["statuses"]).Count == 0)
-                                {
-                                    int x = 1; // didnt found tweet
-                                }
-                                else
-                                {
-                                    int tweetCount = ((JArray)json["statuses"]).Count; ;
-                                    MainManager.Instance.Owner.giveCreditOnActions(tweetCount, value.activeUserId);
-
-                                }
-                                //return new OkObjectResult(json);
-                                */
                             }
                             else
                             {

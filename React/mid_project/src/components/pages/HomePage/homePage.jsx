@@ -12,9 +12,10 @@ export const HomePage = () => {
       <div className="homePageContainer">
         <h1>Welcome to ProLobby home page</h1>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat
-          quisquam qui nostrum. Qui eum amet ullam, reprehenderit adipisci
-          laudantium perspiciatis?
+          Welcome to the great donation site - ProLobby. Here you can take part
+          in campaigns to promote things that are important to you, donate your
+          time and money for those goals and promote your association's
+          campaigns. Enjoy!
         </p>
       </div>
     );

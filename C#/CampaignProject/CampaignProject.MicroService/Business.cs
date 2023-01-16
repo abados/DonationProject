@@ -77,6 +77,7 @@ namespace CampaignProject.MicroService
                     }
                     break;
                 case "DELETEAPRODUCT"://the user can see only products that are available and didnt ordered
+
                     //In the case of the POST request, the request body is being sent as a JSON string, so it can be deserialized directly using the JsonSerializer. However, in the case of the DELETE request, when you are trying to send the product object in the request body, rather than as a JSON string.In this case, you need to serialize the object into a string before sending it in the request body with ReadToEndAsync().
                     //Logger.Log("DeleteAProduct called", LoggingLibrary.LogLevel.Event);
                     try
@@ -125,7 +126,6 @@ namespace CampaignProject.MicroService
                     }                   
                     break;
                 case "SHIPIT"://the business man can see orders that didn't completed, if he psuh "send" we get here to finish them
-                    
                     try { 
                     MainManager.Instance.Business.SendTheItems(int.Parse(Identifier));
                     }
