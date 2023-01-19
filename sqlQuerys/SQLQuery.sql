@@ -11,7 +11,7 @@ CREATE TABLE "ConfigData"(
 );
 
 select * from Config
- insert into Config values('TweetBearer','Bearer AAAAAAAAAAAAAAAAAAAAAENakwEAAAAAMheCg%2FAIMZdIWvt6anqHp%2B46MN8%3DQhqomMVza0yUop6wV4YkrataIc2PfPHRPGTQ3rxydLSdahTn4Q')
+ insert into Config values('TweetBearer','Bearer ')
  select VALUE from Config where [KEY]='CONSUMER_KEY' or [KEY]='CONSUMER_SECRET' or
  [KEY]='ACCESS_TOKEN' or [KEY]='ACCESS_TOKEN_SECRET'
  SELECT  VALUE FROM Config WHERE [KEY]='CONSUMER_KEY'

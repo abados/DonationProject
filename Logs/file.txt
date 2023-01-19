@@ -3294,3 +3294,295 @@ insert into Campaigns values(@NonID,'Veterans','Veterans Campaign began with a c
 15/01/2023 20:31:55 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
 15/01/2023 20:31:55 Event: search a role in auth0 
 15/01/2023 20:31:55 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+17/01/2023 11:44:53 Event: search a role in auth0 
+17/01/2023 11:44:54 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+17/01/2023 11:44:55 Event: search a role in auth0 
+17/01/2023 11:44:55 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+17/01/2023 11:44:55 Event: search a role in auth0 
+17/01/2023 11:44:55 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+17/01/2023 11:45:22 Event: report called: 
+17/01/2023 11:45:35 Event: report called: 
+17/01/2023 11:46:24 Event: search a role in auth0 
+17/01/2023 11:46:24 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+17/01/2023 11:46:25 Event: search a role in auth0 
+17/01/2023 11:46:25 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+17/01/2023 11:46:26 Event: search a role in auth0 
+17/01/2023 11:46:26 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+17/01/2023 11:46:42 Event: search a role in auth0 
+17/01/2023 11:46:42 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+17/01/2023 11:46:43 Event: search a role in auth0 
+17/01/2023 11:46:43 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+17/01/2023 11:46:43 Event: search a role in auth0 
+17/01/2023 11:46:43 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+17/01/2023 11:46:50 Event: getNonProfitListFromDB called: 
+17/01/2023 11:46:50 Event: getNonProfitListFromDB called: 
+17/01/2023 11:46:51 Event: getEarningsByIDFromDB called
+17/01/2023 11:46:57 Event: get All/Specific Campaign list from the DB 
+17/01/2023 11:46:57 Event: get All/Specific Campaign list from the DB 
+17/01/2023 11:47:00 Event: get All/Specific Campaign list from the DB 
+17/01/2023 11:47:31 Event: getNonProfitListFromDB called: 
+17/01/2023 11:47:32 Event: getEarningsByIDFromDB called
+17/01/2023 11:47:33 Event: getEarningsByIDFromDB called
+17/01/2023 11:47:35 Event: get All/Specific Campaign list from the DB 
+17/01/2023 11:47:35 Event: get All/Specific Campaign list from the DB 
+17/01/2023 11:47:38 Event: get All/Specific Campaign list from the DB 
+17/01/2023 11:47:42 Event: getNonProfitListFromDB called: 
+17/01/2023 11:47:43 Event: getEarningsByIDFromDB called
+17/01/2023 11:47:44 Event: getEarningsByIDFromDB called
+17/01/2023 11:47:46 Event: get All/Specific Campaign list from the DB 
+17/01/2023 11:47:46 Event: get All/Specific Campaign list from the DB 
+17/01/2023 11:47:49 Event: get All/Specific Campaign list from the DB 
+17/01/2023 11:47:50 Event: sign user to campaign
+17/01/2023 11:47:57 Event: getPurchesProductsOFromDB called
+17/01/2023 11:47:57 Event: getPurchesProductsOFromDB called
+17/01/2023 11:48:00 Event: getPurchesProductsOFromDB called
+17/01/2023 11:48:10 Event: getNonProfitListFromDB called: 
+17/01/2023 11:48:10 Event: getNonProfitListFromDB called: 
+17/01/2023 11:48:10 Event: getEarningsByIDFromDB called
+17/01/2023 11:48:11 Event: getEarningsByIDFromDB called
+17/01/2023 11:48:14 Event: get All/Specific Campaign list from the DB 
+17/01/2023 11:48:15 Event: get All/Specific Campaign list from the DB 
+17/01/2023 11:48:18 Event: get All/Specific Campaign list from the DB 
+17/01/2023 11:48:46 Event: search a role in auth0 
+17/01/2023 11:48:46 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+17/01/2023 11:48:46 Event: search a role in auth0 
+17/01/2023 11:48:46 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+17/01/2023 11:48:46 Event: search a role in auth0 
+17/01/2023 11:48:46 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+17/01/2023 11:48:52 Event: get All/Specific Campaign list from the DB 
+17/01/2023 11:48:52 Event: get All/Specific Campaign list from the DB 
+17/01/2023 11:48:55 Event: get All/Specific Campaign list from the DB 
+17/01/2023 11:48:55 Event: get All/Specific Campaign list from the DB 
+17/01/2023 11:48:58 Event: get All/Specific Campaign list from the DB 
+17/01/2023 11:48:58 Event: get All/Specific Campaign list from the DB 
+17/01/2023 11:49:00 Event: Get 1 Data from DB: select id from Businesses where  Email='noya.tuizer@gmail.com'
+17/01/2023 11:49:00 Event: Get 1 Data from DB: select id from Businesses where  Email='noya.tuizer@gmail.com'
+17/01/2023 11:49:03 Event: Get 1 Data from DB: select id from Businesses where  Email='noya.tuizer@gmail.com'
+17/01/2023 11:49:05 Event: Get 1 Data from DB: select id from Businesses where  Email='noya.tuizer@gmail.com'
+17/01/2023 11:49:05 Event: Get 1 Data from DB: select id from Businesses where  Email='noya.tuizer@gmail.com'
+17/01/2023 14:55:10 Event: search a role in auth0 
+17/01/2023 14:55:10 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+17/01/2023 14:55:12 Event: search a role in auth0 
+17/01/2023 14:55:12 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+17/01/2023 14:55:13 Event: search a role in auth0 
+17/01/2023 14:55:13 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+17/01/2023 14:55:26 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:55:26 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:55:29 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:55:29 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:55:32 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:55:32 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:55:35 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:55:35 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:55:38 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:55:38 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:55:41 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:55:41 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:55:42 Event: delete a campaign called 
+17/01/2023 14:55:42 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:55:44 Event: delete a campaign called 
+17/01/2023 14:55:44 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:55:44 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:55:44 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:55:45 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:55:47 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:55:47 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:55:47 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:55:48 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:55:50 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:55:50 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:55:51 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:55:51 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:55:53 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:55:54 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:55:54 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:55:54 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:55:56 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:55:57 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:55:57 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:55:58 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:00 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:00 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:00 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:01 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:03 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:03 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:03 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:04 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:06 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:06 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:06 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:07 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:09 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:09 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:09 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:10 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:12 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:12 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:12 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:13 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:15 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:15 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:15 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:16 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:18 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:18 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:18 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:19 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:21 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:21 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:21 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:22 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:24 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:24 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:24 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:25 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:27 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:27 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:27 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:29 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:30 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:30 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:30 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:32 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:33 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:33 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:33 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:35 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:36 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:37 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:37 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:38 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:39 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:40 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:40 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:41 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:42 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:43 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:43 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:44 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:46 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:46 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:46 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:47 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:49 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:49 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:49 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:50 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:52 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:52 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:52 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:53 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:55 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:55 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:55 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:56 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:59 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:59 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:56:59 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:57:00 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:57:03 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:57:03 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:57:03 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:57:04 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:57:07 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:57:07 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:57:07 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:57:08 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:57:11 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:57:11 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:57:11 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:57:12 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:57:15 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:57:15 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:57:15 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:57:16 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:57:19 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:57:19 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:57:19 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:57:20 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:57:22 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:57:22 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:57:22 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:57:23 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:57:25 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:57:25 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:57:25 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:57:26 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:57:47 Event: search a role in auth0 
+17/01/2023 14:57:48 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+17/01/2023 14:57:48 Event: search a role in auth0 
+17/01/2023 14:57:48 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+17/01/2023 14:57:48 Event: search a role in auth0 
+17/01/2023 14:57:48 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+17/01/2023 14:57:54 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:57:54 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:57:57 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:57:57 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:58:01 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:58:01 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:58:04 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:58:04 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:58:07 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:58:07 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:58:10 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:58:10 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:58:13 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:58:13 Event: get All/Specific Campaign list from the DB 
+17/01/2023 14:58:23 Event: Get 1 Data from DB: select id from Businesses where  Email='noya.tuizer@gmail.com'
+17/01/2023 14:58:23 Event: Get 1 Data from DB: select id from Businesses where  Email='noya.tuizer@gmail.com'
+17/01/2023 14:58:26 Event: Get 1 Data from DB: select id from Businesses where  Email='noya.tuizer@gmail.com'
+17/01/2023 15:00:00 Event: Get 1 Data from DB: select id from Businesses where  Email='noya.tuizer@gmail.com'
+17/01/2023 15:00:00 Event: Get 1 Data from DB: select id from Businesses where  Email='noya.tuizer@gmail.com'
+17/01/2023 15:00:07 Event: Get 1 Data from DB: select id from Businesses where  Email='noya.tuizer@gmail.com'
+17/01/2023 15:00:10 Event: Get 1 Data from DB: select id from Businesses where  Email='noya.tuizer@gmail.com'
+17/01/2023 15:00:10 Event: Get 1 Data from DB: select id from Businesses where  Email='noya.tuizer@gmail.com'
+17/01/2023 15:00:15 Event: Get 1 Data from DB: select id from Businesses where  Email='noya.tuizer@gmail.com'
+17/01/2023 15:00:16 Event: Get 1 Data from DB: select id from Businesses where  Email='noya.tuizer@gmail.com'
+17/01/2023 15:00:19 Event: Get 1 Data from DB: select id from Businesses where  Email='noya.tuizer@gmail.com'
+17/01/2023 15:00:21 Event: Get 1 Data from DB: select id from Businesses where  Email='noya.tuizer@gmail.com'
+17/01/2023 15:00:21 Event: Get 1 Data from DB: select id from Businesses where  Email='noya.tuizer@gmail.com'
+17/01/2023 15:00:38 Event: search a role in auth0 
+17/01/2023 15:00:38 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+17/01/2023 15:00:38 Event: search a role in auth0 
+17/01/2023 15:00:38 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+17/01/2023 15:00:39 Event: search a role in auth0 
+17/01/2023 15:00:39 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+17/01/2023 15:00:44 Event: getNonProfitListFromDB called: 
+17/01/2023 15:00:45 Event: getEarningsByIDFromDB called
+17/01/2023 15:00:46 Event: getEarningsByIDFromDB called
+17/01/2023 15:00:52 Event: getPurchesProductsOFromDB called
+17/01/2023 15:00:53 Event: getPurchesProductsOFromDB called
+17/01/2023 15:00:53 Event: getNonProfitListFromDB called: 
+17/01/2023 15:00:53 Event: getEarningsByIDFromDB called
+17/01/2023 15:00:54 Event: getEarningsByIDFromDB called
+17/01/2023 15:01:00 Event: getPurchesProductsOFromDB called
+17/01/2023 15:01:01 Event: getNonProfitListFromDB called: 
+17/01/2023 15:01:01 Event: getPurchesProductsOFromDB called
+17/01/2023 15:01:01 Event: getNonProfitListFromDB called: 
+17/01/2023 15:01:02 Event: getEarningsByIDFromDB called
+17/01/2023 15:01:20 Event: get All/Specific Campaign list from the DB 
+17/01/2023 15:01:20 Event: get All/Specific Campaign list from the DB 
+17/01/2023 15:01:23 Event: get All/Specific Campaign list from the DB 
+17/01/2023 15:01:36 Event: sign user to campaign
+17/01/2023 15:02:43 Event: getPurchesProductsOFromDB called
+17/01/2023 15:02:43 Event: getPurchesProductsOFromDB called
+17/01/2023 15:02:46 Event: getPurchesProductsOFromDB called
+17/01/2023 15:03:12 Event: search a role in auth0 
+17/01/2023 15:03:12 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+17/01/2023 15:03:12 Event: search a role in auth0 
+17/01/2023 15:03:12 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+17/01/2023 15:03:12 Event: search a role in auth0 
+17/01/2023 15:03:13 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+17/01/2023 15:03:52 Event: giveCreditOnActions called: 
+17/01/2023 15:03:52 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='TweetBearer'
+17/01/2023 15:03:52 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='TweetBearer'
+17/01/2023 15:03:53 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='TweetBearer'
+17/01/2023 15:03:53 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='TweetBearer'
+17/01/2023 15:03:54 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='TweetBearer'
+17/01/2023 15:04:32 Event: report called: 
+17/01/2023 15:04:36 Event: report called: 
+17/01/2023 15:04:40 Event: report called: 
+17/01/2023 15:04:48 Event: report called: 
+17/01/2023 15:04:48 Event: Get 1 Data from DB: SELECT SUM(Earnings) as TotalEarnings FROM Activists;
+17/01/2023 15:05:01 Event: report called: 
