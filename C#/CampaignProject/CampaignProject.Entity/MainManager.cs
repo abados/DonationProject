@@ -41,5 +41,7 @@ namespace CampaignProject.Entity
         // Instance of Product
         // Because of it I can access to its function
         public ProductManager Product = new ProductManager();
+
+        public TwitterManager twitterManager = new TwitterManager();
     }
 }

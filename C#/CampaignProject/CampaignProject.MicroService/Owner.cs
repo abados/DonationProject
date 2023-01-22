@@ -73,23 +73,15 @@ namespace CampaignProject.MicroService
                     {//bring all of the active campaigns and the people that are sign to them, those are the activist we will check for TWEETS
                         Dictionary<int, Model.ActiveCampaigns> activeCampaignList = MainManager.Instance.Owner.bringDataAboutCampaignsActivity();
 
-                        DateTime yesterday = DateTime.Today.AddDays(-1); ;
-                        DateTime today = DateTime.Today;
-                        string lastDay = yesterday.ToString("yyyy-MM-dd");
-                        string currentDay = today.ToString("yyyy-MM-dd");
-                        string start_time = lastDay + "T00:00:00Z";
-                        string end_time = currentDay + "T00:00:00Z";
 
                         foreach (KeyValuePair<int, Model.ActiveCampaigns> pair in activeCampaignList)
                         {
                             int key = pair.Key;
                             Model.ActiveCampaigns value = pair.Value;
-                           
+
                             //search url that check if there are tweets of specific user, with specific hashtag on the last day
 
-                            string urlTweets = $"https://api.twitter.com/2/tweets/search/recent?start_time={start_time}&end_time={end_time}&query=from:{value.TwitterAcount}";
-
-                            
+                            string urlTweets = MainManager.Instance.twitterManager.getUrlApiTwitter(value);
 
                             var client = new RestClient(urlTweets);
                             var request = new RestRequest("", Method.Get);
@@ -101,26 +93,9 @@ namespace CampaignProject.MicroService
                             {
                                 int tweetCount = 0;
                                 JObject json = JObject.Parse(response.Content);
-                                
-                                int resultCount = (int)json["meta"]["result_count"];
-                                if (resultCount != 0)
-                                {
-                                    foreach (var tweet in json["data"])
-                                {
-                                    if (tweet["text"].ToString().Contains(value.campaignHashtag))
-                                    {
-                                        tweetCount++;
-                                            
-                                            string id = (string)json["data"][0]["id"];
-                                            string text = (string)json["data"][0]["text"];
-                                            string[] tweetContant = text.Split(new string[] { "\n" },                       StringSplitOptions.None);
-                                            MainManager.Instance.Owner.InsertNewTweet(id, tweetContant[0],                  tweetContant[1], value);
-                                        }
-                                }
-                                }
 
-                                if (tweetCount > 0) { MainManager.Instance.Owner.giveCreditOnActions                                (tweetCount, value.activeUserId); }
-                                
+                                MainManager.Instance.twitterManager.checkTwwets(json, value);
+
                             }
                             else
                             {

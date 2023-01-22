@@ -3586,3 +3586,84 @@ insert into Campaigns values(@NonID,'Veterans','Veterans Campaign began with a c
 17/01/2023 15:04:48 Event: report called: 
 17/01/2023 15:04:48 Event: Get 1 Data from DB: SELECT SUM(Earnings) as TotalEarnings FROM Activists;
 17/01/2023 15:05:01 Event: report called: 
+22/01/2023 22:41:00 Event: search a role in auth0 
+22/01/2023 22:41:01 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+22/01/2023 22:41:03 Event: search a role in auth0 
+22/01/2023 22:41:03 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+22/01/2023 22:41:03 Event: search a role in auth0 
+22/01/2023 22:41:03 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='Bearer'
+22/01/2023 22:41:08 Event: giveCreditOnActions called: 
+22/01/2023 22:41:15 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='TweetBearer'
+22/01/2023 22:48:32 Event: giveCreditOnActions called: 
+22/01/2023 22:48:39 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='TweetBearer'
+22/01/2023 22:49:08 Event: giveCreditOnActions called: 
+22/01/2023 22:49:14 Event: Get 1 Data from DB: select VALUE from Config where [KEY]='TweetBearer'
+22/01/2023 22:59:02 Event: giveCreditOnActions called: 
+22/01/2023 22:59:08 Event: Get 1 Data from DB: SELECT  VALUE from Config where [KEY]='TweetSearchQuery
+22/01/2023 22:59:08 Error: System.Data.SqlClient.SqlException (0x80131904): Unclosed quotation mark after the character string 'TweetSearchQuery'.
+Incorrect syntax near 'TweetSearchQuery'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds)
+   at System.Data.SqlClient.SqlCommand.ExecuteScalar()
+   at CampaignProject.DAL.SqlQuery.getOneDataFromDBInString(String SqlQuery) in C:\Users\User\source\Projects\Semester2\MidProject\C#\CampaignProject\CampaignProject.DAL\SqlQuery.cs:line 84
+   at CampaignProject.Data.Sql.OwnerData.bringTwitterQuery() in C:\Users\User\source\Projects\Semester2\MidProject\C#\CampaignProject\CampaignProject.Data.Sql\OwnerData.cs:line 375
+ClientConnectionId:db71c1d9-0b7f-4506-816b-be1168a78ba2
+Error Number:105,State:1,Class:15
+22/01/2023 23:00:14 Event: giveCreditOnActions called: 
+22/01/2023 23:00:43 Event: Get 1 Data from DB: SELECT  VALUE from Config where [KEY]='TweetSearchQuery
+22/01/2023 23:01:11 Error: System.Data.SqlClient.SqlException (0x80131904): Unclosed quotation mark after the character string 'TweetSearchQuery'.
+Incorrect syntax near 'TweetSearchQuery'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds)
+   at System.Data.SqlClient.SqlCommand.ExecuteScalar()
+   at CampaignProject.DAL.SqlQuery.getOneDataFromDBInString(String SqlQuery) in C:\Users\User\source\Projects\Semester2\MidProject\C#\CampaignProject\CampaignProject.DAL\SqlQuery.cs:line 84
+   at CampaignProject.Data.Sql.OwnerData.bringTwitterQuery()
+ClientConnectionId:2eaf52d9-ef88-4e6c-b7ca-47841a250bec
+Error Number:105,State:1,Class:15
+22/01/2023 23:01:31 Event: giveCreditOnActions called: 
+22/01/2023 23:01:43 Event: Get 1 Data from DB: SELECT  VALUE from Config where [KEY]='TweetSearchQuery'
+22/01/2023 23:02:26 Event: giveCreditOnActions called: 
+22/01/2023 23:02:35 Event: Get 1 Data from DB: SELECT  VALUE from Config where [KEY]='TweetSearchQuery'
+22/01/2023 23:02:35 Event: Get 1 Data from DB: SELECT  VALUE from Config where [KEY]='TweetSearchQuery'
+22/01/2023 23:11:51 Event: giveCreditOnActions called: 
+22/01/2023 23:13:19 Error: System.TypeInitializationException: The type initializer for 'CampaignProject.DAL.SqlQuery' threw an exception.
+ ---> System.IO.FileNotFoundException: Could not find file 'C:\Users\User\source\Projects\Semester2\MidProject\C#\CampaignProject\CampaignProject.MicroService\bin\Debug\net6.0\connectionStr.txt'.
+File name: 'C:\Users\User\source\Projects\Semester2\MidProject\C#\CampaignProject\CampaignProject.MicroService\bin\Debug\net6.0\connectionStr.txt'
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategy(FileStream fileStream, String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, Int64 preallocationSize)
+   at System.IO.StreamReader.ValidateArgsAndOpenPath(String path, Encoding encoding, Int32 bufferSize)
+   at System.IO.File.InternalReadAllText(String path, Encoding encoding)
+   at System.IO.File.ReadAllText(String path)
+   at CampaignProject.DAL.SqlQuery..cctor() in C:\Users\User\source\Projects\Semester2\MidProject\C#\CampaignProject\CampaignProject.DAL\SqlQuery.cs:line 15
+   --- End of inner exception stack trace ---
+   at CampaignProject.DAL.SqlQuery.getDataFromDB(String SqlQuery, SetDataReader_delegate Ptrfunc) in C:\Users\User\source\Projects\Semester2\MidProject\C#\CampaignProject\CampaignProject.DAL\SqlQuery.cs:line 23
+   at CampaignProject.Data.Sql.OwnerData.bringActiveCampaignsTable() in C:\Users\User\source\Projects\Semester2\MidProject\C#\CampaignProject\CampaignProject.Data.Sql\OwnerData.cs:line 265
+22/01/2023 23:13:36 Event: giveCreditOnActions called: 
+22/01/2023 23:14:27 Error: System.ArgumentException: Keyword not supported: '"integrated security'.
+   at System.Data.Common.DbConnectionOptions.ParseInternal(Dictionary`2 parsetable, String connectionString, Boolean buildChain, Dictionary`2 synonyms, Boolean firstKey)
+   at System.Data.Common.DbConnectionOptions..ctor(String connectionString, Dictionary`2 synonyms)
+   at System.Data.SqlClient.SqlConnectionString..ctor(String connectionString)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnectionOptions(String connectionString, DbConnectionOptions previous)
+   at System.Data.ProviderBase.DbConnectionFactory.GetConnectionPoolGroup(DbConnectionPoolKey key, DbConnectionPoolGroupOptions poolOptions, DbConnectionOptions& userConnectionOptions)
+   at System.Data.SqlClient.SqlConnection.ConnectionString_Set(DbConnectionPoolKey key)
+   at System.Data.SqlClient.SqlConnection.set_ConnectionString(String value)
+   at System.Data.SqlClient.SqlConnection..ctor(String connectionString)
+   at CampaignProject.DAL.SqlQuery.getDataFromDB(String SqlQuery, SetDataReader_delegate Ptrfunc) in C:\Users\User\source\Projects\Semester2\MidProject\C#\CampaignProject\CampaignProject.DAL\SqlQuery.cs:line 23
+   at CampaignProject.Data.Sql.OwnerData.bringActiveCampaignsTable() in C:\Users\User\source\Projects\Semester2\MidProject\C#\CampaignProject\CampaignProject.Data.Sql\OwnerData.cs:line 265
+22/01/2023 23:15:27 Event: giveCreditOnActions called: 
+22/01/2023 23:17:12 Event: giveCreditOnActions called: 
+22/01/2023 23:18:13 Event: giveCreditOnActions called: 
+22/01/2023 23:19:06 Event: giveCreditOnActions called: 

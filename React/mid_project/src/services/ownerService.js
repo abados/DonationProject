@@ -11,8 +11,7 @@ export const addOwnerUser = async (user) => {
   await axios.post("http://localhost:7033/api/Owner/ADD", user);
 };
 
-export const CheckTweets = async (user) => {
-  console.log(user);
+export const CheckTweets = async () => {
   await axios.post("http://localhost:7033/api/Owner/TWEET");
 };
 
@@ -32,4 +31,3 @@ export const GenerateReport = async (Table, search) => {
     console.log(error);
   }
 };
-

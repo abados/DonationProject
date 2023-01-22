@@ -12,7 +12,7 @@ namespace CampaignProject.DAL
 {
     public class SqlQuery
     {
-        static string connectionString = "Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=MidProject; Data Source=localhost\\SQLEXPRESS";
+        static string connectionString = System.IO.File.ReadAllText("connectionStr.txt");
   
         public delegate object SetDataReader_delegate(SqlDataReader reader);
 

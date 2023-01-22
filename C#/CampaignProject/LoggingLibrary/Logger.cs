@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace LoggingLibrary
 {
+ 
     public enum LogLevel
     {
         Event = 1,
@@ -15,10 +16,11 @@ namespace LoggingLibrary
     }
     public static class Logger
     {
-
+          
        
         public static void Log(string message, LogLevel level)
         {
+
             // Code to write the log message to a file or database, or send it to a logging service.
 
             // Write the log message to a file

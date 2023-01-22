@@ -366,6 +366,21 @@ namespace CampaignProject.Data.Sql
 
         }
 
+        public string bringTwitterQuery()
+        {
+            string SqlQuery = "SELECT  VALUE from Config where [KEY]='TweetSearchQuery'";
+            string TweetSearchQuery = null;
+            try
+            {
+                TweetSearchQuery = DAL.SqlQuery.getOneDataFromDBInString(SqlQuery);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
+            return TweetSearchQuery;
+        }
+
 
     }
 }
