@@ -110,11 +110,12 @@ SELECT TOP 1 id,
 FROM Tweets
 ORDER BY id DESC
 
-SELECT TOP 1 Date,  
-   
-    CONVERT(NVARCHAR(8), Time, 108) + 'Z' AS FormattedTime
+SELECT TOP 1 concat(Date,'TT',
+    CONVERT(NVARCHAR(8), Time, 108) + 'Z') AS FormattedTime
 FROM Tweets
 ORDER BY id DESC
+
+
 
 insert into Tweets values('1614531797416648705','5','40','Animal & Plant Health Inspection Service','#PlantHealth','hay',
 'save the ower plant',
