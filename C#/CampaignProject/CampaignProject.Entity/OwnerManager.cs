@@ -148,6 +148,21 @@ namespace CampaignProject.Entity
                 Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
             }
         }
+
+        public string getLastTweetDateAndTime ()
+        {
+            Data.Sql.OwnerData Owner = new Data.Sql.OwnerData();
+            string result=null;
+            try
+            {
+                result = Owner.bringLastTweetDateAndTime();
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
+            return result;
+        }
     }
 
   

@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CampaignProject.Data.Sql", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CampaignProject.MicroService", "CampaignProject.MicroService\CampaignProject.MicroService.csproj", "{03F907B5-81C0-4358-B36F-5290169F99D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggingLibrary", "LoggingLibrary\LoggingLibrary.csproj", "{C4A7341D-2046-4464-8E8D-0D9D44A06E6A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities", "LoggingLibrary\Utilities.csproj", "{C4A7341D-2046-4464-8E8D-0D9D44A06E6A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -126,9 +126,9 @@
       <Project>{891609c8-627b-457a-a8f1-0b263b342413}</Project>
       <Name>CampaignProject.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LoggingLibrary\LoggingLibrary.csproj">
+    <ProjectReference Include="..\LoggingLibrary\Utilities.csproj">
       <Project>{c4a7341d-2046-4464-8e8d-0d9d44a06e6a}</Project>
-      <Name>LoggingLibrary</Name>
+      <Name>Utilities</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

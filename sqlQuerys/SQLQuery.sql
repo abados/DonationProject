@@ -11,14 +11,15 @@ CREATE TABLE "ConfigData"(
 );
 
 select * from Config
- insert into Config values('TweetBearer','Bearer ')
+ insert into Config values('TweetSearchQuery','https://api.twitter.com/2/tweets/search/recent?')
+ insert into Config values('logFilePath','C:\\Users\\User\\source\\Projects\\Semester2\\MidProject\\C#\\CampaignProject\\logs\\Log.txt')
  select VALUE from Config where [KEY]='CONSUMER_KEY' or [KEY]='CONSUMER_SECRET' or
  [KEY]='ACCESS_TOKEN' or [KEY]='ACCESS_TOKEN_SECRET'
  SELECT  VALUE FROM Config WHERE [KEY]='CONSUMER_KEY'
 SELECT  VALUE FROM Config WHERE [KEY]='CONSUMER_SECRET'
 SELECT  VALUE FROM Config WHERE [KEY]='ACCESS_TOKEN'
 SELECT  VALUE FROM Config WHERE [KEY]='ACCESS_TOKEN_SECRET'
-
+SELECT  VALUE from Config where [KEY]='TweetSearchQuery'
 select * from Config where [KEY]!='Bearer'
 
 
@@ -102,6 +103,18 @@ CREATE TABLE "Tweets"(
 	"Date" DATE NOT NULL,
 	"Time" TIME NOT NULL,
 );
+
+SELECT TOP 1 id,  
+    CONVERT(NVARCHAR(10), Date, 126) AS FormattedDate,
+    CONVERT(NVARCHAR(8), Time, 108) + 'Z' AS FormattedTime
+FROM Tweets
+ORDER BY id DESC
+
+SELECT TOP 1 Date,  
+   
+    CONVERT(NVARCHAR(8), Time, 108) + 'Z' AS FormattedTime
+FROM Tweets
+ORDER BY id DESC
 
 insert into Tweets values('1614531797416648705','5','40','Animal & Plant Health Inspection Service','#PlantHealth','hay',
 'save the ower plant',

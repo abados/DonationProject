@@ -204,9 +204,6 @@ namespace CampaignProject.Data.Sql
             {
                 Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
             }
-
-
-
             return null;
 
         }
@@ -380,6 +377,23 @@ namespace CampaignProject.Data.Sql
             }
             return TweetSearchQuery;
         }
+
+        public string bringLastTweetDateAndTime()
+        {
+            string SqlQuery = "SELECT TOP 1 concat(Date,'TT', CONVERT(NVARCHAR(8), Time, 108) + 'Z') AS FormattedTime FROM Tweets ORDER BY id DESC";
+            string TweetSearchQuery = null;
+            try
+            {
+                TweetSearchQuery = DAL.SqlQuery.getOneDataFromDBInString(SqlQuery);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+            }
+            return TweetSearchQuery;
+        }
+
+
 
 
     }

@@ -10,17 +10,22 @@ using System.Threading.Tasks;
 
 namespace CampaignProject.DAL
 {
+    
     public class SqlQuery
     {
-        static string connectionString = System.IO.File.ReadAllText("connectionStr.txt");
-  
-        public delegate object SetDataReader_delegate(SqlDataReader reader);
+        
+        public static string connectionString = System.IO.File.ReadAllText("connectionStr.txt").Replace("\\\\", "\\").Trim();
+       
+
+    public delegate object SetDataReader_delegate(SqlDataReader reader);
 
         public static object getDataFromDB(string SqlQuery, SetDataReader_delegate Ptrfunc)
         {
-            object retHash = null;
-            
-            using (SqlConnection connection = new SqlConnection(connectionString))
+           
+        object retHash = null;
+           
+            using (
+                SqlConnection connection = new SqlConnection(connectionString))
             {
 
                 // Adapter
@@ -34,7 +39,7 @@ namespace CampaignProject.DAL
                     //Reader
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        //Logger.Log("Get Data from DB: "+ SqlQuery, LoggingLibrary.LogLevel.Event);
+                        Logger.Log("Get Data from DB: "+ SqlQuery, LoggingLibrary.LogLevel.Event);
                         retHash = Ptrfunc(reader);
 
                     }
@@ -57,7 +62,7 @@ namespace CampaignProject.DAL
                 {
                     connection.Open();
                     //Reader
-                   //Logger.Log("Get 1 Data from DB: " + SqlQuery, LoggingLibrary.LogLevel.Event);
+                   Logger.Log("Get 1 Data from DB: " + SqlQuery, LoggingLibrary.LogLevel.Event);
                     retHash = command.ExecuteScalar().ToString();
                     
 
@@ -103,7 +108,7 @@ namespace CampaignProject.DAL
                     // Create a new SQL command
                     using (SqlCommand command = new SqlCommand(updateQuery, connection))
                     {
-                        //Logger.Log("update/delete/insert DB: " + updateQuery, LoggingLibrary.LogLevel.Event);
+                        Logger.Log("update/delete/insert DB: " + updateQuery, LoggingLibrary.LogLevel.Event);
                         //Execute the command
                         command.ExecuteNonQuery();
                     }
@@ -129,7 +134,7 @@ namespace CampaignProject.DAL
                 // Adapter
                 using (SqlCommand command = new SqlCommand(SqlQuery, connection))
                 {
-                    Logger.Log("Insert into Users: " + SqlQuery, LoggingLibrary.LogLevel.Event);
+                   Logger.Log("Insert into Users: " + SqlQuery, LoggingLibrary.LogLevel.Event);
                     connection.Open();
                     //Reader
 

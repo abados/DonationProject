@@ -16,7 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CampaignProject.Entity\CampaignProject.Entity.csproj" />
     <ProjectReference Include="..\CampaignProject.Model\CampaignProject.Model.csproj" />
-    <ProjectReference Include="..\LoggingLibrary\LoggingLibrary.csproj" />
+    <ProjectReference Include="..\LoggingLibrary\Utilities.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="host.json">

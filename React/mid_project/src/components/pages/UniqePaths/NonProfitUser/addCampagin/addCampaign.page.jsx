@@ -36,7 +36,7 @@ export const AddCampaignPage = () => {
 
   return (
     <div className="formContainer">
-      <form onSubmit={handleSubmit} className="formNInfo">
+      <form onSubmit={handleSubmit} className="formCInfo">
         <h1>Add new Campaing</h1>
         <div className="form-group">
           <label className="formLbl" htmlFor="name">

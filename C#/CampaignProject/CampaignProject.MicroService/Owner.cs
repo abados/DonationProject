@@ -10,22 +10,9 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using CampaignProject.Entity;
-using CampaignProject.Model;
 using System.Collections.Generic;
-using System.Text.Json.Nodes;
-using System.Linq;
-using static System.Net.WebRequestMethods;
-using Tweetinvi;
 using LoggingLibrary;
-using iTextSharp.text.pdf;
-using iTextSharp.text;
-using CsvHelper;
-using CsvHelper.Configuration;
-using System.Globalization;
-using System.Net.Http;
-using System.Net;
-using Microsoft.Extensions.Configuration;
-using CampaignProject.DAL;
+
 
 namespace CampaignProject.MicroService
 {
@@ -69,48 +56,50 @@ namespace CampaignProject.MicroService
                     break;
                 case "TWEET"://A call to a function that checks tweets of specific people and specific tags and gives value accordingly
                     Logger.Log("giveCreditOnActions called: ", LoggingLibrary.LogLevel.Event);
-                    try
-                    {//bring all of the active campaigns and the people that are sign to them, those are the activist we will check for TWEETS
-                        Dictionary<int, Model.ActiveCampaigns> activeCampaignList = MainManager.Instance.Owner.bringDataAboutCampaignsActivity();
+                    //try
+                    //{
+                        
+                    //    //bring all of the active campaigns and the people that are sign to them, those are the activist we will check for TWEETS
+                        //Dictionary<int, Model.ActiveCampaigns> activeCampaignList = MainManager.Instance.Owner.bringDataAboutCampaignsActivity();
+                    MainManager.Instance.twitterManager = new TwitterManager();
 
+                    //    foreach (KeyValuePair<int, Model.ActiveCampaigns> pair in activeCampaignList)
+                    //    {
+                    //        int key = pair.Key;
+                    //        Model.ActiveCampaigns value = pair.Value;
 
-                        foreach (KeyValuePair<int, Model.ActiveCampaigns> pair in activeCampaignList)
-                        {
-                            int key = pair.Key;
-                            Model.ActiveCampaigns value = pair.Value;
+                    //        //search url that check if there are tweets of specific user, with specific hashtag on the last day
 
-                            //search url that check if there are tweets of specific user, with specific hashtag on the last day
+                    //        string urlTweets = MainManager.Instance.twitterManager.getUrlApiTwitter(value);
 
-                            string urlTweets = MainManager.Instance.twitterManager.getUrlApiTwitter(value);
+                    //        var client = new RestClient(urlTweets);
+                    //        var request = new RestRequest("", Method.Get);
+                    //        // Our bearer token for twitter
+                    //        request.AddHeader("authorization", "" + MainManager.Instance.Campaign.GetBearer("TweetBearer"));
 
-                            var client = new RestClient(urlTweets);
-                            var request = new RestRequest("", Method.Get);
-                            // Our bearer token for twitter
-                            request.AddHeader("authorization", "" + MainManager.Instance.Campaign.GetBearer("TweetBearer"));
+                    //        var response = client.Execute(request);
+                    //        if (response.IsSuccessful)
+                    //        {
+                    //            int tweetCount = 0;
+                    //            JObject json = JObject.Parse(response.Content);
 
-                            var response = client.Execute(request);
-                            if (response.IsSuccessful)
-                            {
-                                int tweetCount = 0;
-                                JObject json = JObject.Parse(response.Content);
+                    //            MainManager.Instance.twitterManager.checkTwwets(json, value);
 
-                                MainManager.Instance.twitterManager.checkTwwets(json, value);
+                    //        }
+                    //        else
+                    //        {
+                    //            return new NotFoundResult();
+                    //        }
 
-                            }
-                            else
-                            {
-                                return new NotFoundResult();
-                            }
+                    //    }
+                    //    string responseMessage = "";
 
-                        }
-                        string responseMessage = "";
-
-                        return new OkObjectResult(responseMessage);
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
-                    }
+                    //    return new OkObjectResult(responseMessage);
+                    //}
+                    //catch (Exception ex)
+                    //{
+                    //    Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                    //}
 
                     break;
                 case "REPORT"://A report page, it gets what type on information the owner seeks and make the specific query for it.

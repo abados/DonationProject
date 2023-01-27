@@ -14,6 +14,8 @@ import { FormContext } from "../../context/context";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import { NewRegisterPage } from "../pages/HomePage/newRegister.page";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { useRecoilState } from "recoil";
+import { RoleState } from "../../shareState/RoleState";
 
 export const NavBarComponent = () => {
   const { user, logout, isLoading } = useAuth0();
@@ -21,6 +23,7 @@ export const NavBarComponent = () => {
   const { RoleContext, setRoleContext } = useContext(UserRoleContext);
   const { formSubmitted } = useContext(FormContext);
   const [isExists, setIsExists] = useState("false");
+  const [RoleRecoil] = useRecoilState(RoleState);
 
   //bring the user Role
   const handleRole = async () => {
@@ -28,6 +31,7 @@ export const NavBarComponent = () => {
     let userId = user.sub;
     await setRoleContext(await getRole(userId));
     setLoading(false); // set loading to false after the request is complete
+    console.log("recoilState:" + RoleRecoil);
   };
 
   //chack if the user is in the Sql DB
@@ -35,6 +39,7 @@ export const NavBarComponent = () => {
     if (RoleContext && RoleContext[0] && RoleContext[0].name) {
       setIsExists(await checkIfExsits(user.email, RoleContext[0].name));
     }
+    console.log("recoilState:" + RoleRecoil);
   };
 
   //Call the funciton in specific order of execution
