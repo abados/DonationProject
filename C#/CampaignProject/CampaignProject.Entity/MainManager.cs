@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LoggingLibrary;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,20 @@ namespace CampaignProject.Entity
 {
     public class MainManager
     {
-        private MainManager() { }
+        private MainManager() {
+
+            init();
+        }
+
+        public void init()
+        {
+            Logger.LogItemsQueue = new Queue<LogItem>();
+            Logger myLogger = new Logger("File");
+            //Logger.LogItemsQueue = new Queue<LogItem>();
+            Logger.LogEvent("program has started", LogLevel.Event);
+
+       
+        }
 
         // Singleton variable
         private static readonly MainManager instance = new MainManager();

@@ -31,7 +31,6 @@ export const NavBarComponent = () => {
     let userId = user.sub;
     await setRoleContext(await getRole(userId));
     setLoading(false); // set loading to false after the request is complete
-    console.log("recoilState:" + RoleRecoil);
   };
 
   //chack if the user is in the Sql DB
@@ -39,7 +38,6 @@ export const NavBarComponent = () => {
     if (RoleContext && RoleContext[0] && RoleContext[0].name) {
       setIsExists(await checkIfExsits(user.email, RoleContext[0].name));
     }
-    console.log("recoilState:" + RoleRecoil);
   };
 
   //Call the funciton in specific order of execution

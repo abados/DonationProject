@@ -40,7 +40,7 @@ namespace CampaignProject.Data.Sql
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
             return null;
         }
@@ -73,7 +73,7 @@ namespace CampaignProject.Data.Sql
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
             return null;
         }
@@ -88,7 +88,7 @@ namespace CampaignProject.Data.Sql
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
            
             return retDict;
@@ -103,7 +103,7 @@ namespace CampaignProject.Data.Sql
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
             return retDict;
         }
@@ -118,7 +118,7 @@ namespace CampaignProject.Data.Sql
             } 
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
             return retDict;
         }
@@ -132,7 +132,7 @@ namespace CampaignProject.Data.Sql
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
             return retDict;
         }
@@ -146,7 +146,7 @@ namespace CampaignProject.Data.Sql
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
             return retDict;
         }
@@ -160,7 +160,7 @@ namespace CampaignProject.Data.Sql
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
             string updateTheDonateInTheCampaign = "UPDATE Campaigns SET DonationsAmount=DonationsAmount +" + newProduct.price + " WHERE CampaignId= " + newProduct.campaignID + "";
             try { 
@@ -168,7 +168,7 @@ namespace CampaignProject.Data.Sql
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
         }
 
@@ -181,7 +181,7 @@ namespace CampaignProject.Data.Sql
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
         }
 
@@ -197,7 +197,7 @@ namespace CampaignProject.Data.Sql
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
             return retDict;
         }
@@ -211,7 +211,7 @@ namespace CampaignProject.Data.Sql
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
             return retDict;
         }
@@ -225,7 +225,7 @@ namespace CampaignProject.Data.Sql
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
             return retDict;
         }

@@ -22,7 +22,7 @@ namespace CampaignProject.Entity
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
             return ProductsList;
         }
@@ -36,7 +36,7 @@ namespace CampaignProject.Entity
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
             return ProductsToShipList;
         }
@@ -50,7 +50,7 @@ namespace CampaignProject.Entity
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
             return ProductsList;
         }
@@ -63,7 +63,7 @@ namespace CampaignProject.Entity
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
             return ProductsList;
         }
@@ -76,7 +76,7 @@ namespace CampaignProject.Entity
             } 
             catch(Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
         }
 
@@ -88,7 +88,7 @@ namespace CampaignProject.Entity
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
         }
 
@@ -105,7 +105,7 @@ namespace CampaignProject.Entity
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
             return ProductsList;
         }
@@ -118,7 +118,7 @@ namespace CampaignProject.Entity
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
             return ProductsList;
         }
@@ -131,7 +131,7 @@ namespace CampaignProject.Entity
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
             return ProductsList;
         }

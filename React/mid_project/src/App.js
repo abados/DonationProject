@@ -31,7 +31,6 @@ import {
   UserRoleContext,
   checkIfExsits,
   getRole,
-  getSpecificCampaigns,
 } from "./components/pages/index";
 
 function App() {

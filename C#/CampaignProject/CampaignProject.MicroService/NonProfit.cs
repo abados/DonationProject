@@ -27,17 +27,17 @@ namespace CampaignProject.MicroService
                 case "Find": //check if the user allready sign as a role
                     try
                     {
-                        //Logger.Log("looking for a user in the DB", LoggingLibrary.LogLevel.Event);
+                        //Logger.LogEvent"looking for a user in the DB", LoggingLibrary.LogLevel.Event);
                         return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.NonProfit.FindTheUser(Identifier)));
                     
                     }
                     catch (Exception ex)
                     {
-                         Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                         Logger.LogException(ex.ToString(), ex);
                     }   
             break;
                 case "ADD"://adding the user to the users table and to NonProfit table
-                    Logger.Log("adding user to the DB: ", LoggingLibrary.LogLevel.Event);
+                    Logger.LogEvent("adding user to the DB: ", LoggingLibrary.LogLevel.Event);
                     try { 
                     NonProfitUser newUser = new NonProfitUser();
                     newUser = System.Text.Json.JsonSerializer.Deserialize<NonProfitUser>(req.Body);
@@ -45,7 +45,7 @@ namespace CampaignProject.MicroService
                     }
                     catch (Exception ex)
                     {
-                        Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                        Logger.LogException(ex.ToString(), ex);
                     }
                     break;
                 default:

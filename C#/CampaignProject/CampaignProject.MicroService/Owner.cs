@@ -32,17 +32,17 @@ namespace CampaignProject.MicroService
                 case "Find"://Check if the user is in the DB
                     try
                     {
-                        //Logger.Log("looking for a user in the DB", LoggingLibrary.LogLevel.Event);
+                        //Logger.LogEvent"looking for a user in the DB", LoggingLibrary.LogLevel.Event);
                         return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Owner.FindTheUser(Identifier)));
 
                     }
                     catch (Exception ex)
                     {
-                        Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                        Logger.LogException(ex.ToString(), ex);
                     }
                     break;
                 case "ADD"://ADD ths user to the DB
-                    Logger.Log("adding user to the DB: ", LoggingLibrary.LogLevel.Event);
+                    Logger.LogEvent("adding user to the DB: ", LoggingLibrary.LogLevel.Event);
                     try
                     {
                         Model.Owner owner = new Model.Owner();
@@ -51,59 +51,18 @@ namespace CampaignProject.MicroService
                     }
                     catch (Exception ex)
                     {
-                        Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                        Logger.LogException(ex.ToString(), ex);
                     }
                     break;
                 case "TWEET"://A call to a function that checks tweets of specific people and specific tags and gives value accordingly
-                    Logger.Log("giveCreditOnActions called: ", LoggingLibrary.LogLevel.Event);
-                    //try
-                    //{
-                        
-                    //    //bring all of the active campaigns and the people that are sign to them, those are the activist we will check for TWEETS
-                        //Dictionary<int, Model.ActiveCampaigns> activeCampaignList = MainManager.Instance.Owner.bringDataAboutCampaignsActivity();
-                    MainManager.Instance.twitterManager = new TwitterManager();
+                   // Logger.LogEvent"giveCreditOnActions called: ", LoggingLibrary.LogLevel.Event);
+                    
+                    //MainManager.Instance.twitterManager = new TwitterManager();
 
-                    //    foreach (KeyValuePair<int, Model.ActiveCampaigns> pair in activeCampaignList)
-                    //    {
-                    //        int key = pair.Key;
-                    //        Model.ActiveCampaigns value = pair.Value;
-
-                    //        //search url that check if there are tweets of specific user, with specific hashtag on the last day
-
-                    //        string urlTweets = MainManager.Instance.twitterManager.getUrlApiTwitter(value);
-
-                    //        var client = new RestClient(urlTweets);
-                    //        var request = new RestRequest("", Method.Get);
-                    //        // Our bearer token for twitter
-                    //        request.AddHeader("authorization", "" + MainManager.Instance.Campaign.GetBearer("TweetBearer"));
-
-                    //        var response = client.Execute(request);
-                    //        if (response.IsSuccessful)
-                    //        {
-                    //            int tweetCount = 0;
-                    //            JObject json = JObject.Parse(response.Content);
-
-                    //            MainManager.Instance.twitterManager.checkTwwets(json, value);
-
-                    //        }
-                    //        else
-                    //        {
-                    //            return new NotFoundResult();
-                    //        }
-
-                    //    }
-                    //    string responseMessage = "";
-
-                    //    return new OkObjectResult(responseMessage);
-                    //}
-                    //catch (Exception ex)
-                    //{
-                    //    Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
-                    //}
-
+                 
                     break;
                 case "REPORT"://A report page, it gets what type on information the owner seeks and make the specific query for it.
-                    Logger.Log("report called: ", LoggingLibrary.LogLevel.Event);
+                    Logger.LogEvent("report called: ", LoggingLibrary.LogLevel.Event);
                     try
                     {
                         string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
@@ -135,7 +94,7 @@ namespace CampaignProject.MicroService
 
                                 catch (Exception ex)
                                 {
-                                    Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                                    Logger.LogException(ex.ToString(), ex);
                                 }
                                 break;
                             case "Users":
@@ -160,7 +119,7 @@ namespace CampaignProject.MicroService
                                 }
                                 catch (Exception ex)
                                 {
-                                    Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                                    Logger.LogException(ex.ToString(), ex);
                                 }
                                 break;
                             case "Campaigns":
@@ -182,7 +141,7 @@ namespace CampaignProject.MicroService
                                 }
                                 catch (Exception ex)
                                 {
-                                    Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                                    Logger.LogException(ex.ToString(), ex);
                                 }
                                 break;
                             default:
@@ -194,7 +153,7 @@ namespace CampaignProject.MicroService
                     }
                     catch (Exception ex)
                     {
-                        Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                        Logger.LogException(ex.ToString(), ex);
                     }
 
                     break;

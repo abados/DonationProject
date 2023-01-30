@@ -39,7 +39,7 @@ namespace CampaignProject.Data.Sql
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
             return OrganizationList;
         }
@@ -64,7 +64,7 @@ namespace CampaignProject.Data.Sql
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
             return Activist;
         }
@@ -106,7 +106,7 @@ namespace CampaignProject.Data.Sql
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
             return TwitterKeys;
         }
@@ -134,7 +134,7 @@ namespace CampaignProject.Data.Sql
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
             return ActivistList;
         }
@@ -162,7 +162,7 @@ namespace CampaignProject.Data.Sql
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
             return ActivistList;
         }
@@ -176,7 +176,7 @@ namespace CampaignProject.Data.Sql
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
             return null;
 
@@ -191,7 +191,7 @@ namespace CampaignProject.Data.Sql
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
             return null;
 
@@ -207,7 +207,7 @@ namespace CampaignProject.Data.Sql
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
 
         }
@@ -221,7 +221,7 @@ namespace CampaignProject.Data.Sql
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
 
         }
@@ -237,7 +237,7 @@ namespace CampaignProject.Data.Sql
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
         }
 
@@ -250,7 +250,7 @@ namespace CampaignProject.Data.Sql
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
         }
 
@@ -279,7 +279,7 @@ namespace CampaignProject.Data.Sql
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
             return retDict;
         }
@@ -294,7 +294,7 @@ namespace CampaignProject.Data.Sql
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
             return retDict;
         }
@@ -308,7 +308,7 @@ namespace CampaignProject.Data.Sql
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
             return retDict;
         }

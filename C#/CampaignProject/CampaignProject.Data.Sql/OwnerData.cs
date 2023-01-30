@@ -48,7 +48,7 @@ namespace CampaignProject.Data.Sql
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
             return null;
         }
@@ -72,7 +72,7 @@ namespace CampaignProject.Data.Sql
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
             return null;
         }
@@ -96,7 +96,7 @@ namespace CampaignProject.Data.Sql
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
             return null;
         }
@@ -123,7 +123,7 @@ namespace CampaignProject.Data.Sql
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
             return null;
         }
@@ -153,7 +153,7 @@ namespace CampaignProject.Data.Sql
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
             return null;
         }
@@ -187,7 +187,7 @@ namespace CampaignProject.Data.Sql
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
             return null;
         }
@@ -197,12 +197,12 @@ namespace CampaignProject.Data.Sql
             string SqlQuery = "declare @answer varchar(100)\n if exists (select * from Owner where Email="+"'"+userEmail+"'"+") begin select @answer = 'true' end else begin select @answer = 'false' end select @answer";
             try { 
             object retObject = DAL.SqlQuery.getOneDataFromDB(SqlQuery);
-                //Logger.Log("check if the user exsist as Owner in the DB", LoggingLibrary.LogLevel.Event);
+                //Logger.LogEvent"check if the user exsist as Owner in the DB", LoggingLibrary.LogLevel.Event);
                 return retObject;
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
             return null;
 
@@ -219,7 +219,7 @@ namespace CampaignProject.Data.Sql
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
 
         }
@@ -234,7 +234,7 @@ namespace CampaignProject.Data.Sql
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
         }
 
@@ -263,7 +263,7 @@ namespace CampaignProject.Data.Sql
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
             return retDict;
         }
@@ -280,7 +280,7 @@ namespace CampaignProject.Data.Sql
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
             return retDict;
         }
@@ -295,7 +295,7 @@ namespace CampaignProject.Data.Sql
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
             return retDict;
         }
@@ -310,7 +310,7 @@ namespace CampaignProject.Data.Sql
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
             return retDict;
         }
@@ -327,7 +327,7 @@ namespace CampaignProject.Data.Sql
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
             return retDict;
         }
@@ -343,7 +343,7 @@ namespace CampaignProject.Data.Sql
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
             return EarningsSum;
         }
@@ -358,7 +358,7 @@ namespace CampaignProject.Data.Sql
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
 
         }
@@ -373,7 +373,7 @@ namespace CampaignProject.Data.Sql
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
             return TweetSearchQuery;
         }
@@ -388,7 +388,7 @@ namespace CampaignProject.Data.Sql
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.ToString(), LoggingLibrary.LogLevel.Error);
+                Logger.LogException(ex.ToString(), ex);
             }
             return TweetSearchQuery;
         }

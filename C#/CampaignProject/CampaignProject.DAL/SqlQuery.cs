@@ -39,7 +39,7 @@ namespace CampaignProject.DAL
                     //Reader
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        Logger.Log("Get Data from DB: "+ SqlQuery, LoggingLibrary.LogLevel.Event);
+                        Logger.LogEvent("Get Data from DB: "+ SqlQuery, LoggingLibrary.LogLevel.Event);
                         retHash = Ptrfunc(reader);
 
                     }
@@ -62,7 +62,7 @@ namespace CampaignProject.DAL
                 {
                     connection.Open();
                     //Reader
-                   Logger.Log("Get 1 Data from DB: " + SqlQuery, LoggingLibrary.LogLevel.Event);
+                   Logger.LogEvent("Get 1 Data from DB: " + SqlQuery, LoggingLibrary.LogLevel.Event);
                     retHash = command.ExecuteScalar().ToString();
                     
 
@@ -85,7 +85,7 @@ namespace CampaignProject.DAL
                 {
                     connection.Open();
                     //Reader
-                    Logger.Log("Get 1 Data from DB: " + SqlQuery, LoggingLibrary.LogLevel.Event);
+                    Logger.LogEvent("Get 1 Data from DB: " + SqlQuery, LoggingLibrary.LogLevel.Event);
                     id = command.ExecuteScalar().ToString();
 
 
@@ -108,7 +108,7 @@ namespace CampaignProject.DAL
                     // Create a new SQL command
                     using (SqlCommand command = new SqlCommand(updateQuery, connection))
                     {
-                        Logger.Log("update/delete/insert DB: " + updateQuery, LoggingLibrary.LogLevel.Event);
+                        Logger.LogEvent("update/delete/insert DB: " + updateQuery, LoggingLibrary.LogLevel.Event);
                         //Execute the command
                         command.ExecuteNonQuery();
                     }
@@ -134,7 +134,7 @@ namespace CampaignProject.DAL
                 // Adapter
                 using (SqlCommand command = new SqlCommand(SqlQuery, connection))
                 {
-                   Logger.Log("Insert into Users: " + SqlQuery, LoggingLibrary.LogLevel.Event);
+                   Logger.LogEvent("Insert into Users: " + SqlQuery, LoggingLibrary.LogLevel.Event);
                     connection.Open();
                     //Reader
 
