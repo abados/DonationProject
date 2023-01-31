@@ -12,7 +12,11 @@ namespace LoggingLibrary
     {
        
 
-        public static string connectionString = System.IO.File.ReadAllText("connectionStr.txt").Replace("\\\\", "\\").Trim();
+        //public static string connectionString = System.IO.File.ReadAllText("connectionStr.txt").Replace("\\\\", "\\").Trim();
+
+        public static string connectionString = Environment.GetEnvironmentVariable("ConnectionString");
+
+
         private static string fileName = getLogFilePathFromDB().Replace("\\\\", "\\").Trim();
         private static string originalPath = fileName;
         private static string path;

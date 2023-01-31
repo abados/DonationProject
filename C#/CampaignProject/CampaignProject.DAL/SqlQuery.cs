@@ -14,10 +14,12 @@ namespace CampaignProject.DAL
     public class SqlQuery
     {
         
-        public static string connectionString = System.IO.File.ReadAllText("connectionStr.txt").Replace("\\\\", "\\").Trim();
-       
+        //public static string connectionString = System.IO.File.ReadAllText("connectionStr.txt").Replace("\\\\", "\\").Trim();
 
-    public delegate object SetDataReader_delegate(SqlDataReader reader);
+        public static string connectionString = Environment.GetEnvironmentVariable("ConnectionString");
+
+
+        public delegate object SetDataReader_delegate(SqlDataReader reader);
 
         public static object getDataFromDB(string SqlQuery, SetDataReader_delegate Ptrfunc)
         {
