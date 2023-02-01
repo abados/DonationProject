@@ -9,22 +9,58 @@ namespace LoggingLibrary
 {
     internal class LogDB : ILoggerUtilities
     {
-        public static string connectionString = System.IO.File.ReadAllText("connectionStr.txt").Replace("\\\\", "\\").Trim();
+        //public static string connectionString = System.IO.File.ReadAllText("connectionStr.txt").Replace("\\\\", "\\").Trim();
+
+        public static string connectionString = Environment.GetEnvironmentVariable("ConnectionString");
         public void Init()
         {
+            Task.Run(() =>
+            {
+                while (true)
+                {
+                    while(Logger.LogItemsQueue.Count > 0)
+                    {
+                        LogItem item = Logger.LogItemsQueue.Dequeue();
+                        if(item != null) { 
+                        Insert_RowInDB(item.Message);
+                        }
 
+                        System.Threading.Thread.Sleep(1000);
+                    }
+                    System.Threading.Thread.Sleep(11000);
+                }
+
+            });
+
+            Task.Run(() =>
+            {
+                while (true)
+                {
+                    LogCheckHoseKeeping();
+
+                    System.Threading.Thread.Sleep(180000);
+                }
+
+            });
         }
 
         public void LogEvent(string msg)
         {
             string Query = "insert into Logs values('"+msg+"','','',GETDATE())";
-            Insert_RowInDB(Query);
+            LogItem log = new LogItem();
+            log.Message = Query;
+            log.DateTime = DateTime.Now;
+            Logger.LogItemsQueue.Enqueue(log);
         }
 
         public void LogException(string msg, Exception exception)
         {
             string Query = "insert into Logs values('','"+msg+ "','"+ exception.Message+ "',GETDATE())";
-            Insert_RowInDB(Query);
+            LogItem log = new LogItem();
+            log.Message = Query;
+            log.DateTime = DateTime.Now;
+            log.Exception = exception;
+            Logger.LogItemsQueue.Enqueue(log);
         }
 
         public void LogCheckHoseKeeping()
@@ -36,7 +72,10 @@ namespace LoggingLibrary
         public void LogError(string msg)
         {
             string Query = "insert into Logs values('','" + msg + "','',GETDATE())";
-            Insert_RowInDB(Query);
+            LogItem log = new LogItem();
+            log.Message = Query;
+            log.DateTime = DateTime.Now;
+            Logger.LogItemsQueue.Enqueue(log);
         }
 
         public void Insert_RowInDB(string updateQuery)
@@ -60,11 +99,11 @@ namespace LoggingLibrary
             }
             catch (SqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                
             }
         }
     }

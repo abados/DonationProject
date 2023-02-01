@@ -17,8 +17,7 @@ namespace CampaignProject.Entity
         public void init()
         {
             Logger.LogItemsQueue = new Queue<LogItem>();
-            Logger myLogger = new Logger("File");
-            //Logger.LogItemsQueue = new Queue<LogItem>();
+            Logger myLogger = new Logger(Environment.GetEnvironmentVariable("LogConfig"));
             Logger.LogEvent("program has started", LogLevel.Event);
 
        

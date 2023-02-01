@@ -10,17 +10,52 @@ namespace LoggingLibrary
     {
         public void Init()
         {
+            Task.Run(() =>
+            {
+                while (true)
+                {
+                    if (Logger.LogItemsQueue.Count > 0)
+                    {
+                        LogItem item = Logger.LogItemsQueue.Dequeue();
+                        Console.WriteLine("Log: "+item.Message+ " Time: "+ item.DateTime);
+                        System.Threading.Thread.Sleep(11000);
 
+                    }
+
+                    System.Threading.Thread.Sleep(1000);
+                }
+
+            });
+
+            Task.Run(() =>
+            {
+                while (true)
+                {
+                    LogCheckHoseKeeping();
+
+                    System.Threading.Thread.Sleep(180000);
+                }
+
+            });
         }
 
         public void LogEvent(string msg)
         {
-            Console.WriteLine("LogEvent:" + msg);
+            string consoleMsg = "LogEvent:" + msg;
+            LogItem log = new LogItem();
+            log.Message = consoleMsg;
+            log.DateTime = DateTime.Now;
+            Logger.LogItemsQueue.Enqueue(log);
         }
 
         public void LogException(string msg, Exception exception)
         {
-            Console.WriteLine("LogError:" + msg + "Exception:" + exception.Message);
+            string consoleMsg = "LogError:" + msg + "Exception:" + exception.Message;
+            LogItem log = new LogItem();
+            log.Message = consoleMsg;
+            log.DateTime = DateTime.Now;
+            log.Exception = exception;
+            Logger.LogItemsQueue.Enqueue(log);
         }
 
         public void LogCheckHoseKeeping()
@@ -30,7 +65,12 @@ namespace LoggingLibrary
 
         public void LogError(string msg)
         {
-            Console.WriteLine("LogError:"+msg);
+           
+            string consoleMsg = "LogError:" + msg;
+            LogItem log = new LogItem();
+            log.Message = consoleMsg;
+            log.DateTime = DateTime.Now;
+            Logger.LogItemsQueue.Enqueue(log);
         }
     }
 }
