@@ -110,6 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActivistData.cs" />
+    <Compile Include="BaseDataSql.cs" />
     <Compile Include="BusinessData.cs" />
     <Compile Include="CampaignData.cs" />
     <Compile Include="NonProfitData.cs" />

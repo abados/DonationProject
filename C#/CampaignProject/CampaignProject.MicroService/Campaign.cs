@@ -27,7 +27,7 @@ namespace CampaignProject.MicroService
             switch (action)
             {
                 case "ADD"://adding a new campaign to the campaigns table 
-                    Logger.LogEvent("adding campaign to the DB ", LoggingLibrary.LogLevel.Event);
+                    MainManager.Instance.myLogger.LogEvent("adding campaign to the DB ", LoggingLibrary.LogLevel.Event);
                     try { 
                     Model.Campaign campaign = new Model.Campaign();
                     campaign = System.Text.Json.JsonSerializer.Deserialize<Model.Campaign>(req.Body);
@@ -35,11 +35,11 @@ namespace CampaignProject.MicroService
                     }
                     catch(Exception ex)
                     {
-                        Logger.LogException(ex.ToString(), ex);
+                        MainManager.Instance.myLogger.LogException(ex.ToString(), ex);
                     }
                     break;
                 case "GET"://get All/Specific Campaign list
-                    Logger.LogEvent("get All/Specific Campaign list from the DB ", LoggingLibrary.LogLevel.Event);
+                    MainManager.Instance.myLogger.LogEvent("get All/Specific Campaign list from the DB ", LoggingLibrary.LogLevel.Event);
                     try { 
                     if(Identifier==null)
                     { 
@@ -52,11 +52,11 @@ namespace CampaignProject.MicroService
                     }
                     catch(Exception ex)
                     {
-                        Logger.LogException(ex.ToString(), ex);
+                        MainManager.Instance.myLogger.LogException(ex.ToString(), ex);
                     }
                     break;
                 case "UPDATE"://Update a campaign
-                    Logger.LogEvent("Update a campaign called ", LoggingLibrary.LogLevel.Event);
+                    MainManager.Instance.myLogger.LogEvent("Update a campaign called ", LoggingLibrary.LogLevel.Event);
                     try
                     {
 
@@ -67,22 +67,22 @@ namespace CampaignProject.MicroService
                     }
                     catch (Exception ex)
                     {
-                        Logger.LogException(ex.ToString(), ex);
+                        MainManager.Instance.myLogger.LogException(ex.ToString(), ex);
                     }
 
                     break;
                 case "DELETE"://Delete a campaign(only if it now Active)
-                    Logger.LogEvent("delete a campaign called ", LoggingLibrary.LogLevel.Event);
+                    MainManager.Instance.myLogger.LogEvent("delete a campaign called ", LoggingLibrary.LogLevel.Event);
                     try { 
                     MainManager.Instance.Campaign.DeleteACampaingByName(Identifier);
                     }
                     catch(Exception ex)
                     {
-                        Logger.LogException(ex.ToString(), ex);
+                        MainManager.Instance.myLogger.LogException(ex.ToString(), ex);
                     }
                     break;
                 case "ROLE"://Chekcing the user Role from AUTH0
-                    Logger.LogEvent("search a role in auth0 ", LoggingLibrary.LogLevel.Event);
+                    MainManager.Instance.myLogger.LogEvent("search a role in auth0 ", LoggingLibrary.LogLevel.Event);
                     try { 
                     var urlGetRole = $"https://dev-qjf7hgqeu16fymem.us.auth0.com/api/v2/users/{Identifier}/roles";
                     var client = new RestClient(urlGetRole);
@@ -103,7 +103,7 @@ namespace CampaignProject.MicroService
                     }
                     catch (Exception ex)
                     {
-                        Logger.LogException(ex.ToString(), ex);
+                        MainManager.Instance.myLogger.LogException(ex.ToString(), ex);
                     }
 
                     break;

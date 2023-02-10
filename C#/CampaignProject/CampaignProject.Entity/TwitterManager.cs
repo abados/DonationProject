@@ -1,4 +1,5 @@
 ﻿using CampaignProject.Model;
+using LoggingLibrary;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using System;
@@ -11,9 +12,9 @@ using System.Timers;
 
 namespace CampaignProject.Entity
 {
-    public class TwitterManager
+    public class TwitterManager : BaseEntity
     {
-        public TwitterManager()
+        public TwitterManager(Logger log) : base(log)
         {
             // Start the task that runs ManageTweetSearch
             Task.Run(() => ManageTweetSearchTask());
@@ -40,7 +41,7 @@ namespace CampaignProject.Entity
 
         public void ManageTweetSearch()
         {
-            OwnerManager owner = new OwnerManager();
+            OwnerManager owner = new OwnerManager(Logger);
             Dictionary<int, Model.ActiveCampaigns> activeCampaignList = owner.bringDataAboutCampaignsActivity();
             
             //bring all of the active campaigns and the people that are sign to them, those are the activist we will check for TWEETS
@@ -55,7 +56,7 @@ namespace CampaignProject.Entity
 
                 var client = new RestClient(urlTweets);
                 var request = new RestRequest("", Method.Get);
-                CampaignManager campaign = new CampaignManager();
+                CampaignManager campaign = new CampaignManager(Logger);
                 request.AddHeader("authorization", "" + campaign.GetBearer("TweetBearer"));
 
                 var response = client.Execute(request);
@@ -72,7 +73,7 @@ namespace CampaignProject.Entity
 
         public void defineVariablesAndStart()
         {
-            OwnerManager owner = new OwnerManager();
+            OwnerManager owner = new OwnerManager(Logger);
             string lastDateAndTime = owner.getLastTweetDateAndTime(); //bring the last time and date of the tweet that was found
 
             //editing the date and time format to fit the Twitter API Query
@@ -98,7 +99,7 @@ namespace CampaignProject.Entity
 
         public string getUrlApiTwitter(Model.ActiveCampaigns value)
         {
-            Data.Sql.OwnerData Owner = new Data.Sql.OwnerData();
+            Data.Sql.OwnerData Owner = new Data.Sql.OwnerData(Logger);
             string urlTweets = $"{Owner.bringTwitterQuery()}start_time={start_time}&end_time={end_time}&query=from:{value.TwitterAcount}";
             return urlTweets;
         }

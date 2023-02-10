@@ -60,7 +60,7 @@ namespace LoggingLibrary
         static ILoggerUtilities myLog;
         public static System.Collections.Generic.Queue<LogItem> LogItemsQueue;
 
-        public static void LogEvent(string message, LogLevel level)
+        public void LogEvent(string message, LogLevel level)
         {
             if (myLog != null)
             {
@@ -71,14 +71,14 @@ namespace LoggingLibrary
             
         }
 
-        public static void LogError(string message, LogLevel level)
+        public void LogError(string message, LogLevel level)
         {
             if (myLog != null)
             {
                 myLog.LogError("" + message + " " + level);
             }
         }
-        public static void LogException(string message, Exception exception)
+        public void LogException(string message, Exception exception)
         {
             if (myLog != null)
             {

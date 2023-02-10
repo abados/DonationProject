@@ -8,15 +8,18 @@ using System.Threading.Tasks;
 
 namespace CampaignProject.Entity
 {
-    public class ProductManager
+    public class ProductManager : BaseEntity
     {
+        public ProductManager(Logger log) : base(log)
+        {
+        }
 
         //Global List
         public List<Product> ProductsList = new List<Product>();
 
         public List<Product> getUnBoughtProductsOfSpecificBusinessFromDB(int userID)
         {//to get products that specific Business donate
-            Data.Sql.ProductData product = new Data.Sql.ProductData();
+            Data.Sql.ProductData product = new Data.Sql.ProductData(Logger);
             try {
                 ProductsList = (List<Product>)product.SqlQueryToReadUnBoughtProductsFromDB(userID);
             }
@@ -27,9 +30,12 @@ namespace CampaignProject.Entity
             return ProductsList;
         }
         public List<Shipment> ProductsToShipList = new List<Shipment>();
+
+       
+
         public List<Shipment> getBoughtProductsOfSpecificBusinessFromDB(int userID)
         {//to get products that specific Business donate
-            Data.Sql.ProductData product = new Data.Sql.ProductData();
+            Data.Sql.ProductData product = new Data.Sql.ProductData(Logger);
             try
             {
                 ProductsToShipList = (List<Shipment>)product.SqlQueryToReadBoughtProductsFromDB(userID);
@@ -44,7 +50,7 @@ namespace CampaignProject.Entity
 
         public List<Product> getPurchesProductsOFromDB(string userEmail)
         {//to get bought products of specific Activist
-            Data.Sql.ProductData product = new Data.Sql.ProductData();
+            Data.Sql.ProductData product = new Data.Sql.ProductData(Logger);
             try {
                 ProductsList = (List<Product>)product.SqlQueryToReadPurchesProductsFromDB(userEmail);
             }
@@ -57,7 +63,7 @@ namespace CampaignProject.Entity
 
         public List<Product> getProductsOfSpecificCampaignFromDB(string campaignName)
         {
-            Data.Sql.ProductData product = new Data.Sql.ProductData();
+            Data.Sql.ProductData product = new Data.Sql.ProductData(Logger);
             try {
                 ProductsList = (List<Product>)product.SqlQueryToReadProductsFromDB(campaignName);
             }
@@ -70,7 +76,7 @@ namespace CampaignProject.Entity
 
         public void DeleteAProduct(string productName, int businessID,int campaignID)
         {//only by the business man and only if not bought
-            Data.Sql.ProductData campaign = new Data.Sql.ProductData();
+            Data.Sql.ProductData campaign = new Data.Sql.ProductData(Logger);
             try {
                 campaign.DeleteProduct(productName, businessID, campaignID);
             } 
@@ -82,7 +88,7 @@ namespace CampaignProject.Entity
 
     public void InsertNewItem(Model.Product newProduct)
         {
-            Data.Sql.ProductData product = new Data.Sql.ProductData();
+            Data.Sql.ProductData product = new Data.Sql.ProductData(Logger);
             try { 
             product.SendSqlQueryToInsertNewProductToDB(newProduct);
             }
@@ -98,7 +104,7 @@ namespace CampaignProject.Entity
 
         public List<Product> getBoughtProductsFromDB()
         {//to get products that specific Business donate
-            Data.Sql.ProductData product = new Data.Sql.ProductData();
+            Data.Sql.ProductData product = new Data.Sql.ProductData(Logger);
             try
             {
             ProductsList = (List<Product>)product.SqlQueryToReadAllBoughtProductsFromDB();
@@ -112,7 +118,7 @@ namespace CampaignProject.Entity
 
         public List<Product> getBoughtAndNotDeliverdProductsFromDB()
         {//to get products that specific Business donate
-            Data.Sql.ProductData product = new Data.Sql.ProductData();
+            Data.Sql.ProductData product = new Data.Sql.ProductData(Logger);
             try { 
             ProductsList = (List<Product>)product.SqlQueryToReadAllBoughtAndNotDeliverdProductsFromDB();
             }
@@ -125,7 +131,7 @@ namespace CampaignProject.Entity
 
         public List<Product> getAllProductsForReport()
         {
-            Data.Sql.ProductData product = new Data.Sql.ProductData();
+            Data.Sql.ProductData product = new Data.Sql.ProductData(Logger);
             try { 
             ProductsList = (List<Product>)product.SqlQueryToReadAllProductsFromDB();
             }

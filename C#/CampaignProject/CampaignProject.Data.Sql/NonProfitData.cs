@@ -10,9 +10,12 @@ using System.Threading.Tasks;
 
 namespace CampaignProject.Data.Sql
 {
-    public class NonProfitData
+    public class NonProfitData : BaseDataSql
     {
-        
+        public NonProfitData(Logger log) : base(log)
+        {
+            DAL.SqlQuery.logger = Logger;
+        }
 
 
         public CampaignProject.Model.NonProfitUser ReadOneFromDb(SqlDataReader reader)
@@ -44,6 +47,7 @@ namespace CampaignProject.Data.Sql
             string SqlQuery = "declare @answer varchar(100)\n if exists (select * from NonProfits where Email=" + "'" + userEmail + "'" + ") begin select @answer = 'true' end else begin select @answer = 'false' end select @answer";
             try
             {
+                
                 object retObject = DAL.SqlQuery.getOneDataFromDB(SqlQuery);
                 return retObject;
             }
@@ -57,11 +61,15 @@ namespace CampaignProject.Data.Sql
         }
 
         Model.NonProfitUser newUser = new Model.NonProfitUser();
+
+        
+
         public void SendSqlQueryToInsertToDB(Model.NonProfitUser NewUser, int userID)
         {
             string uploadNewUserQuery = "insert into NonProfits values('" + userID + "','" + NewUser.fullName + "','" + NewUser.email + "','" + NewUser.cellPhone + "','" + NewUser.organizationUrl + "','" + NewUser.organizationName + "','" + NewUser.organizationDescription + "')";
             try
             {
+                
                 DAL.SqlQuery.Update_Delete_Insert_RowInDB(uploadNewUserQuery);
             }
             catch (Exception ex)

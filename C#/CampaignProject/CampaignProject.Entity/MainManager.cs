@@ -9,18 +9,25 @@ namespace CampaignProject.Entity
 {
     public class MainManager
     {
-        private MainManager() {
-
+        private MainManager()
+        {
             init();
         }
 
         public void init()
         {
             Logger.LogItemsQueue = new Queue<LogItem>();
-            Logger myLogger = new Logger(Environment.GetEnvironmentVariable("LogConfig"));
-            Logger.LogEvent("program has started", LogLevel.Event);
+            myLogger = new Logger(Environment.GetEnvironmentVariable("LogConfig"));
+            myLogger.LogEvent("program has started", LogLevel.Event);
 
-       
+            Activist = new ActivistManager(myLogger);
+            Business = new BusinessManager(myLogger);
+            NonProfit = new NonProfitManager(myLogger);
+            Owner = new OwnerManager(myLogger);
+            Campaign = new CampaignManager(myLogger);
+            Product = new ProductManager(myLogger);
+            twitterManager = new TwitterManager(myLogger);
+            commandManager = new CommandManager();
         }
 
         // Singleton variable
@@ -31,30 +38,40 @@ namespace CampaignProject.Entity
         }
 
 
+
+        public Logger myLogger { get; set; }
+
         // Instance of ActivistUser
-        // Because of it I can access to its function
-        public ActivistManager Activist = new ActivistManager();
+        // Now I'm able to access to its function
+        public ActivistManager Activist { get; set; }
+        
 
         // Instance of BusinessUser
-        // Because of it I can access to its function
-        public BusinessManager Business = new BusinessManager();
+        // Now I'm able to access to its function
+        public BusinessManager Business { get; set; }
 
         // Instance of NonProfitUser
-        // Because of it I can access to its function
-        public NonProfitManager NonProfit = new NonProfitManager();
+        // Now I'm able to access to its function
+        public NonProfitManager NonProfit { get; set; }
 
         // Instance of OwnerUser
-        // Because of it I can access to its function
-        public OwnerManager Owner = new OwnerManager();
+        // Now I'm able to access to its function
+        public OwnerManager Owner { get; set; }
 
         // Instance of Campaign
-        // Because of it I can access to its function
-        public CampaignManager Campaign = new CampaignManager();
+        // Now I'm able to access to its function
+        public CampaignManager Campaign { get; set; }
 
         // Instance of Product
-        // Because of it I can access to its function
-        public ProductManager Product = new ProductManager();
+        // Now I'm able to access to its function
+        public ProductManager Product { get; set; }
 
-        public TwitterManager twitterManager = new TwitterManager();
+        // Instance of Twitter
+        //Now I'm able to access to its function
+        public TwitterManager twitterManager { get; set; }
+
+        // Instance of CommandManager
+        //Now I'm able to access to its function
+        public CommandManager commandManager { get; set; }
     }
 }

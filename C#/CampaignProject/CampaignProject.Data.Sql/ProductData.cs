@@ -9,8 +9,13 @@ using System.Threading.Tasks;
 
 namespace CampaignProject.Data.Sql
 {
-    public class ProductData
+    public class ProductData : BaseDataSql
     {
+        public ProductData(Logger log) : base(log)
+        {
+            DAL.SqlQuery.logger = Logger;
+        }
+
         public List<Model.Product> ReadFromDb(SqlDataReader reader)
         {
             List<Model.Product> ProductsList = new List<Model.Product>();
@@ -83,8 +88,8 @@ namespace CampaignProject.Data.Sql
         {
             string SqlQuery = "select * from NonProfit";
             object retDict = null;
-            try { 
-            retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadFromDb);
+            try {
+                retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadFromDb);
             }
             catch (Exception ex)
             {
@@ -99,6 +104,7 @@ namespace CampaignProject.Data.Sql
             string SqlQuery = "select * from Products where BusinessUser="+userID+ " and IsBought = 0";
             object retDict = null;
             try { 
+               
             retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadFromDb);
             }
             catch (Exception ex)
@@ -127,8 +133,8 @@ namespace CampaignProject.Data.Sql
         {
             string SqlQuery = "select * from Products where Campaign=(select CampaignId from Campaigns where CampaignName='" + campaignName + "') and IsBought = 0";
             object retDict = null;
-            try { 
-            retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadFromDb);
+            try {
+                retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadFromDb);
             }
             catch (Exception ex)
             {
@@ -141,8 +147,8 @@ namespace CampaignProject.Data.Sql
         {
             string SqlQuery = "select * from Products where ActivistBuyerID=\r\n(select id from Activists where Email ='" + userEmail + "') and IsBought = 1";
             object retDict = null;
-            try { 
-            retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadFromDb);
+            try {
+                retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadFromDb);
             }
             catch (Exception ex)
             {
@@ -155,16 +161,17 @@ namespace CampaignProject.Data.Sql
         {
             string uploadNewProductQuery =
              "insert into Products values('" + newProduct.productName + "'," + newProduct.price + "," + newProduct.businessID + "," + newProduct.campaignID + "," + (newProduct.IsBought ? 1 : 0) + "," + (newProduct.IsDelivered ? 1 : 0) + "," + newProduct.ActivistBuyerID + ")";
-            try { 
-            DAL.SqlQuery.Update_Delete_Insert_RowInDB(uploadNewProductQuery);
+            try {
+                DAL.SqlQuery.Update_Delete_Insert_RowInDB(uploadNewProductQuery);
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex.ToString(), ex);
             }
             string updateTheDonateInTheCampaign = "UPDATE Campaigns SET DonationsAmount=DonationsAmount +" + newProduct.price + " WHERE CampaignId= " + newProduct.campaignID + "";
-            try { 
-            DAL.SqlQuery.Update_Delete_Insert_RowInDB(updateTheDonateInTheCampaign);
+            try {
+                
+                DAL.SqlQuery.Update_Delete_Insert_RowInDB(updateTheDonateInTheCampaign);
             }
             catch (Exception ex)
             {
@@ -176,8 +183,8 @@ namespace CampaignProject.Data.Sql
         {
         
             string deleteQuery = "update Campaigns SET DonationsAmount = DonationsAmount - (SELECT Price from Products where ProductName ='" + productName + "')  where CampaignId = "+ campaignID+"\ndelete from Products where ProductName ='" + productName + "' and BusinessUser=" + businessID + " ";
-            try { 
-            DAL.SqlQuery.Update_Delete_Insert_RowInDB(deleteQuery);
+            try {
+                DAL.SqlQuery.Update_Delete_Insert_RowInDB(deleteQuery);
             }
             catch (Exception ex)
             {
@@ -192,8 +199,8 @@ namespace CampaignProject.Data.Sql
         {
             string SqlQuery = "select * from Products where IsBought=1";
             object retDict = null;
-            try { 
-            retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadFromDb);
+            try {
+                retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadFromDb);
             }
             catch (Exception ex)
             {
@@ -206,8 +213,9 @@ namespace CampaignProject.Data.Sql
         {
             string SqlQuery = "select * from Products where IsBought=1 and IsDelivered=0";
             object retDict = null;
-            try { 
-            retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadFromDb);
+            try {
+           
+                retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadFromDb);
             }
             catch (Exception ex)
             {
@@ -220,8 +228,9 @@ namespace CampaignProject.Data.Sql
         {
             string SqlQuery = "select * from Products";
             object retDict = null;
-            try { 
-            retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadFromDb);
+            try {
+          
+                retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadFromDb);
             }
             catch (Exception ex)
             {

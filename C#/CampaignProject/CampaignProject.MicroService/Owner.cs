@@ -38,11 +38,11 @@ namespace CampaignProject.MicroService
                     }
                     catch (Exception ex)
                     {
-                        Logger.LogException(ex.ToString(), ex);
+                        MainManager.Instance.myLogger.LogException(ex.ToString(), ex);
                     }
                     break;
                 case "ADD"://ADD ths user to the DB
-                    Logger.LogEvent("adding user to the DB: ", LoggingLibrary.LogLevel.Event);
+                    MainManager.Instance.myLogger.LogEvent("adding user to the DB: ", LoggingLibrary.LogLevel.Event);
                     try
                     {
                         Model.Owner owner = new Model.Owner();
@@ -51,7 +51,7 @@ namespace CampaignProject.MicroService
                     }
                     catch (Exception ex)
                     {
-                        Logger.LogException(ex.ToString(), ex);
+                        MainManager.Instance.myLogger.LogException(ex.ToString(), ex);
                     }
                     break;
                 case "TWEET"://A call to a function that checks tweets of specific people and specific tags and gives value accordingly
@@ -62,7 +62,7 @@ namespace CampaignProject.MicroService
                  
                     break;
                 case "REPORT"://A report page, it gets what type on information the owner seeks and make the specific query for it.
-                    Logger.LogEvent("report called: ", LoggingLibrary.LogLevel.Event);
+                    MainManager.Instance.myLogger.LogEvent("report called: ", LoggingLibrary.LogLevel.Event);
                     try
                     {
                         string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
@@ -94,7 +94,7 @@ namespace CampaignProject.MicroService
 
                                 catch (Exception ex)
                                 {
-                                    Logger.LogException(ex.ToString(), ex);
+                                    MainManager.Instance.myLogger.LogException(ex.ToString(), ex);
                                 }
                                 break;
                             case "Users":
@@ -119,7 +119,7 @@ namespace CampaignProject.MicroService
                                 }
                                 catch (Exception ex)
                                 {
-                                    Logger.LogException(ex.ToString(), ex);
+                                    MainManager.Instance.myLogger.LogException(ex.ToString(), ex);
                                 }
                                 break;
                             case "Campaigns":
@@ -141,7 +141,7 @@ namespace CampaignProject.MicroService
                                 }
                                 catch (Exception ex)
                                 {
-                                    Logger.LogException(ex.ToString(), ex);
+                                    MainManager.Instance.myLogger.LogException(ex.ToString(), ex);
                                 }
                                 break;
                             default:
@@ -153,7 +153,7 @@ namespace CampaignProject.MicroService
                     }
                     catch (Exception ex)
                     {
-                        Logger.LogException(ex.ToString(), ex);
+                        MainManager.Instance.myLogger.LogException(ex.ToString(), ex);
                     }
 
                     break;

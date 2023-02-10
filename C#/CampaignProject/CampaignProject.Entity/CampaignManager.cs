@@ -8,24 +8,30 @@ using System.Threading.Tasks;
 
 namespace CampaignProject.Entity
 {
-    public class CampaignManager
+    public class CampaignManager : BaseEntity
     {
-
+        public CampaignManager(Logger log) : base(log)
+        {
+        }
         //Global Dictionary
         public Dictionary<string, Campaign> CampaignsDict = new Dictionary<string, Campaign>();
 
         public List<Campaign> CampaignsList = new List<Campaign>();
 
         public List<ActiveCampaigns> ActiveCampaignsList = new List<ActiveCampaigns>();
+
+     
+
         public Dictionary<string, Campaign> getCampaignsFromDBInDIctionary()
         {
-            Data.Sql.CampaignData campaign = new Data.Sql.CampaignData();
+            Data.Sql.CampaignData campaign = new Data.Sql.CampaignData(Logger);
             try {
                 CampaignsDict = (Dictionary<string, Campaign>)campaign.SqlQueryToReadCampaignsFromDBIntoDict();
                 return CampaignsDict;
             }
             catch (Exception ex)
             {
+                
                 Logger.LogException(ex.ToString(), ex);
                 return null;
             }
@@ -34,7 +40,7 @@ namespace CampaignProject.Entity
 
         public List<Campaign> getCampaignsFromDBInList()
         {
-            Data.Sql.CampaignData campaign = new Data.Sql.CampaignData();
+            Data.Sql.CampaignData campaign = new Data.Sql.CampaignData(Logger);
             try
             {
                 CampaignsList = (List<Campaign>)campaign.SqlQueryToReadCampaignsFromDBIntoList();
@@ -51,7 +57,7 @@ namespace CampaignProject.Entity
 
         public List<ActiveCampaigns> getActiveCampaignsFromDBInList()
         {
-            Data.Sql.CampaignData campaign = new Data.Sql.CampaignData();
+            Data.Sql.CampaignData campaign = new Data.Sql.CampaignData(Logger);
             try
             {
                 ActiveCampaignsList = (List<ActiveCampaigns>)campaign.SqlQueryToReadActiveCampaignsFromDBIntoList();
@@ -67,7 +73,7 @@ namespace CampaignProject.Entity
 
         public Dictionary<string, Campaign> getSpecificCampaignsFromDB(string organizationEmail)
         {
-            Data.Sql.CampaignData campaign = new Data.Sql.CampaignData();
+            Data.Sql.CampaignData campaign = new Data.Sql.CampaignData(Logger);
             try {
                 CampaignsDict = (Dictionary<string, Campaign>)campaign.specificCampaigns(organizationEmail); ;
             return CampaignsDict;
@@ -81,7 +87,7 @@ namespace CampaignProject.Entity
 
         public void InsertNewItem(Model.Campaign newCampaign, string uesrEmail)
         {
-            Data.Sql.CampaignData campaign = new Data.Sql.CampaignData();
+            Data.Sql.CampaignData campaign = new Data.Sql.CampaignData(Logger);
             try
             {
                 campaign.SendSqlQueryToInsertToDB(newCampaign, uesrEmail);
@@ -95,7 +101,7 @@ namespace CampaignProject.Entity
 
         public void DeleteACampaingByName(string campaingName)
         {
-            Data.Sql.CampaignData campaign = new Data.Sql.CampaignData();
+            Data.Sql.CampaignData campaign = new Data.Sql.CampaignData(Logger);
             try { 
             campaign.DeleteCampaign(campaingName);
             }
@@ -108,7 +114,7 @@ namespace CampaignProject.Entity
 
         public void UpdateAProductInDb(string campaignName, Model.Campaign campaign)
         {
-            Data.Sql.CampaignData campaignData = new Data.Sql.CampaignData();
+            Data.Sql.CampaignData campaignData = new Data.Sql.CampaignData(Logger);
             try
             {
                 campaignData.UpdateACampaing(campaignName, campaign);
@@ -122,7 +128,7 @@ namespace CampaignProject.Entity
 
         public string GetBearer(string Bearer)
         {
-            Data.Sql.CampaignData campaignData = new Data.Sql.CampaignData();
+            Data.Sql.CampaignData campaignData = new Data.Sql.CampaignData(Logger);
             try { 
             return campaignData.getBearer(Bearer);
             }

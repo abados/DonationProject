@@ -8,11 +8,15 @@ using System.Threading.Tasks;
 
 namespace CampaignProject.Entity
 {
-    public class OwnerManager
+    public class OwnerManager : BaseEntity
     {
+        public OwnerManager(Logger log) : base(log)
+        {
+        }
+
         public string FindTheUser(string UserEmail)
         {
-            Data.Sql.OwnerData Owner = new Data.Sql.OwnerData();
+            Data.Sql.OwnerData Owner = new Data.Sql.OwnerData(Logger);
             try { 
             return (string)Owner.SendSqlQueryToReadFromDBForOneUser(UserEmail);
             }
@@ -26,7 +30,7 @@ namespace CampaignProject.Entity
 
         public void InsertNewItem(Model.Owner newOwner)
         {
-            Data.Sql.OwnerData Owner = new Data.Sql.OwnerData();
+            Data.Sql.OwnerData Owner = new Data.Sql.OwnerData(Logger);
             string userType = "Admin";
             try { 
             string userID = Owner.AddNewUser(userType);
@@ -40,7 +44,7 @@ namespace CampaignProject.Entity
 
         public void giveCreditOnActions(int ActivityCount, int activistID)
         {
-            Data.Sql.OwnerData Owner = new Data.Sql.OwnerData();
+            Data.Sql.OwnerData Owner = new Data.Sql.OwnerData(Logger);
             try { 
             Owner.SendSqlQueryToPay(ActivityCount, activistID);
             }
@@ -52,7 +56,7 @@ namespace CampaignProject.Entity
 
         public Dictionary<int, Model.ActiveCampaigns> bringDataAboutCampaignsActivity()
         {
-            Data.Sql.OwnerData Owner = new Data.Sql.OwnerData();
+            Data.Sql.OwnerData Owner = new Data.Sql.OwnerData(Logger);
             Dictionary<int, Model.ActiveCampaigns> activeCampaignList;
             try { 
             activeCampaignList = (Dictionary<int, Model.ActiveCampaigns>)Owner.bringActiveCampaignsTable();
@@ -69,7 +73,7 @@ namespace CampaignProject.Entity
      
         public List<BusinessUser> getBusinessUsers()
         {
-            Data.Sql.OwnerData Owner = new Data.Sql.OwnerData();
+            Data.Sql.OwnerData Owner = new Data.Sql.OwnerData(Logger);
             try { 
             return (List<BusinessUser>)Owner.bringAallBusinessUsers();
             }
@@ -83,7 +87,7 @@ namespace CampaignProject.Entity
 
         public List<NonProfitUser> getNonProfitUsers()
         {
-            Data.Sql.OwnerData Owner = new Data.Sql.OwnerData();
+            Data.Sql.OwnerData Owner = new Data.Sql.OwnerData(Logger);
             try { 
             return (List<NonProfitUser>)Owner.bringAallNonProfitUsers();
             }
@@ -96,7 +100,7 @@ namespace CampaignProject.Entity
 
         public List<ActivistUser> getActivistUsers()
         {
-            Data.Sql.OwnerData Owner = new Data.Sql.OwnerData();
+            Data.Sql.OwnerData Owner = new Data.Sql.OwnerData(Logger);
             try { 
             return (List<ActivistUser>)Owner.bringAllActivistUsers();
             }
@@ -109,7 +113,7 @@ namespace CampaignProject.Entity
 
         public List<Tweet> getTweets()
         {
-            Data.Sql.OwnerData Owner = new Data.Sql.OwnerData();
+            Data.Sql.OwnerData Owner = new Data.Sql.OwnerData(Logger);
             try
             {
                 return (List<Tweet>)Owner.bringAllTweets();
@@ -123,7 +127,7 @@ namespace CampaignProject.Entity
 
         public string UsersEarningsSum()
         {
-            Data.Sql.OwnerData Owner = new Data.Sql.OwnerData();
+            Data.Sql.OwnerData Owner = new Data.Sql.OwnerData(Logger);
             try { 
             return Owner.bringEarningSumUp();
             }
@@ -137,7 +141,7 @@ namespace CampaignProject.Entity
 
         public void InsertNewTweet(string tweetID, string tweetHashtag, string tweetText, Model.ActiveCampaigns active)
         {
-            Data.Sql.OwnerData Owner = new Data.Sql.OwnerData();
+            Data.Sql.OwnerData Owner = new Data.Sql.OwnerData(Logger);
 
             try
             {
@@ -151,7 +155,7 @@ namespace CampaignProject.Entity
 
         public string getLastTweetDateAndTime ()
         {
-            Data.Sql.OwnerData Owner = new Data.Sql.OwnerData();
+            Data.Sql.OwnerData Owner = new Data.Sql.OwnerData(Logger);
             string result=null;
             try
             {

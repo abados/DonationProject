@@ -42,13 +42,14 @@ namespace CampaignProject.MicroService
                     }
                     catch (Exception ex)
                     {
-                        Logger.LogException(ex.ToString(), ex);
+                        
+                        MainManager.Instance.myLogger.LogException(ex.ToString(), ex);
                     }
 
                     break;
                    
                 case "ADD"://adding the user to the users table and to activist table
-                    Logger.LogEvent("adding user to the DB: ", LoggingLibrary.LogLevel.Event);
+                    MainManager.Instance.myLogger.LogEvent("adding user to the DB: ", LoggingLibrary.LogLevel.Event);
                     try { 
                     Model.ActivistUser activist = new Model.ActivistUser();
                         activist = System.Text.Json.JsonSerializer.Deserialize<Model.ActivistUser>(req.Body);
@@ -56,17 +57,17 @@ namespace CampaignProject.MicroService
                     }
                     catch (Exception ex)
                     {
-                        Logger.LogException(ex.ToString(), ex);
+                        MainManager.Instance.myLogger.LogException(ex.ToString(), ex);
                     }
                     break;
                 case "GETORGANIZATIONS": //geting All the Organization/NonProfit users 
-                    Logger.LogEvent("getNonProfitListFromDB called: ", LoggingLibrary.LogLevel.Event);
+                    MainManager.Instance.myLogger.LogEvent("getNonProfitListFromDB called: ", LoggingLibrary.LogLevel.Event);
                     try { 
                     return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Activist.getNonProfitListFromDB()));
                     }
                     catch (Exception ex)
                     {
-                        Logger.LogException(ex.ToString(), ex);
+                        MainManager.Instance.myLogger.LogException(ex.ToString(), ex);
                     }
                     break;
                 case "PURCHES"://Making a purches: Tweet about it, pay , make it status change
@@ -77,7 +78,7 @@ namespace CampaignProject.MicroService
                     string productName = data.Value<string>("variable1");
                     decimal productPrice = data.Value<decimal>("variable2");
                     string userEmail = data.Value<string>("variable3");
-                     Logger.LogEvent("proccesing a Purches of "+ productName+"by"+userEmail, LoggingLibrary.LogLevel.Event);
+                     MainManager.Instance.myLogger.LogEvent("proccesing a Purches of "+ productName+"by"+userEmail, LoggingLibrary.LogLevel.Event);
 
                         MainManager.Instance.Activist.makeAPurchesChanges(productName, productPrice, userEmail);
                         int emailLength = userEmail.IndexOf("@");
@@ -94,11 +95,11 @@ namespace CampaignProject.MicroService
                     }
                     catch (Exception ex)
                     {
-                        Logger.LogException(ex.ToString(), ex);
+                        MainManager.Instance.myLogger.LogException(ex.ToString(), ex);
                     }
                     break;
                 case "SIGNCAMPAIGN"://SignUp new activist to Campaign
-                    Logger.LogEvent("sign user to campaign", LoggingLibrary.LogLevel.Event);
+                    MainManager.Instance.myLogger.LogEvent("sign user to campaign", LoggingLibrary.LogLevel.Event);
                     try { 
                     string requestBodySIGN = await new StreamReader(req.Body).ReadToEndAsync();
                     dynamic dataSIGN = JsonConvert.DeserializeObject<JObject>(requestBodySIGN);
@@ -109,31 +110,31 @@ namespace CampaignProject.MicroService
                     }
                     catch (Exception ex)
                     {
-                        Logger.LogException(ex.ToString(), ex);
+                        MainManager.Instance.myLogger.LogException(ex.ToString(), ex);
                     }
                     break;
                 case "GETMYPRODUCTS"://get products of the specific activist user
-                    Logger.LogEvent("getPurchesProductsOFromDB called", LoggingLibrary.LogLevel.Event);
+                    MainManager.Instance.myLogger.LogEvent("getPurchesProductsOFromDB called", LoggingLibrary.LogLevel.Event);
                     try { 
                         return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Product.getPurchesProductsOFromDB(Identifier)));
                     }
                     catch (Exception ex)
                     {
-                        Logger.LogException(ex.ToString(), ex);
+                        MainManager.Instance.myLogger.LogException(ex.ToString(), ex);
                     }
                     break;
                 case "GETEARNINGS"://get the specific activist user Money
-                    Logger.LogEvent("getEarningsByIDFromDB called", LoggingLibrary.LogLevel.Event);
+                    MainManager.Instance.myLogger.LogEvent("getEarningsByIDFromDB called", LoggingLibrary.LogLevel.Event);
                     try { 
                     return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Activist.getEarningsByIDFromDB(Identifier)));
                     }
                     catch (Exception ex)
                     {
-                        Logger.LogException(ex.ToString(), ex);
+                        MainManager.Instance.myLogger.LogException(ex.ToString(), ex);
                     }
                     break;
                 case "Donate"://Making a donor by the activist:  pay by the user
-                    Logger.LogEvent("DonateByActivist called", LoggingLibrary.LogLevel.Event);
+                    MainManager.Instance.myLogger.LogEvent("DonateByActivist called", LoggingLibrary.LogLevel.Event);
                     try
                     {
                         
@@ -141,7 +142,7 @@ namespace CampaignProject.MicroService
                     }
                     catch (Exception ex)
                     {
-                        Logger.LogException(ex.ToString(), ex);
+                        MainManager.Instance.myLogger.LogException(ex.ToString(), ex);
                     }
                     break; 
 
@@ -154,7 +155,7 @@ namespace CampaignProject.MicroService
                     }
                     catch (Exception ex)
                     {
-                        Logger.LogException(ex.ToString(), ex);
+                        MainManager.Instance.myLogger.LogException(ex.ToString(), ex);
                     }
                     break;
                 default:

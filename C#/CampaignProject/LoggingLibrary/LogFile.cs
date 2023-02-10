@@ -159,26 +159,4 @@ namespace LoggingLibrary
     }
 }
 
-/*
-        public void Log(string message)
-        {
 
-            Task.Run(() => {
-
-                path = Path.GetDirectoryName(fileName);// get the directory path of the file
-
-                baseName = Path.GetFileNameWithoutExtension(originalPath); //get the base name of the file (without extension or numbers)
-
-                // Write the log message to a file
-                lock (_lock)
-                {
-
-                    string text = $"{DateTime.Now} : {message}";
-                    WriteToFile(text);
-
-                }
-            });
-
-
-        }
-*/

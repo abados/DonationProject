@@ -64,10 +64,12 @@ export const NavBarComponent = () => {
   }, [formSubmitted, isExists]);
 
   if (loading) return <>loading</>;
-  else if (RoleContext === undefined && isLoading) {
+  else if (RoleContext === undefined || RoleContext.length === 0) {
     return <NewRegisterPage />;
   } else if (
-    RoleContext[0] ? RoleContext[0].name === "Owner" : RoleContext[0] === null
+    RoleContext !== undefined
+      ? RoleContext[0].name === "Owner"
+      : RoleContext[0] === null
   ) {
     return (
       <div className="container">

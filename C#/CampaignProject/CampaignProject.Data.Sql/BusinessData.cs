@@ -9,8 +9,12 @@ using System.Threading.Tasks;
 
 namespace CampaignProject.Data.Sql
 {
-    public class BusinessData
+    public class BusinessData: BaseDataSql
     {
+        public BusinessData(Logger log) : base(log)
+        {
+            DAL.SqlQuery.logger = Logger;
+        }
         public CampaignProject.Model.BusinessUser ReadOneFromDb(SqlDataReader reader)
         {
 
@@ -18,11 +22,9 @@ namespace CampaignProject.Data.Sql
             try { 
             while (reader.Read())
             {
-
                 Business.fullName = reader.GetString(3);
                 Business.email = reader.GetString(4);
                 Business.cellPhone = reader.GetString(5);
-
 
             }
             }
@@ -36,8 +38,8 @@ namespace CampaignProject.Data.Sql
         public object SendSqlQueryToReadFromDBForOneUser(string userEmail)
         {
             string SqlQuery = "declare @answer varchar(100)\n if exists (select * from Businesses where Email=" + "'" + userEmail + "'" + ") begin select @answer = 'true' end else begin select @answer = 'false' end select @answer";
-            try { 
-            object retObject = DAL.SqlQuery.getOneDataFromDB(SqlQuery);
+            try {
+                object retObject = DAL.SqlQuery.getOneDataFromDB(SqlQuery);
             return retObject;
             }
             catch (Exception ex)
@@ -53,8 +55,8 @@ namespace CampaignProject.Data.Sql
         {
             
             string SqlQueryForBusinessID = "select id from Businesses where  Email=" + "'" + userEmail + "'" + "";
-            try { 
-            string retObject = DAL.SqlQuery.getOneDataFromDBInString(SqlQueryForBusinessID);
+            try {
+                string retObject = DAL.SqlQuery.getOneDataFromDBInString(SqlQueryForBusinessID);
 
             if (campaignName == "")
             {
@@ -64,7 +66,8 @@ namespace CampaignProject.Data.Sql
             }
 
             string SqlQueryForCampaignID = "select CampaignId from Campaigns where  CampaignName=" + "'" + campaignName + "'" + "";
-            string retObjec2 = DAL.SqlQuery.getOneDataFromDBInString(SqlQueryForCampaignID);
+            
+                string retObjec2 = DAL.SqlQuery.getOneDataFromDBInString(SqlQueryForCampaignID);
             string[] array = new string[2] { retObject, retObjec2 };
 
             return array;
@@ -79,11 +82,14 @@ namespace CampaignProject.Data.Sql
         }
 
         Model.BusinessUser newUser = new Model.BusinessUser();
+
+      
+
         public void SendSqlQueryToInsertToDB(Model.BusinessUser NewUser, int userID)
         {
             string uploadNewUserQuery = "insert into Businesses values('" + NewUser.fullName + "','" + NewUser.email + "','" + NewUser.cellPhone + "','" + NewUser.businessName + "','" + userID + "')";
-            try { 
-            DAL.SqlQuery.Update_Delete_Insert_RowInDB(uploadNewUserQuery);
+            try {
+                DAL.SqlQuery.Update_Delete_Insert_RowInDB(uploadNewUserQuery);
             }
             catch (Exception ex)
             {
@@ -109,8 +115,9 @@ namespace CampaignProject.Data.Sql
         public void DeliveredTheItem(int productID)
         {
             string uploadNewUserQuery = "update Products set IsDelivered=1 where id="+productID+"";
-            try { 
-            DAL.SqlQuery.Update_Delete_Insert_RowInDB(uploadNewUserQuery);
+            try {
+              
+                DAL.SqlQuery.Update_Delete_Insert_RowInDB(uploadNewUserQuery);
             }
             catch (Exception ex)
             {

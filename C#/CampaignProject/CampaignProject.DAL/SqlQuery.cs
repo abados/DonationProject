@@ -13,8 +13,11 @@ namespace CampaignProject.DAL
     
     public class SqlQuery
     {
+
+        public static Logger logger;
+
         
-        //public static string connectionString = System.IO.File.ReadAllText("connectionStr.txt").Replace("\\\\", "\\").Trim();
+      
 
         public static string connectionString = Environment.GetEnvironmentVariable("ConnectionString");
 
@@ -41,7 +44,7 @@ namespace CampaignProject.DAL
                     //Reader
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        Logger.LogEvent("Get Data from DB: "+ SqlQuery, LoggingLibrary.LogLevel.Event);
+                        logger.LogEvent("Get Data from DB: "+ SqlQuery, LoggingLibrary.LogLevel.Event);
                         retHash = Ptrfunc(reader);
 
                     }
@@ -64,7 +67,7 @@ namespace CampaignProject.DAL
                 {
                     connection.Open();
                     //Reader
-                   Logger.LogEvent("Get 1 Data from DB: " + SqlQuery, LoggingLibrary.LogLevel.Event);
+                    logger.LogEvent("Get 1 Data from DB: " + SqlQuery, LoggingLibrary.LogLevel.Event);
                     retHash = command.ExecuteScalar().ToString();
                     
 
@@ -87,7 +90,7 @@ namespace CampaignProject.DAL
                 {
                     connection.Open();
                     //Reader
-                    Logger.LogEvent("Get 1 Data from DB: " + SqlQuery, LoggingLibrary.LogLevel.Event);
+                    logger.LogEvent("Get 1 Data from DB: " + SqlQuery, LoggingLibrary.LogLevel.Event);
                     id = command.ExecuteScalar().ToString();
 
 
@@ -110,7 +113,7 @@ namespace CampaignProject.DAL
                     // Create a new SQL command
                     using (SqlCommand command = new SqlCommand(updateQuery, connection))
                     {
-                        Logger.LogEvent("update/delete/insert DB: " + updateQuery, LoggingLibrary.LogLevel.Event);
+                        logger.LogEvent("update/delete/insert DB: " + updateQuery, LoggingLibrary.LogLevel.Event);
                         //Execute the command
                         command.ExecuteNonQuery();
                     }
@@ -136,7 +139,7 @@ namespace CampaignProject.DAL
                 // Adapter
                 using (SqlCommand command = new SqlCommand(SqlQuery, connection))
                 {
-                   Logger.LogEvent("Insert into Users: " + SqlQuery, LoggingLibrary.LogLevel.Event);
+                    logger.LogEvent("Insert into Users: " + SqlQuery, LoggingLibrary.LogLevel.Event);
                     connection.Open();
                     //Reader
 

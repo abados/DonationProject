@@ -10,8 +10,12 @@ using System.Threading.Tasks;
 
 namespace CampaignProject.Data.Sql
 {
-    public class ActivistData
+    public class ActivistData:BaseDataSql
     {
+        public ActivistData(Logger log) : base(log)
+        {
+            DAL.SqlQuery.logger = Logger;
+        }
 
         public List<Model.NonProfitUser> ReadOrganizationFromDb(SqlDataReader reader)
         {
@@ -170,7 +174,7 @@ namespace CampaignProject.Data.Sql
         public object SendSqlQueryToReadFromDBForOneUser(string userEmail)
         {
             string SqlQuery = "declare @answer varchar(100)\n if exists (select * from Activists where Email=" + "'" + userEmail + "'" + ") begin select @answer = 'true' end else begin select @answer = 'false' end select @answer";
-            try { 
+            try {
             object retObject = DAL.SqlQuery.getOneDataFromDB(SqlQuery);
             return retObject;
             }
@@ -185,8 +189,8 @@ namespace CampaignProject.Data.Sql
         public string getActivistUserEarnings(string userEmail)
         {
             string SqlQuery = "select Earnings from Activists where Email=" + "'" + userEmail + "'";
-            try { 
-            string retObject = (string)DAL.SqlQuery.getOneDataFromDB(SqlQuery);
+            try {
+                string retObject = (string)DAL.SqlQuery.getOneDataFromDB(SqlQuery);
             return retObject;
             }
             catch (Exception ex)
@@ -199,11 +203,14 @@ namespace CampaignProject.Data.Sql
 
 
         Model.ActivistUser newUser = new Model.ActivistUser();
+
+       
+
         public void SendSqlQueryToInsertToDB(Model.ActivistUser NewUser, int userID)
         {
             string uploadNewUserQuery = "insert into Activists values('" + userID + "','" + NewUser.fullName + "','" + NewUser.email + "','" + NewUser.address + "','" + NewUser.cellPhone + "','" + NewUser.TwitterAcount + "','" + NewUser.Earnings + "',0,0)";
-            try { 
-            DAL.SqlQuery.Update_Delete_Insert_RowInDB(uploadNewUserQuery);
+            try {
+                DAL.SqlQuery.Update_Delete_Insert_RowInDB(uploadNewUserQuery);
             }
             catch (Exception ex)
             {
@@ -216,8 +223,9 @@ namespace CampaignProject.Data.Sql
         {
             string uploadNewUserQuery = "UPDATE Activists SET Earnings = Earnings - " + productPrice + " where Email = '"+userEmail+"'" +
                 "UPDATE Products SET IsBought = 1, ActivistBuyerID = (select id from Activists where Email = '"+ userEmail + "') where ProductName = '"+ productName + "'\n update Campaigns set DonationsAmount = DonationsAmount - " + productPrice + " where CampaignId =(select Campaign from Products where ProductName='"+ productName + "') update Activists set ChosenProducts = ChosenProducts +1 where Email='"+userEmail+"'";
-            try { 
-            DAL.SqlQuery.Update_Delete_Insert_RowInDB(uploadNewUserQuery);
+            try {
+
+                DAL.SqlQuery.Update_Delete_Insert_RowInDB(uploadNewUserQuery);
             }
             catch (Exception ex)
             {

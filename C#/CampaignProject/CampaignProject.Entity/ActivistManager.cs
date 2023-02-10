@@ -8,12 +8,16 @@ using System.Threading.Tasks;
 
 namespace CampaignProject.Entity
 {
-    public class ActivistManager
+    public class ActivistManager:BaseEntity
     {
+        public ActivistManager(Logger log) : base(log)
+        {
+
+        }
         public string FindTheUser(string UserEmail)
         {//chack if the userEmail is allready in the sql to know if the user signUp
 
-            Data.Sql.ActivistData Activist = new Data.Sql.ActivistData();
+            Data.Sql.ActivistData Activist = new Data.Sql.ActivistData(Logger);
             try { 
             return (string)Activist.SendSqlQueryToReadFromDBForOneUser(UserEmail);
                 } catch (Exception ex)
@@ -26,7 +30,7 @@ namespace CampaignProject.Entity
 
         public string getEarningsByIDFromDB(string UserEmail)
         {//chack if the userEmail is allready in the sql to know if the user signUp
-            Data.Sql.ActivistData Activist = new Data.Sql.ActivistData();
+            Data.Sql.ActivistData Activist = new Data.Sql.ActivistData(Logger);
             try
             {
                 return Activist.getActivistUserEarnings(UserEmail);
@@ -40,7 +44,7 @@ namespace CampaignProject.Entity
 
         public void InsertNewMember(Model.ActivistUser newActivist)
         {//insert of a new user to both tables - users and activists after the user signUp
-            Data.Sql.ActivistData user = new Data.Sql.ActivistData();
+            Data.Sql.ActivistData user = new Data.Sql.ActivistData(Logger);
             string userType = "Activist";
             try { 
             string userID = user.AddNewUser(userType);
@@ -58,7 +62,7 @@ namespace CampaignProject.Entity
 
         public List<NonProfitUser> getNonProfitListFromDB()
         {
-            Data.Sql.ActivistData activist = new Data.Sql.ActivistData();
+            Data.Sql.ActivistData activist = new Data.Sql.ActivistData(Logger);
             try
             {
                 nonProfitsList = (List<NonProfitUser>)activist.bringOrganizationsFromDB();
@@ -71,9 +75,12 @@ namespace CampaignProject.Entity
             }
 }
         public List<ActiveCampaigns> ActiveCampaignsLise = new List<ActiveCampaigns>();
+
+        
+
         public List<ActiveCampaigns> getActiveCampaignsOfUserFromDB(string Email)
         {
-            Data.Sql.ActivistData activist = new Data.Sql.ActivistData();
+            Data.Sql.ActivistData activist = new Data.Sql.ActivistData(Logger);
             try
             {
                 ActiveCampaignsLise = (List<ActiveCampaigns>)activist.bringActiveCampaignOfUsrFromDB(Email);
@@ -88,7 +95,7 @@ namespace CampaignProject.Entity
 
         public void makeAPurchesChanges(string productName, decimal productPrice, string userEmail)
         {
-            Data.Sql.ActivistData user = new Data.Sql.ActivistData();
+            Data.Sql.ActivistData user = new Data.Sql.ActivistData(Logger);
             try { 
             user.makeAPurchesInTheDB(productName, productPrice, userEmail);
             }
@@ -101,7 +108,7 @@ namespace CampaignProject.Entity
 
         public void DonateByActivist(decimal productPrice, string userEmail)
         {
-            Data.Sql.ActivistData user = new Data.Sql.ActivistData();
+            Data.Sql.ActivistData user = new Data.Sql.ActivistData(Logger);
             try
             {
                 user.makeADonateInTheDB(productPrice,userEmail);
@@ -117,7 +124,7 @@ namespace CampaignProject.Entity
 
         public void signActivistToCampaign(string campaignName, string userEmail)
         {
-            Data.Sql.ActivistData user = new Data.Sql.ActivistData();
+            Data.Sql.ActivistData user = new Data.Sql.ActivistData(Logger);
             try
             {
                 user.signActivistToCampaignInTheDB(campaignName, userEmail);
@@ -133,7 +140,7 @@ namespace CampaignProject.Entity
 
         public ConfigData getTwitterKeys()
         {
-            Data.Sql.ActivistData user = new Data.Sql.ActivistData();
+            Data.Sql.ActivistData user = new Data.Sql.ActivistData(Logger);
             try { 
             ConfigData config = (ConfigData)user.bringTwitterKeysFromDB();
                 return config;

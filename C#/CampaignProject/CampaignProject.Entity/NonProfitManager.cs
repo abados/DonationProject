@@ -8,11 +8,15 @@ using System.Threading.Tasks;
 
 namespace CampaignProject.Entity
 {
-    public class NonProfitManager
+    public class NonProfitManager : BaseEntity
     {
+        public NonProfitManager(Logger log) : base(log)
+        {
+        }
+
         public string FindTheUser(string UserEmail)
         {
-            Data.Sql.NonProfitData NonProfit = new Data.Sql.NonProfitData();
+            Data.Sql.NonProfitData NonProfit = new Data.Sql.NonProfitData(Logger);
             try
             {
                 return (string)NonProfit.SendSqlQueryToReadFromDBForOneUser(UserEmail);
@@ -26,7 +30,7 @@ namespace CampaignProject.Entity
 
         public void InsertNewItem(Model.NonProfitUser nonProfit)
         {
-            Data.Sql.NonProfitData user = new Data.Sql.NonProfitData();
+            Data.Sql.NonProfitData user = new Data.Sql.NonProfitData(Logger);
             string userType = "NonProfit";
             try { 
             string userID = user.AddNewUser(userType);

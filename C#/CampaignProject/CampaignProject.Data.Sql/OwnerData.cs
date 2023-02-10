@@ -10,8 +10,13 @@ using System.Threading.Tasks;
 
 namespace CampaignProject.Data.Sql
 {
-    public class OwnerData
+    public class OwnerData : BaseDataSql
     {
+        public OwnerData(Logger log) : base(log)
+        {
+            DAL.SqlQuery.logger = Logger;
+        }
+
         public Dictionary<int, Model.ActiveCampaigns> ReadTweetActivityFromDb(SqlDataReader reader)
         {
             Dictionary<int, Model.ActiveCampaigns> activeCampaignsList = new Dictionary<int, Model.ActiveCampaigns>();
@@ -195,8 +200,8 @@ namespace CampaignProject.Data.Sql
         public object SendSqlQueryToReadFromDBForOneUser(string userEmail)
         {
             string SqlQuery = "declare @answer varchar(100)\n if exists (select * from Owner where Email="+"'"+userEmail+"'"+") begin select @answer = 'true' end else begin select @answer = 'false' end select @answer";
-            try { 
-            object retObject = DAL.SqlQuery.getOneDataFromDB(SqlQuery);
+            try {
+                object retObject = DAL.SqlQuery.getOneDataFromDB(SqlQuery);
                 //Logger.LogEvent"check if the user exsist as Owner in the DB", LoggingLibrary.LogLevel.Event);
                 return retObject;
             }
@@ -240,6 +245,7 @@ namespace CampaignProject.Data.Sql
 
         public string AddNewUser(string userType)
         {
+            
             object userID = SqlQuery.insertIntoConnectedTable("INSERT INTO Users ([UserType]) VALUES ('" + userType + "') SELECT @@IDENTITY");
             
             // return his identity
@@ -291,6 +297,7 @@ namespace CampaignProject.Data.Sql
             object retDict = null;
             try
             {
+               
                 retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadProfitUsersFromDb);
             }
             catch (Exception ex)
@@ -306,6 +313,7 @@ namespace CampaignProject.Data.Sql
             object retDict = null;
             try
             {
+                
                 retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadActivistUsersFromDb);
             }
             catch (Exception ex)
@@ -323,6 +331,7 @@ namespace CampaignProject.Data.Sql
             object retDict = null;
             try
             {
+               
                 retDict = DAL.SqlQuery.getDataFromDB(SqlQuery, ReadTweetsFromDb);
             }
             catch (Exception ex)
@@ -339,6 +348,7 @@ namespace CampaignProject.Data.Sql
             string EarningsSum = null;
             try
             {
+                
                 EarningsSum = DAL.SqlQuery.getOneDataFromDBInString(SqlQuery);
             }
             catch (Exception ex)
@@ -353,6 +363,7 @@ namespace CampaignProject.Data.Sql
             string uploadNewUserQuery = "insert into Tweets values('" + tweetID + "','" + active.activeUserId + "','" + active.campaignId + "','" + active.campaignName + "','" + tweetHashtag + "','" + active.ActiveUserName + "','" + tweetText + "',GETDATE(), CONVERT(TIME, DATEADD(second, DATEPART(HOUR, GETDATE())*3600+DATEPART(MINUTE, GETDATE())*60+DATEPART(SECOND, GETDATE()), 0)))";
             try
             {
+                
                 DAL.SqlQuery.Update_Delete_Insert_RowInDB(uploadNewUserQuery);
 
             }

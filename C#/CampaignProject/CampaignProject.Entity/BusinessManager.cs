@@ -7,13 +7,17 @@ using System.Threading.Tasks;
 
 namespace CampaignProject.Entity
 {
-    public class BusinessManager
+    public class BusinessManager : BaseEntity
     {
+        public BusinessManager(Logger log) : base(log)
+        {
+        }
+
         public string FindTheUser(string UserEmail)
         {
             try
             {
-                Data.Sql.BusinessData Business = new Data.Sql.BusinessData();
+                Data.Sql.BusinessData Business = new Data.Sql.BusinessData(Logger);
                 return (string)Business.SendSqlQueryToReadFromDBForOneUser(UserEmail);
             }
             catch (Exception ex)
@@ -26,7 +30,7 @@ namespace CampaignProject.Entity
 
         public string[] getIDS(string userEmail, string campaignName)
         {
-            Data.Sql.BusinessData Business = new Data.Sql.BusinessData();
+            Data.Sql.BusinessData Business = new Data.Sql.BusinessData(Logger);
             try { 
             return Business.sqlQuertyToSearchIDS(userEmail, campaignName);
             }
@@ -40,7 +44,7 @@ namespace CampaignProject.Entity
 
         public void InsertNewMember(Model.BusinessUser newOwner)
         {
-            Data.Sql.BusinessData user = new Data.Sql.BusinessData();
+            Data.Sql.BusinessData user = new Data.Sql.BusinessData(Logger);
             string userType = "Business";
 
             try { 
@@ -56,7 +60,7 @@ namespace CampaignProject.Entity
 
         public void SendTheItems(int productID)
         {
-            Data.Sql.BusinessData businessUser = new Data.Sql.BusinessData();
+            Data.Sql.BusinessData businessUser = new Data.Sql.BusinessData(Logger);
             try { 
             businessUser.DeliveredTheItem(productID);
             }
