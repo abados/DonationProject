@@ -14,6 +14,7 @@ export const MyDonationsPage = () => {
 
   const getProductsFromDB = async () => {
     let res = await getDonates(user.email, "");
+    console.log("function call");
     setProductList(res);
     console.log(res);
   };
@@ -22,7 +23,7 @@ export const MyDonationsPage = () => {
     setTimeout(() => {
       getProductsFromDB();
     }, 3000);
-  }, [productList.length]);
+  }, []);
 
   useEffect(() => {
     const timeout = setTimeout(() => {

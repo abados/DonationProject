@@ -27,6 +27,26 @@ namespace CampaignProject.MicroService
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
+            string dictionaryKey = "Business." + action;
+            string requestBody;
+
+            ICommand commmand = MainManager.Instance.commandManager.CommandList[dictionaryKey];
+
+            if (commmand != null)
+            {
+
+                requestBody = await req.ReadAsStringAsync();
+                return new OkObjectResult(commmand.ExecuteCommand(Identifier, requestBody, specificAction));
+            }
+            else
+            {
+
+                MainManager.Instance.myLogger.LogError("Problam Was Found", LoggingLibrary.LogLevel.Error);
+                return new BadRequestObjectResult("Problam Was Found");
+            }
+
+
+
             switch (action)
             {
                 case "Find": //check if the user allready sign as a role
@@ -95,13 +115,13 @@ namespace CampaignProject.MicroService
                 case "UPLOADPRODUCT"://upload a new product from a specific user to a specific Campaign
                     MainManager.Instance.myLogger.LogEvent("InsertNewProduct called", LoggingLibrary.LogLevel.Event);
                     try { 
-                    string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-                    dynamic data = JsonConvert.DeserializeObject<JObject>(requestBody);
+                    string requestBody2 = await new StreamReader(req.Body).ReadToEndAsync();
+                    dynamic data = JsonConvert.DeserializeObject<JObject>(requestBody2);
                     string EmailToSearch = data.Value<string>("variable1");
                     string CampaignToSearch = data.Value<string>("variable2");
 
                     //I have th businessRep email and the campaign name and now i need their id's to enter to the product Model
-                    var ids =MainManager.Instance.Business.getIDS(EmailToSearch, CampaignToSearch);
+                    string[] ids =MainManager.Instance.Business.getIDS(EmailToSearch, CampaignToSearch);
 
 
                     Model.Product product = new Model.Product();

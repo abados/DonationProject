@@ -17,7 +17,9 @@ namespace LoggingLibrary
                     if (Logger.LogItemsQueue.Count > 0)
                     {
                         LogItem item = Logger.LogItemsQueue.Dequeue();
+                        if(item != null ) { 
                         Console.WriteLine("Log: "+item.Message+ " Time: "+ item.DateTime);
+                        }
                         System.Threading.Thread.Sleep(11000);
 
                     }

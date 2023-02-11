@@ -6,7 +6,7 @@ using System;
 
 namespace CampaignProject.Entity.CommanClasses
 {
-    public class InsertNewItem : CommandManager, ICommand
+    public class InsertNewNonProfitUser : CommandManager, ICommand
     {
 
         public object ExecuteCommand(params object[] param) // param,param2, requestBody

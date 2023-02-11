@@ -29,8 +29,7 @@ namespace CampaignProject.MicroService
 
             if (commmand != null)
             {
-                //NonProfitUser newUser = new NonProfitUser();
-                //newUser = System.Text.Json.JsonSerializer.Deserialize<NonProfitUser>(req.Body);
+                
                 requestBody = await req.ReadAsStringAsync();
                 return new OkObjectResult(commmand.ExecuteCommand(Identifier, requestBody));
             }
@@ -42,36 +41,7 @@ namespace CampaignProject.MicroService
             }
 
 
-            switch (action)
-            {
-                case "Find": //check if the user allready sign as a role
-                    try
-                    {
-                        MainManager.Instance.myLogger.LogEvent("Search user in the DB: ", LoggingLibrary.LogLevel.Event);
-                        return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.NonProfit.FindTheUser(Identifier)));
-                    
-                    }
-                    catch (Exception ex)
-                    {
-                         MainManager.Instance.myLogger.LogException(ex.ToString(), ex);
-                    }   
-            break;
-                case "ADD"://adding the user to the users table and to NonProfit table
-                    MainManager.Instance.myLogger.LogEvent("adding user to the DB: ", LoggingLibrary.LogLevel.Event);
-                    try { 
-                    NonProfitUser newUser = new NonProfitUser();
-                    newUser = System.Text.Json.JsonSerializer.Deserialize<NonProfitUser>(req.Body);
-                    MainManager.Instance.NonProfit.InsertNewItem(newUser);
-                    }
-                    catch (Exception ex)
-                    {
-                        MainManager.Instance.myLogger.LogException(ex.ToString(), ex);
-                    }
-                    break;
-                default:
-                    break;
-
-            }
+          
 
             return new OkObjectResult("here for checking");
         }

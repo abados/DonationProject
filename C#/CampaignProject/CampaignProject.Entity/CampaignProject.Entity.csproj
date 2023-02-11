@@ -241,8 +241,14 @@
     <Compile Include="BasePromotionSystem.cs" />
     <Compile Include="BusinessManager.cs" />
     <Compile Include="CampaignManager.cs" />
-    <Compile Include="CommanClasses\NonProfitCommands\FindTheUser.cs" />
-    <Compile Include="CommanClasses\NonProfitCommands\InsertNewItem.cs" />
+    <Compile Include="CommandClasses\BusinessCommands\DeleteProduct.cs" />
+    <Compile Include="CommandClasses\BusinessCommands\FindTheBusinnesUser.cs" />
+    <Compile Include="CommandClasses\BusinessCommands\GetProductsIdonated.cs" />
+    <Compile Include="CommandClasses\BusinessCommands\InsertNewBusinessUser.cs" />
+    <Compile Include="CommandClasses\BusinessCommands\ShipmentManagment.cs" />
+    <Compile Include="CommandClasses\BusinessCommands\UpluadNewProduct.cs" />
+    <Compile Include="CommandClasses\NonProfitCommands\FindTheUser.cs" />
+    <Compile Include="CommandClasses\NonProfitCommands\InsertNewItem.cs" />
     <Compile Include="CommandManager.cs" />
     <Compile Include="TwitterManager.cs" />
     <Compile Include="MainManager.cs" />

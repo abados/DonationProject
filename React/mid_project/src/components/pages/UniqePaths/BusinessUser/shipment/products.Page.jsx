@@ -66,6 +66,7 @@ export const BoughtProductsPage = () => {
         <tbody>
           {productsData && productsData.length > 0 ? (
             productsData.map((product, index) => {
+              console.log(product);
               return (
                 <>
                   <tr>

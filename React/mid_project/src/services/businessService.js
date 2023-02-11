@@ -33,9 +33,11 @@ export const getDonates = async (Identifier, shipment) => {
       `http://localhost:7033/api/Business/GETMYPRODUCTS/${Identifier}/${shipment}`
     )
     .then((response) => {
+      console.log("function success");
       return Object.values(response.data);
     })
     .catch((error) => {
+      console.log("function failed");
       console.log(error);
     });
 };

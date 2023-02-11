@@ -32,7 +32,7 @@ export const AddProductPage = () => {
       defaultActivist
     );
 
-    navigate("/MyDonates");
+    navigate("/business/ShipmentPage");
   };
 
   return (

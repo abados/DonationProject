@@ -1,5 +1,6 @@
 ﻿using CampaignProject.Entity.CommanClasses;
 using CampaignProject.Entity.CommanClasses.NonProfitCommands;
+using CampaignProject.Entity.CommandClasses.BusinessCommands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,16 +41,31 @@ namespace CampaignProject.Entity
 
                 _CommandList = new Dictionary<string, ICommand>
                 {
-                    
-                    // NonProfit
+                    // MutualCommands
+                    //{"Mutual.ADD", new InsertNewUser() },
+                    //{"Mutual.ADD", new FindUserInDB() },
+
+
+                    // NonProfitUser
                     { "NonProfit.ADD", new InsertNewNonProfitUser() },
                     { "NonProfit.Find", new FindTheUser() },
+                    // BusinessUser
+                    { "Business.ADD", new InsertNewBusinessUser() },
+                    { "Business.Find", new FindTheBusinnesUser() },
+                    { "Business.GETMYPRODUCTS", new GetProductsIdonated() },
+                    { "Business.DELETEAPRODUCT", new DeleteProduct() },
+                    { "Business.UPLOADPRODUCT", new UpluadNewProduct() },
+                    { "Business.SHIPIT", new ShipmentManagment() },
+                     
+
                   //  { "Campaign.DELETE", new DeleteOrDeactivateCampagin() },
                   //  { "Campaign.Update",new UpdateCampagin() },
                   //  { "Campaign.GETCAMPAIGNID", new GetCampaignID() },
                   //  { "Campaign.DONATIONAMOUNT",new CampaginDonationAmount() }
 
                 };
+
+                int x = 5;
 
             }
             catch (Exception ex)
