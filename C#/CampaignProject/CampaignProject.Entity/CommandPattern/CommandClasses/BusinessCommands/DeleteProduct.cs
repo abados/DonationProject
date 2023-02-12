@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LoggingLibrary;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,9 @@ namespace CampaignProject.Entity.CommandClasses.BusinessCommands
 {
     public class DeleteProduct : CommandManager, ICommand
     {
+        public DeleteProduct(Logger log) : base(log)
+        {
+        }
 
         public object ExecuteCommand(params object[] param) // param,param2, requestBody
         {
@@ -15,7 +19,7 @@ namespace CampaignProject.Entity.CommandClasses.BusinessCommands
             {
                 try//the user can see only products that are available and didnt ordered
                 {
-                    MainManager.Instance.myLogger.LogEvent("Delete a product by the Business Man: ", LoggingLibrary.LogLevel.Event);
+                    Logger.LogEvent("Delete a product by the Business Man: ", LoggingLibrary.LogLevel.Event);
 
                     Model.Product productToDelete = new Model.Product();
                     productToDelete = System.Text.Json.JsonSerializer.Deserialize<Model.Product>((string)param[1]);
@@ -29,14 +33,14 @@ namespace CampaignProject.Entity.CommandClasses.BusinessCommands
                 }
                 catch (Exception ex)
                 {
-                    MainManager.Instance.myLogger.LogException(ex.ToString(), ex);
+                    Logger.LogException(ex.ToString(), ex);
 
                     return System.Text.Json.JsonSerializer.Serialize("Faild Request");
                 }
             }
             else
             {
-                MainManager.Instance.myLogger.LogError("something went wrong", LoggingLibrary.LogLevel.Error);
+                Logger.LogError("something went wrong", LoggingLibrary.LogLevel.Error);
 
                 return "Faild Request";
             }

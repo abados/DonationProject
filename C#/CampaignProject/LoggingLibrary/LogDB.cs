@@ -27,7 +27,7 @@ namespace LoggingLibrary
 
                         System.Threading.Thread.Sleep(1000);
                     }
-                    System.Threading.Thread.Sleep(11000);
+                    System.Threading.Thread.Sleep(2000);
                 }
 
             });

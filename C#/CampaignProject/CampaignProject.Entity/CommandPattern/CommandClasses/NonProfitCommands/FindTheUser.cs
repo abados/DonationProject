@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using LoggingLibrary;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,34 +9,37 @@ using System.Threading.Tasks;
 
 namespace CampaignProject.Entity.CommanClasses.NonProfitCommands
 {
-    public class FindTheBusinnesUser : CommandManager, ICommand
+    public class FindTheUser : CommandManager, ICommand
     {
+        public FindTheUser(Logger log) : base(log)
+        {
+        }
 
         public object ExecuteCommand(params object[] param) // param,param2, requestBody
         {
             if (param[0] != null)
             {
-                try //check if the user allready sign as a role
+                try
                 {
 
-                    MainManager.Instance.myLogger.LogEvent("Search user in the DB: ", LoggingLibrary.LogLevel.Event);
-                    string answer = MainManager.Instance.Business.FindTheUser((string)param[0]);
+                    Logger.LogEvent("Search user in the DB: ", LoggingLibrary.LogLevel.Event);
+                    string answer = MainManager.Instance.NonProfit.FindTheUser((string)param[0]);
                     return JsonSerializer.Serialize(answer);
                     
 
                 }
                 catch (Exception ex)
                 {
-                    MainManager.Instance.myLogger.LogException(ex.ToString(), ex);
+                    Logger.LogException(ex.ToString(), ex);
 
                     return JsonSerializer.Serialize("Faild Request");
                 }
             }
             else
             {
-                MainManager.Instance.myLogger.LogError("something went wrong", LoggingLibrary.LogLevel.Error);
+                Logger.LogError("ID Parameter was not found in GetCampaignID class", LoggingLibrary.LogLevel.Error);
 
-                return "Faild Request";
+                return JsonSerializer.Serialize("Faild Request");
             }
 
         }

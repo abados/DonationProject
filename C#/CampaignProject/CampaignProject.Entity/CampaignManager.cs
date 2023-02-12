@@ -126,11 +126,11 @@ namespace CampaignProject.Entity
             }
         }
 
-        public string GetBearer(string Bearer)
+        public string GetDataFromConfig(string Bearer)
         {
             Data.Sql.CampaignData campaignData = new Data.Sql.CampaignData(Logger);
             try { 
-            return campaignData.getBearer(Bearer);
+            return campaignData.getFromConfigDB(Bearer);
             }
             catch (Exception ex)
             {

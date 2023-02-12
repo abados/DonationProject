@@ -26,144 +26,24 @@ namespace CampaignProject.MicroService
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
-            ConfigData config = new ConfigData();
+            string dictionaryKey = "Activist." + action;
+            string requestBody;
 
-            config = MainManager.Instance.Activist.getTwitterKeys();
+            ICommand commmand = MainManager.Instance.commandManager.CommandList[dictionaryKey];
 
-            var userClient = new TwitterClient(config.CONSUMER_KEY, config.CONSUMER_SECRET, config.ACCESS_TOKEN, config.ACCESS_TOKEN_SECRET);
-            var user = await userClient.Users.GetAuthenticatedUserAsync();
-            
-            switch (action)
+            if (commmand != null)
             {
-                case "Find":  //check if the user allready sign as a role
-                    //Logger.LogEvent("looking for a user in the DB", LoggingLibrary.LogLevel.Event);
-                    try { 
-                    return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Activist.FindTheUser(Identifier)));
-                    }
-                    catch (Exception ex)
-                    {
-                        
-                        MainManager.Instance.myLogger.LogException(ex.ToString(), ex);
-                    }
 
-                    break;
-                   
-                case "ADD"://adding the user to the users table and to activist table
-                    MainManager.Instance.myLogger.LogEvent("adding user to the DB: ", LoggingLibrary.LogLevel.Event);
-                    try { 
-                    Model.ActivistUser activist = new Model.ActivistUser();
-                        activist = System.Text.Json.JsonSerializer.Deserialize<Model.ActivistUser>(req.Body);
-                    MainManager.Instance.Activist.InsertNewMember(activist);
-                    }
-                    catch (Exception ex)
-                    {
-                        MainManager.Instance.myLogger.LogException(ex.ToString(), ex);
-                    }
-                    break;
-                case "GETORGANIZATIONS": //geting All the Organization/NonProfit users 
-                    MainManager.Instance.myLogger.LogEvent("getNonProfitListFromDB called: ", LoggingLibrary.LogLevel.Event);
-                    try { 
-                    return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Activist.getNonProfitListFromDB()));
-                    }
-                    catch (Exception ex)
-                    {
-                        MainManager.Instance.myLogger.LogException(ex.ToString(), ex);
-                    }
-                    break;
-                case "PURCHES"://Making a purches: Tweet about it, pay , make it status change
-                    
-                    try { 
-                    string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-                    dynamic data = JsonConvert.DeserializeObject<JObject>(requestBody);
-                    string productName = data.Value<string>("variable1");
-                    decimal productPrice = data.Value<decimal>("variable2");
-                    string userEmail = data.Value<string>("variable3");
-                     MainManager.Instance.myLogger.LogEvent("proccesing a Purches of "+ productName+"by"+userEmail, LoggingLibrary.LogLevel.Event);
+                requestBody = await req.ReadAsStringAsync();
+                return new OkObjectResult(commmand.ExecuteCommand(Identifier, requestBody, SecondIdentifier));
+            }
+            else
+            {
 
-                        MainManager.Instance.Activist.makeAPurchesChanges(productName, productPrice, userEmail);
-                        int emailLength = userEmail.IndexOf("@");
-                        string hiddenEmail;
-                        if (emailLength > 3)
-                        {
-                            hiddenEmail = userEmail.Substring(0, emailLength - 3) + new string('*', 3) + userEmail.Substring(emailLength);
-                        }
-                        else
-                        {
-                            hiddenEmail = new string('*', emailLength) + userEmail.Substring(emailLength);
-                        }
-                        var tweet = await userClient.Tweets.PublishTweetAsync("the user:"+ hiddenEmail + " just bought: "+ productName+"");
-                    }
-                    catch (Exception ex)
-                    {
-                        MainManager.Instance.myLogger.LogException(ex.ToString(), ex);
-                    }
-                    break;
-                case "SIGNCAMPAIGN"://SignUp new activist to Campaign
-                    MainManager.Instance.myLogger.LogEvent("sign user to campaign", LoggingLibrary.LogLevel.Event);
-                    try { 
-                    string requestBodySIGN = await new StreamReader(req.Body).ReadToEndAsync();
-                    dynamic dataSIGN = JsonConvert.DeserializeObject<JObject>(requestBodySIGN);
-                    string campaignName = dataSIGN.Value<string>("variable1");
-                    string signThisUserEmail = dataSIGN.Value<string>("variable2");
-                    
-                    MainManager.Instance.Activist.signActivistToCampaign(campaignName, signThisUserEmail);
-                    }
-                    catch (Exception ex)
-                    {
-                        MainManager.Instance.myLogger.LogException(ex.ToString(), ex);
-                    }
-                    break;
-                case "GETMYPRODUCTS"://get products of the specific activist user
-                    MainManager.Instance.myLogger.LogEvent("getPurchesProductsOFromDB called", LoggingLibrary.LogLevel.Event);
-                    try { 
-                        return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Product.getPurchesProductsOFromDB(Identifier)));
-                    }
-                    catch (Exception ex)
-                    {
-                        MainManager.Instance.myLogger.LogException(ex.ToString(), ex);
-                    }
-                    break;
-                case "GETEARNINGS"://get the specific activist user Money
-                    MainManager.Instance.myLogger.LogEvent("getEarningsByIDFromDB called", LoggingLibrary.LogLevel.Event);
-                    try { 
-                    return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(MainManager.Instance.Activist.getEarningsByIDFromDB(Identifier)));
-                    }
-                    catch (Exception ex)
-                    {
-                        MainManager.Instance.myLogger.LogException(ex.ToString(), ex);
-                    }
-                    break;
-                case "Donate"://Making a donor by the activist:  pay by the user
-                    MainManager.Instance.myLogger.LogEvent("DonateByActivist called", LoggingLibrary.LogLevel.Event);
-                    try
-                    {
-                        
-                        MainManager.Instance.Activist.DonateByActivist(int.Parse(SecondIdentifier), Identifier);
-                    }
-                    catch (Exception ex)
-                    {
-                        MainManager.Instance.myLogger.LogException(ex.ToString(), ex);
-                    }
-                    break; 
-
-                case "GETACTIVECAMPAIGN"://Bring the Active Campaigns of the user
-                   
-                    try
-                    {
-                        var activeList = MainManager.Instance.Activist.getActiveCampaignsOfUserFromDB(Identifier);
-                        return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(activeList));
-                    }
-                    catch (Exception ex)
-                    {
-                        MainManager.Instance.myLogger.LogException(ex.ToString(), ex);
-                    }
-                    break;
-                default:
-                    break;
-
+                MainManager.Instance.myLogger.LogError("Problam Was Found", LoggingLibrary.LogLevel.Error);
+                return new BadRequestObjectResult("Problam Was Found");
             }
 
-            return new OkObjectResult("here for checking");
         }
     }
 }

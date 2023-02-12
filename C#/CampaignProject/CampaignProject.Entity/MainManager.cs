@@ -27,7 +27,7 @@ namespace CampaignProject.Entity
             Campaign = new CampaignManager(myLogger);
             Product = new ProductManager(myLogger);
             twitterManager = new TwitterManager(myLogger);
-            commandManager = new CommandManager();
+            commandManager = new CommandManager(myLogger);
         }
 
         // Singleton variable

@@ -57,7 +57,7 @@ namespace CampaignProject.Entity
                 var client = new RestClient(urlTweets);
                 var request = new RestRequest("", Method.Get);
                 CampaignManager campaign = new CampaignManager(Logger);
-                request.AddHeader("authorization", "" + campaign.GetBearer("TweetBearer"));
+                request.AddHeader("authorization", "" + campaign.GetDataFromConfig("TweetBearer"));
 
                 var response = client.Execute(request);
                 if (response.IsSuccessful)

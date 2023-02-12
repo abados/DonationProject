@@ -241,15 +241,32 @@
     <Compile Include="BasePromotionSystem.cs" />
     <Compile Include="BusinessManager.cs" />
     <Compile Include="CampaignManager.cs" />
-    <Compile Include="CommandClasses\BusinessCommands\DeleteProduct.cs" />
-    <Compile Include="CommandClasses\BusinessCommands\FindTheBusinnesUser.cs" />
-    <Compile Include="CommandClasses\BusinessCommands\GetProductsIdonated.cs" />
-    <Compile Include="CommandClasses\BusinessCommands\InsertNewBusinessUser.cs" />
-    <Compile Include="CommandClasses\BusinessCommands\ShipmentManagment.cs" />
-    <Compile Include="CommandClasses\BusinessCommands\UpluadNewProduct.cs" />
-    <Compile Include="CommandClasses\NonProfitCommands\FindTheUser.cs" />
-    <Compile Include="CommandClasses\NonProfitCommands\InsertNewItem.cs" />
-    <Compile Include="CommandManager.cs" />
+    <Compile Include="CommandPattern\CommandClasses\ActivistCommands\DonateAProduct.cs" />
+    <Compile Include="CommandPattern\CommandClasses\ActivistCommands\FindTheActivistUser.cs" />
+    <Compile Include="CommandPattern\CommandClasses\ActivistCommands\GetAllOrganizations.cs" />
+    <Compile Include="CommandPattern\CommandClasses\ActivistCommands\GetMyActiveCampaigns.cs" />
+    <Compile Include="CommandPattern\CommandClasses\ActivistCommands\GetMyEarnings.cs" />
+    <Compile Include="CommandPattern\CommandClasses\ActivistCommands\GetMyProducts.cs" />
+    <Compile Include="CommandPattern\CommandClasses\ActivistCommands\InsertNewActivistUser.cs" />
+    <Compile Include="CommandPattern\CommandClasses\ActivistCommands\PurchesAProduct.cs" />
+    <Compile Include="CommandPattern\CommandClasses\ActivistCommands\SignMeToCampaign.cs" />
+    <Compile Include="CommandPattern\CommandClasses\BusinessCommands\DeleteProduct.cs" />
+    <Compile Include="CommandPattern\CommandClasses\BusinessCommands\FindTheBusinnesUser.cs" />
+    <Compile Include="CommandPattern\CommandClasses\BusinessCommands\GetProductsIdonated.cs" />
+    <Compile Include="CommandPattern\CommandClasses\BusinessCommands\InsertNewBusinessUser.cs" />
+    <Compile Include="CommandPattern\CommandClasses\BusinessCommands\ShipmentManagment.cs" />
+    <Compile Include="CommandPattern\CommandClasses\BusinessCommands\UpluadNewProduct.cs" />
+    <Compile Include="CommandPattern\CommandClasses\CampaginCommands\AddCampaign.cs" />
+    <Compile Include="CommandPattern\CommandClasses\CampaginCommands\DeleteCampaign.cs" />
+    <Compile Include="CommandPattern\CommandClasses\CampaginCommands\GetAllOrSpecificCampaignsList.cs" />
+    <Compile Include="CommandPattern\CommandClasses\CampaginCommands\GetRole.cs" />
+    <Compile Include="CommandPattern\CommandClasses\CampaginCommands\UpdateCampaign.cs" />
+    <Compile Include="CommandPattern\CommandClasses\NonProfitCommands\FindTheUser.cs" />
+    <Compile Include="CommandPattern\CommandClasses\NonProfitCommands\InsertNewItem.cs" />
+    <Compile Include="CommandPattern\CommandClasses\OwnerCommands\FindOwnerUser.cs" />
+    <Compile Include="CommandPattern\CommandClasses\OwnerCommands\InsertNewOwner.cs" />
+    <Compile Include="CommandPattern\CommandClasses\OwnerCommands\OwnerReports.cs" />
+    <Compile Include="CommandPattern\CommandManager.cs" />
     <Compile Include="TwitterManager.cs" />
     <Compile Include="MainManager.cs" />
     <Compile Include="NonProfitManager.cs" />
@@ -279,5 +296,6 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

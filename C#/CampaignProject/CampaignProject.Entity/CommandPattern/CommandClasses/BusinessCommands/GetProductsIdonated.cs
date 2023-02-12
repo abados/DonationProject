@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using LoggingLibrary;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +10,15 @@ namespace CampaignProject.Entity.CommandClasses.BusinessCommands
 {
     public class GetProductsIdonated : CommandManager, ICommand
     {
+        public GetProductsIdonated(Logger log) : base(log)
+        {
+        }
 
         public object ExecuteCommand(params object[] param) // param,param2, requestBody
         {
             if (param[0] != null)
             {
-                MainManager.Instance.myLogger.LogEvent("Bring Donated products: ", LoggingLibrary.LogLevel.Event);
+                Logger.LogEvent("Bring Donated products: ", LoggingLibrary.LogLevel.Event);
                 try////get products of the specific Business user
                 {
                     string Identifier = (string)param[0];
@@ -39,13 +43,13 @@ namespace CampaignProject.Entity.CommandClasses.BusinessCommands
                 }
                 catch (Exception ex)
                 {
-                    MainManager.Instance.myLogger.LogException(ex.ToString(), ex);
+                    Logger.LogException(ex.ToString(), ex);
                     return "Faild Request";
                 }
             }
             else
             {
-                MainManager.Instance.myLogger.LogError("something went wrong", LoggingLibrary.LogLevel.Error);
+                Logger.LogError("something went wrong", LoggingLibrary.LogLevel.Error);
 
                 return "Faild Request";
             }

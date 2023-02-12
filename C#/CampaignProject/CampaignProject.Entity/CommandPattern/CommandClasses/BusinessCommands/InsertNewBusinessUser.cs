@@ -1,4 +1,5 @@
 ﻿using CampaignProject.Model;
+using LoggingLibrary;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
@@ -8,12 +9,15 @@ namespace CampaignProject.Entity.CommanClasses
 {
     public class InsertNewBusinessUser : CommandManager, ICommand
     {
+        public InsertNewBusinessUser(Logger log) : base(log)
+        {
+        }
 
         public object ExecuteCommand(params object[] param) // param,param2, requestBody
         {
             if (param[1] != null)
             {
-                MainManager.Instance.myLogger.LogEvent("adding user to the DB: ", LoggingLibrary.LogLevel.Event);
+                Logger.LogEvent("adding user to the DB: ", LoggingLibrary.LogLevel.Event);
                 try//adding the user to the users table and to Business table
                 {
                     Model.BusinessUser business = new Model.BusinessUser();
@@ -24,13 +28,13 @@ namespace CampaignProject.Entity.CommanClasses
                 }
                 catch (Exception ex)
                 {
-                    MainManager.Instance.myLogger.LogException(ex.ToString(), ex);
+                    Logger.LogException(ex.ToString(), ex);
                     return "Faild Request";
                 }
             }
             else
             {
-                MainManager.Instance.myLogger.LogError("something went wrong", LoggingLibrary.LogLevel.Error);
+                Logger.LogError("something went wrong", LoggingLibrary.LogLevel.Error);
 
                 return "Faild Request";
             }

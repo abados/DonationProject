@@ -42,8 +42,6 @@ namespace CampaignProject.MicroService
 
 
           
-
-            return new OkObjectResult("here for checking");
         }
     }
 }

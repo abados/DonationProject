@@ -5,11 +5,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LoggingLibrary;
 
 namespace CampaignProject.Entity.CommandClasses.BusinessCommands
 {
     public class UpluadNewProduct : CommandManager, ICommand
     {
+        public UpluadNewProduct(Logger log) : base(log)
+        {
+        }
 
         public object ExecuteCommand(params object[] param) // param,param2, requestBody
         {
@@ -17,7 +21,7 @@ namespace CampaignProject.Entity.CommandClasses.BusinessCommands
             {
                 try//upload a new product from a specific user to a specific Campaign
                 {
-                    MainManager.Instance.myLogger.LogEvent("Upload a new item: ", LoggingLibrary.LogLevel.Event);
+                    Logger.LogEvent("Upload a new item: ", LoggingLibrary.LogLevel.Event);
 
                     dynamic data = JsonConvert.DeserializeObject<JObject>((string)param[1]);
                     string EmailToSearch = data.Value<string>("variable1");
@@ -44,14 +48,14 @@ namespace CampaignProject.Entity.CommandClasses.BusinessCommands
                 }
                 catch (Exception ex)
                 {
-                    MainManager.Instance.myLogger.LogException(ex.ToString(), ex);
+                    Logger.LogException(ex.ToString(), ex);
 
                     return System.Text.Json.JsonSerializer.Serialize("Faild Request");
                 }
             }
             else
             {
-                MainManager.Instance.myLogger.LogError("something went wrong", LoggingLibrary.LogLevel.Error);
+                Logger.LogError("something went wrong", LoggingLibrary.LogLevel.Error);
 
                 return "Faild Request";
             }

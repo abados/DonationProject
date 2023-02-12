@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LoggingLibrary;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,9 @@ namespace CampaignProject.Entity.CommandClasses.BusinessCommands
 {
     public class ShipmentManagment : CommandManager, ICommand
     {
+        public ShipmentManagment(Logger log) : base(log)
+        {
+        }
 
         public object ExecuteCommand(params object[] param) // param,param2, requestBody
         {
@@ -19,13 +23,13 @@ namespace CampaignProject.Entity.CommandClasses.BusinessCommands
                     int id;
                     if (int.TryParse(param[0].ToString(), out id))
                     {
-                        MainManager.Instance.myLogger.LogEvent("Ship an item : ", LoggingLibrary.LogLevel.Event);
+                        Logger.LogEvent("Ship an item : ", LoggingLibrary.LogLevel.Event);
                         MainManager.Instance.Business.SendTheItems(id);
                         return "Success Request";
                     }
                     else
                     {
-                        MainManager.Instance.myLogger.LogError("something went wrong", LoggingLibrary.LogLevel.Error);
+                        Logger.LogError("something went wrong", LoggingLibrary.LogLevel.Error);
                         return System.Text.Json.JsonSerializer.Serialize("Faild Request");
                     }
 
@@ -33,14 +37,14 @@ namespace CampaignProject.Entity.CommandClasses.BusinessCommands
                 }
                 catch (Exception ex)
                 {
-                    MainManager.Instance.myLogger.LogException(ex.ToString(), ex);
+                    Logger.LogException(ex.ToString(), ex);
 
                     return System.Text.Json.JsonSerializer.Serialize("Faild Request");
                 }
             }
             else
             {
-                MainManager.Instance.myLogger.LogError("something went wrong", LoggingLibrary.LogLevel.Error);
+                Logger.LogError("something went wrong", LoggingLibrary.LogLevel.Error);
 
                 return "Faild Request";
             }

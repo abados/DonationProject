@@ -20,7 +20,7 @@ namespace LoggingLibrary
                         if(item != null ) { 
                         Console.WriteLine("Log: "+item.Message+ " Time: "+ item.DateTime);
                         }
-                        System.Threading.Thread.Sleep(11000);
+                        System.Threading.Thread.Sleep(2000);
 
                     }
 

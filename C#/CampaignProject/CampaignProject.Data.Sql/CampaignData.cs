@@ -164,8 +164,6 @@ namespace CampaignProject.Data.Sql
         }
 
 
-
-
         public void SendSqlQueryToInsertToDB(Model.Campaign newCampaign, string userEmail)
         {
             string uploadNewCampaignQuery = "declare @NonID int\n" +
@@ -197,7 +195,6 @@ namespace CampaignProject.Data.Sql
         public void UpdateACampaing(string campaignName, Model.Campaign campaign)
         {
 
-
             string updateQuery = "update Campaigns set CampaignName ='" + campaign.campaignName + "', CampaignInfo='" + campaign.campaignInfo + "', CampaignHashtag='" + campaign.campaignHashtag + "', CampaignWebUrl='" + campaign.campaignUrl + "'where CampaignName='" + campaignName + "'";
             try {
                 DAL.SqlQuery.Update_Delete_Insert_RowInDB(updateQuery);
@@ -209,9 +206,9 @@ namespace CampaignProject.Data.Sql
 
         }
 
-        public string getBearer(string Bearer)
+        public string getFromConfigDB(string FromConfigDB)
         {
-            string BearerQuery = "select VALUE from Config where [KEY]='"+ Bearer+"'";
+            string BearerQuery = "select VALUE from Config where [KEY]='"+ FromConfigDB + "'";
             try {
                 
                 string Key = DAL.SqlQuery.getOneDataFromDBInString(BearerQuery);
@@ -223,5 +220,7 @@ namespace CampaignProject.Data.Sql
             }
             return null;
         }
+
+      
     }
 }

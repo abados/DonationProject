@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -37,7 +38,7 @@ namespace LoggingLibrary
                     {
                         LogItem item = Logger.LogItemsQueue.Dequeue();
                         WriteToFile(item);
-                        System.Threading.Thread.Sleep(11000);
+                        System.Threading.Thread.Sleep(2000);
 
                     }
 
@@ -97,6 +98,7 @@ namespace LoggingLibrary
             string SqlQuery = "SELECT  VALUE from Config where [KEY]='logFilePath'";
 
             string filePath;
+            try { 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
 
@@ -111,49 +113,56 @@ namespace LoggingLibrary
                 }
             }
             return filePath;
+            }catch(Exception ex) {
+                return "error";
+            }
         }
 
         public void WriteToFile(LogItem logItem)  // function to write text to the file
         {
-
+            try { 
             string msg = $"{logItem.DateTime}: {logItem.Message} {logItem.Exception}";
 
             using (StreamWriter sw = File.AppendText(fileName))
             {
                 sw.WriteLine(msg);
             }
+            }catch(Exception ex) { }
         }
 
         public void CheckSize(FileInfo file)  // function to write text to the file
         {
-
-            if (file.Length >= MAXSIZE)   // check if the file size is greater than or equal to 1000kb
+            try
             {
-                newFileName = path + "\\" + baseName + fileNumber + ".txt"; // create new file name
-                fileNumber++;
-                if (!File.Exists(newFileName)) // check if the new file name already exists
+                if (file.Length >= MAXSIZE)   // check if the file size is greater than or equal to 1000kb
                 {
-                    using (FileStream fs = File.Create(newFileName)) // create new file
+                    newFileName = path + "\\" + baseName + fileNumber + ".txt"; // create new file name
+                    fileNumber++;
+                    if (!File.Exists(newFileName)) // check if the new file name already exists
                     {
-                        Console.WriteLine("New file created successfully.");
+                        using (FileStream fs = File.Create(newFileName)) // create new file
+                        {
+                            Console.WriteLine("New file created successfully.");
+                        }
                     }
-                }
-                else // if the new file name already exists, increment the serial number and check again
-                {
-                    while (File.Exists(newFileName))
+                    else // if the new file name already exists, increment the serial number and check again
                     {
-                        fileNumber++;
-                        newFileName = path + "\\" + baseName + fileNumber + ".txt";
+                        while (File.Exists(newFileName))
+                        {
+                            fileNumber++;
+                            newFileName = path + "\\" + baseName + fileNumber + ".txt";
+                        }
+                        using (FileStream fs = File.Create(newFileName)) // create new file
+                        {
+                            Console.WriteLine("New file created successfully.");
+                        }
+
                     }
-                    using (FileStream fs = File.Create(newFileName)) // create new file
-                    {
-                        Console.WriteLine("New file created successfully.");
-                    }
+                    fileName = newFileName; // update the file name to use the new file name
+
 
                 }
-                fileName = newFileName; // update the file name to use the new file name
-
-            }
+            } catch(Exception ex) { }
 
         }
     }
