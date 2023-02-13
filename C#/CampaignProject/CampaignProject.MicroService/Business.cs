@@ -31,20 +31,27 @@ namespace CampaignProject.MicroService
             string requestBody;
 
             ICommand commmand = MainManager.Instance.commandManager.CommandList[dictionaryKey];
-
-            if (commmand != null)
+            try 
             {
+                if (commmand != null)
+                {
 
-                requestBody = await req.ReadAsStringAsync();
-                return new OkObjectResult(commmand.ExecuteCommand(Identifier, requestBody, specificAction));
+                    requestBody = await req.ReadAsStringAsync();
+                    return new OkObjectResult(commmand.ExecuteCommand(Identifier, requestBody, specificAction));
+                }
+                else
+                {
+
+                    MainManager.Instance.myLogger.LogError("Problam Was Found With the Command", LoggingLibrary.LogLevel.Error);
+                    return new BadRequestObjectResult("Problam Was Found");
+                }
             }
-            else
+            catch(Exception ex)
             {
-
-                MainManager.Instance.myLogger.LogError("Problam Was Found", LoggingLibrary.LogLevel.Error);
+                MainManager.Instance.myLogger.LogException("Problam Was Found in Business Azure File", ex) ;
                 return new BadRequestObjectResult("Problam Was Found");
             }
 
-        }
+}
     }
 }

@@ -12,6 +12,7 @@ using RestSharp;
 using CampaignProject.Entity;
 using System.Collections.Generic;
 using LoggingLibrary;
+using Org.BouncyCastle.Utilities.Encoders;
 
 
 namespace CampaignProject.MicroService
@@ -30,20 +31,26 @@ namespace CampaignProject.MicroService
             string requestBody;
 
             ICommand commmand = MainManager.Instance.commandManager.CommandList[dictionaryKey];
+            try
+            { 
+                if (commmand != null)
+                {
 
-            if (commmand != null)
-            {
+                    requestBody = await req.ReadAsStringAsync();
+                    return new OkObjectResult(commmand.ExecuteCommand(Identifier, requestBody));
+                }
+                else
+                {
 
-                requestBody = await req.ReadAsStringAsync();
-                return new OkObjectResult(commmand.ExecuteCommand(Identifier, requestBody));
+                    MainManager.Instance.myLogger.LogError("Problam Was Found With the Command", LoggingLibrary.LogLevel.Error);
+                    return new BadRequestObjectResult("Problam Was Found");
+                }
             }
-            else
+            catch(Exception ex)
             {
-
-                MainManager.Instance.myLogger.LogError("Problam Was Found", LoggingLibrary.LogLevel.Error);
+                MainManager.Instance.myLogger.LogException("Problam Was Found in Owners Azure File", ex) ;
                 return new BadRequestObjectResult("Problam Was Found");
             }
-
 
         }
     }
