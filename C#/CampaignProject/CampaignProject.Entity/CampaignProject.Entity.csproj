@@ -261,6 +261,8 @@
     <Compile Include="CommandPattern\CommandClasses\CampaginCommands\GetAllOrSpecificCampaignsList.cs" />
     <Compile Include="CommandPattern\CommandClasses\CampaginCommands\GetRole.cs" />
     <Compile Include="CommandPattern\CommandClasses\CampaginCommands\UpdateCampaign.cs" />
+    <Compile Include="CommandPattern\CommandClasses\CommonCommands\AddUser.cs" />
+    <Compile Include="CommandPattern\CommandClasses\CommonCommands\FindUser.cs" />
     <Compile Include="CommandPattern\CommandClasses\NonProfitCommands\FindTheUser.cs" />
     <Compile Include="CommandPattern\CommandClasses\NonProfitCommands\InsertNewItem.cs" />
     <Compile Include="CommandPattern\CommandClasses\OwnerCommands\FindOwnerUser.cs" />
