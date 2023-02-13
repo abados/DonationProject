@@ -19,7 +19,7 @@ namespace CampaignProject.Entity.CommandPattern.CommandClasses.CommonCommands
                 try //check if the user allready sign as a role
                 {
                     string answer="";
-                    Logger.LogEvent("Search user in the DB: ", LoggingLibrary.LogLevel.Event);
+                    Logger.LogEvent("Search user in the DB:", LoggingLibrary.LogLevel.Event);
                     if (param[3].Equals("Activist"))
                     {
                         answer = MainManager.Instance.Activist.FindTheUser((string)param[0]);
