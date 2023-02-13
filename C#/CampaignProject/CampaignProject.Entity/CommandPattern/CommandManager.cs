@@ -45,6 +45,7 @@ namespace CampaignProject.Entity
             {
                 Logger.LogEvent("Command List Initialization", LoggingLibrary.LogLevel.Event);
 
+               
                 _CommandList = new Dictionary<string, ICommand>
                 {
                     // MutualCommands
@@ -87,7 +88,7 @@ namespace CampaignProject.Entity
             catch (Exception ex)
             {
 
-                //MainManager.Instance.Log.AddLogItemToQueue("Faild To Initialie Command List", ex, "Error");
+                Logger.LogException(ex.ToString(), ex);
             }
 
         }
