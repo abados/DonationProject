@@ -22,17 +22,26 @@ namespace CampaignProject.MicroService
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
-            string dictionaryKey = "NonProfit." + action;
+            string azureFuncName = "NonProfit";
+            string dictionaryKey = azureFuncName + "." + action;
             string requestBody;
-
-            ICommand commmand = MainManager.Instance.commandManager.CommandList[dictionaryKey];
+            ICommand commmand;
+            if (action.Equals("ADD") || action.Equals("Find"))
+            {
+                dictionaryKey = "Mutual." + action;
+                commmand = MainManager.Instance.commandManager.CommandList[dictionaryKey];
+            }
+            else
+            {
+                commmand = MainManager.Instance.commandManager.CommandList[dictionaryKey];
+            }
             try 
             { 
                 if (commmand != null)
                 {
                 
                     requestBody = await req.ReadAsStringAsync();
-                    return new OkObjectResult(commmand.ExecuteCommand(Identifier, requestBody));
+                    return new OkObjectResult(commmand.ExecuteCommand(Identifier, requestBody,0, azureFuncName));
                 }
                 else
                 {
