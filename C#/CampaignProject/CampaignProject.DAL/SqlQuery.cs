@@ -15,9 +15,7 @@ namespace CampaignProject.DAL
     {
 
         public static Logger logger;
-
         
-      
 
         public static string connectionString = Environment.GetEnvironmentVariable("ConnectionString");
 
