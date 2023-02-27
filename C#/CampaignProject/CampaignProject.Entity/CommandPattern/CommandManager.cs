@@ -1,5 +1,4 @@
-﻿using CampaignProject.Entity.CommanClasses;
-using CampaignProject.Entity.CommanClasses.NonProfitCommands;
+﻿using CampaignProject.Entity.CommandClasses;
 using CampaignProject.Entity.CommandClasses.BusinessCommands;
 using CampaignProject.Entity.CommandPattern.CommandClasses.ActivistCommands;
 using CampaignProject.Entity.CommandPattern.CommandClasses.CampaginCommands;

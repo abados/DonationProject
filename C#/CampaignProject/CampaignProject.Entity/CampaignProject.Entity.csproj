@@ -242,18 +242,14 @@
     <Compile Include="BusinessManager.cs" />
     <Compile Include="CampaignManager.cs" />
     <Compile Include="CommandPattern\CommandClasses\ActivistCommands\DonateAProduct.cs" />
-    <Compile Include="CommandPattern\CommandClasses\ActivistCommands\FindTheActivistUser.cs" />
     <Compile Include="CommandPattern\CommandClasses\ActivistCommands\GetAllOrganizations.cs" />
     <Compile Include="CommandPattern\CommandClasses\ActivistCommands\GetMyActiveCampaigns.cs" />
     <Compile Include="CommandPattern\CommandClasses\ActivistCommands\GetMyEarnings.cs" />
     <Compile Include="CommandPattern\CommandClasses\ActivistCommands\GetMyProducts.cs" />
-    <Compile Include="CommandPattern\CommandClasses\ActivistCommands\InsertNewActivistUser.cs" />
     <Compile Include="CommandPattern\CommandClasses\ActivistCommands\PurchesAProduct.cs" />
     <Compile Include="CommandPattern\CommandClasses\ActivistCommands\SignMeToCampaign.cs" />
     <Compile Include="CommandPattern\CommandClasses\BusinessCommands\DeleteProduct.cs" />
-    <Compile Include="CommandPattern\CommandClasses\BusinessCommands\FindTheBusinnesUser.cs" />
     <Compile Include="CommandPattern\CommandClasses\BusinessCommands\GetProductsIdonated.cs" />
-    <Compile Include="CommandPattern\CommandClasses\BusinessCommands\InsertNewBusinessUser.cs" />
     <Compile Include="CommandPattern\CommandClasses\BusinessCommands\ShipmentManagment.cs" />
     <Compile Include="CommandPattern\CommandClasses\BusinessCommands\UpluadNewProduct.cs" />
     <Compile Include="CommandPattern\CommandClasses\CampaginCommands\AddCampaign.cs" />
@@ -263,10 +259,6 @@
     <Compile Include="CommandPattern\CommandClasses\CampaginCommands\UpdateCampaign.cs" />
     <Compile Include="CommandPattern\CommandClasses\CommonCommands\AddUser.cs" />
     <Compile Include="CommandPattern\CommandClasses\CommonCommands\FindUser.cs" />
-    <Compile Include="CommandPattern\CommandClasses\NonProfitCommands\FindTheUser.cs" />
-    <Compile Include="CommandPattern\CommandClasses\NonProfitCommands\InsertNewItem.cs" />
-    <Compile Include="CommandPattern\CommandClasses\OwnerCommands\FindOwnerUser.cs" />
-    <Compile Include="CommandPattern\CommandClasses\OwnerCommands\InsertNewOwner.cs" />
     <Compile Include="CommandPattern\CommandClasses\OwnerCommands\OwnerReports.cs" />
     <Compile Include="CommandPattern\CommandManager.cs" />
     <Compile Include="TwitterManager.cs" />
@@ -298,6 +290,8 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="CommandPattern\CommandClasses\NonProfitCommands\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
