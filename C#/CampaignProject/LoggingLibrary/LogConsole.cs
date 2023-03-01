@@ -16,7 +16,14 @@ namespace LoggingLibrary
                 {
                     if (Logger.LogItemsQueue.Count > 0)
                     {
-                        LogItem item = Logger.LogItemsQueue.Dequeue();
+                        LogItem item=null;
+
+						try
+                        {
+							 item = Logger.LogItemsQueue.Dequeue();
+						}
+                        catch(Exception ex) { Console.WriteLine("Log: " + "there was a problem in the logs:" + ex.ToString() + ""); };
+                        
                         if(item != null ) { 
                         Console.WriteLine("Log: "+item.Message+ " Time: "+ item.DateTime);
                         }
